@@ -17,7 +17,8 @@ class EndpointsTest extends TestCase
     }
 
     /** @test */
-    public function anyone_can_load_browsing_wines_page() {
+    public function anyone_can_load_browsing_wines_page()
+    {
         $response = $this->get('explore');
 
         $response->assertStatus(200);
@@ -26,7 +27,8 @@ class EndpointsTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_cant_load_the_login_page_and_is_redirected_home() {
+    public function an_authenticated_user_cant_load_the_login_page_and_is_redirected_home()
+    {
         $anAuthenticatedUser = factory('App\User')->make();
 
         $this->actingAs($anAuthenticatedUser);
@@ -39,7 +41,8 @@ class EndpointsTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_cant_load_the_register_page_and_is_redirected_home() {
+    public function an_authenticated_user_cant_load_the_register_page_and_is_redirected_home()
+    {
         $anAuthenticatedUser = factory('App\User')->make();
 
         $this->actingAs($anAuthenticatedUser);
@@ -52,7 +55,8 @@ class EndpointsTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_can_load_the_login_page() {
+    public function a_guest_can_load_the_login_page()
+    {
         $response = $this->get('login');
 
         $response->assertStatus(200);
@@ -61,7 +65,8 @@ class EndpointsTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_can_load_the_register_page() {
+    public function a_guest_can_load_the_register_page()
+    {
         $response = $this->get('register');
 
         $response->assertStatus(200);

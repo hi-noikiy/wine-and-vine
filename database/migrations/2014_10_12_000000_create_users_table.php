@@ -15,7 +15,6 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('wine_id');                 // used for wishlist purposes
             $table->string('firstname', 25);
             $table->string('lastname', 25);
             $table->string('email')->unique();

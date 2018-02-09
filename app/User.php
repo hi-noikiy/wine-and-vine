@@ -27,6 +27,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Fetch user Rating Visibility
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ratingVisibility() {
+        return $this->hasOne(RatingVisibility::class);
+    }
+
+    /**
+     * Fetch user wines on his wishlist
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function wishlist() {
         return $this->belongsToMany(Wine::class)->withTimestamps();
     }

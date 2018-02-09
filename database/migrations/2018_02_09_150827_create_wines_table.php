@@ -23,7 +23,7 @@ class CreateWinesTable extends Migration
             // Example: ['Portuguese Alentejo Red', 'Portuguese Dão Red', 'Portuguese Moscatel']
             $table->string('style');
             $table->text('description');
-            $table->date('year');
+            $table->year('year');
             $table->float('price');
             $table->unsignedBigInteger('quantity_in_stock');
             $table->unsignedInteger('rating_count');

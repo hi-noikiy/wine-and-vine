@@ -16,10 +16,10 @@ class CreateUserWineTable extends Migration
         Schema::create('user_wine', function (Blueprint $table) {
             $table->unsignedInteger('user_id')->index();
             $table->unsignedInteger('wine_id')->index();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->unique(['user_id', 'wine_id']);
+            $table->primary(['user_id', 'wine_id']);
 
             $table->foreign('user_id')
                 ->references('id')

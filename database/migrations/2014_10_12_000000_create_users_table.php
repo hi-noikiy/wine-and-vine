@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->boolean('newsletter')->default(true);
             $table->boolean('email_offers')->default(true);
             $table->unsignedInteger('rank')->default(0);
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

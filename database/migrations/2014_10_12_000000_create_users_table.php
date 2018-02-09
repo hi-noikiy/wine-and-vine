@@ -18,8 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('firstname', 25);
             $table->string('lastname', 25);
             $table->string('email')->unique();
+            $table->string('username')->unique();
             $table->string('password');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('country');
             // TODO: Add a default path for the user avatar
             $table->string('avatar')->default('');

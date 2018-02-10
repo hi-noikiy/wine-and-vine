@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\User;
+use App\RatingVisibility;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -40,6 +43,30 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        $ratings = RatingVisibility::all();
+        return view('auth.register', compact('ratings'));
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        // TODO: uncomment the triggered event below when ready
+        // event(new UserRegistered());
+        $user = $this->create($request->all());
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user) ?: redirect($this->redirectPath());
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -48,7 +75,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'firstname' => 'required|string|max:25',
+            'lastname' => 'required|string|max:25',
+            'country' => 'required|string',
+            'rating-visibility' => 'required',
+            'newsletter' => 'required',
+            'email-offers' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -62,10 +94,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $firstname = $data['firstname'];
+        $lastname = $data['lastname'];
+
         return User::create([
-            'name' => $data['name'],
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'username' => $this->uniqueUsername($firstname, $lastname),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'country' => $data['country'],
+            'rating_visibility' => $data['rating-visibility'],
+            'newsletter' => $data['newsletter'],
+            'email_offers' => $data['email-offers']
         ]);
+    }
+
+    protected function uniqueUsername($firstname, $lastname) {
+        $username = strtolower("{$firstname}_{$lastname}");
+        $count = User::where('username', 'like', "%{$username}%")->count();
+
+        return $count > 0 ? "{$username}_{$count}" : $username;
     }
 }

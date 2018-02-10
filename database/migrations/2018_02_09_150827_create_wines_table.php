@@ -32,9 +32,6 @@ class CreateWinesTable extends Migration
             $table->string('country');
             $table->string('food_pairing');
             $table->timestamps();
-
-            // Add a grapes table to make a pivot between
-            // grapes - wine_grape - wines
         });
     }
 

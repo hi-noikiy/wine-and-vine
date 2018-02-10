@@ -53,19 +53,6 @@ class RegisterController extends Controller
         return view('auth.register', compact('ratings'));
     }
 
-    public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-
-        // TODO: uncomment the triggered event below when ready
-        // event(new UserRegistered());
-        $user = $this->create($request->all());
-
-        $this->guard()->login($user);
-
-        return $this->registered($request, $user) ?: redirect($this->redirectPath());
-    }
-
     /**
      * Get a validator for an incoming registration request.
      *

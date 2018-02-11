@@ -58,4 +58,36 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Wine::class)->withTimestamps();
     }
+
+    /**
+     * Get the user's first name.
+     *
+     * @param  string  $firstname
+     * @return string
+     */
+    public function getFirstNameAttribute($firstname)
+    {
+        return ucfirst($firstname);
+    }
+
+    /**
+     * Get the user's last name.
+     *
+     * @param  string  $lastname
+     * @return string
+     */
+    public function getLastNameAttribute($lastname)
+    {
+        return ucfirst($lastname);
+    }
+
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return "{$this->firstname} {$this->lastname}";
+    }
 }

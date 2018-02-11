@@ -6,5 +6,33 @@ use Illuminate\Database\Eloquent\Model;
 
 class RatingVisibility extends Model
 {
-    //
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name'
+    ];
+
+    /**
+     * Gets the rating visibility option
+     *
+     * @param string $name
+     * @return void
+     */
+    public function setNameAttribute(string $name) {
+        $this->attributes['name'] = strtolower($name."");
+    }
+
+    /**
+     * Gets the rating visibility option
+     *
+     * @param string $name
+     * @return string
+     */
+    public function getNameAttribute(string $name) {
+        return ucfirst($name);
+    }
 }

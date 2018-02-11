@@ -1,9 +1,10 @@
 <?php
 
+use App\RatingVisibility as Ratings;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Ratings::class, function (Faker $faker) {
     return [
-        'name' => $faker->unique()->randomElement(['Public', 'Friends', 'Private'])
+        'name' => $faker->unique()->word
     ];
 });

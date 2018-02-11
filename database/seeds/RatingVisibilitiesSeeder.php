@@ -13,17 +13,17 @@ class RatingVisibilitiesSeeder extends Seeder
     public function run()
     {
         DB::table('rating_visibilities')->insert([
-            'name' => 'Public',
+            'name' => 'public',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('rating_visibilities')->insert([
-            'name' => 'Friends',
+            'name' => 'friends',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('rating_visibilities')->insert([
-            'name' => 'Private',
+            'name' => 'private',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
     }

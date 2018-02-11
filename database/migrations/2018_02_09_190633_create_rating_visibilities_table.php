@@ -15,7 +15,7 @@ class CreateRatingVisibilitiesTable extends Migration
     {
         Schema::create('rating_visibilities', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

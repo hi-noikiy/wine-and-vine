@@ -29,6 +29,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * The relations to be eager loaded every time a user is fetched from the database
+     *
+     * @var array
+     */
     protected $with = [
         'wishlist'
     ];

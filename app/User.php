@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\{
+    User as Authenticatable
+};
 
 class User extends Authenticatable
 {
@@ -28,11 +30,22 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'newsletter' => 'boolean',
+        'email_offers' => 'boolean',
+    ];
+
+    /**
      * Fetch user Rating Visibility
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function ratingVisibility() {
+    public function ratingVisibility()
+    {
         return $this->hasOne(RatingVisibility::class);
     }
 
@@ -41,7 +54,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function wishlist() {
+    public function wishlist()
+    {
         return $this->belongsToMany(Wine::class)->withTimestamps();
     }
 }

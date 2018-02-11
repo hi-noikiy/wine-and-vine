@@ -60,14 +60,36 @@ class User extends Authenticatable
     }
 
     /**
+     * Set the user's first name.
+     *
+     * @param  string  $firstname
+     * @return void
+     */
+    public function setFirstNameAttribute(string $firstname)
+    {
+        $this->attributes['firstname'] = strtolower($firstname);
+    }
+
+    /**
      * Get the user's first name.
      *
      * @param  string  $firstname
      * @return string
      */
-    public function getFirstNameAttribute($firstname)
+    public function getFirstNameAttribute(string $firstname)
     {
-        return ucfirst($firstname);
+        return ucwords($firstname);
+    }
+
+    /**
+     * Set the user's last name.
+     *
+     * @param  string  $lastname
+     * @return void
+     */
+    public function setLastNameAttribute(string $lastname)
+    {
+        $this->attributes['lastname'] = strtolower($lastname);
     }
 
     /**
@@ -76,9 +98,9 @@ class User extends Authenticatable
      * @param  string  $lastname
      * @return string
      */
-    public function getLastNameAttribute($lastname)
+    public function getLastNameAttribute(string $lastname)
     {
-        return ucfirst($lastname);
+        return ucwords($lastname);
     }
 
     /**

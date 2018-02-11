@@ -36,4 +36,6 @@ class Wine extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    // TODO: Add some accessor's and mutator's
 }

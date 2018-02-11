@@ -12,39 +12,39 @@
                             @csrf
 
                             <div class="form-group row">
-                                <label for="firstname" class="col-md-4 col-form-label text-md-right">First Name</label>
+                                <label for="first-name" class="col-md-4 col-form-label text-md-right">First Name</label>
 
                                 <div class="col-md-6">
-                                    <input id="firstname"
+                                    <input id="first-name"
                                            type="text"
-                                           class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}"
-                                           name="firstname"
-                                           value="{{ old('firstname') }}"
+                                           class="form-control{{ $errors->has('first-name') ? ' is-invalid' : '' }}"
+                                           name="first-name"
+                                           value="{{ old('first-name') }}"
                                            required
                                            autofocus>
 
-                                    @if ($errors->has('firstname'))
+                                    @if ($errors->has('first-name'))
                                         <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('firstname') }}</strong>
+                                        <strong>{{ $errors->first('first-name') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="lastname" class="col-md-4 col-form-label text-md-right">Last Name</label>
+                                <label for="last-name" class="col-md-4 col-form-label text-md-right">Last Name</label>
 
                                 <div class="col-md-6">
-                                    <input id="lastname"
+                                    <input id="last-name"
                                            type="text"
-                                           class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}"
-                                           name="lastname"
-                                           value="{{ old('lastname') }}"
+                                           class="form-control{{ $errors->has('last-name') ? ' is-invalid' : '' }}"
+                                           name="last-name"
+                                           value="{{ old('last-name') }}"
                                            required>
 
-                                    @if ($errors->has('lastname'))
+                                    @if ($errors->has('last-name'))
                                         <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('lastname') }}</strong>
+                                        <strong>{{ $errors->first('last-name') }}</strong>
                                     </span>
                                     @endif
                                 </div>

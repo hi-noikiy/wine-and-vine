@@ -48,8 +48,8 @@ class UserRegistrationTest extends TestCase
     public function validForm(array $overrides = []): array
     {
         return array_merge([
-            "firstname" => "John",
-            "lastname" => "Doe",
+            "first-name" => "John",
+            "last-name" => "Doe",
             "email" => "john@example.com",
             "password" => "secret",
             "password_confirmation" => "secret",

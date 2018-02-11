@@ -112,14 +112,4 @@ class User extends Authenticatable
     {
         return "{$this->firstname} {$this->lastname}";
     }
-
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'username';
-    }
 }

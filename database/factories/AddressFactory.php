@@ -10,8 +10,8 @@ $factory->define(Address::class, function (Faker $faker) {
             return factory(City::class)->create()->id;
         },
         'name' => $faker->randomElement(['Work Address', 'Personal Address']),
-        'street' => $faker->streetAddress,
-        'post_code' => $faker->numberBetween(001, 999),
+        'street_name' => $faker->streetName,
+        'postcode' => $faker->numberBetween(001, 999),
         'is_primary' => $faker->boolean
     ];
 });

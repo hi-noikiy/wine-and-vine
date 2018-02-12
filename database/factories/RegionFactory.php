@@ -6,7 +6,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Region::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->word,
         'country_id' => function () {
             return factory(Country::class)->create()->id;
         }

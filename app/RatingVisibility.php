@@ -34,7 +34,7 @@ class RatingVisibility extends Model
      */
     public function setNameAttribute(string $name)
     {
-        $this->attributes['name'] = strtolower($name . "");
+        $this->attributes['name'] = strtolower($name);
     }
 
     /**

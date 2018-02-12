@@ -14,7 +14,11 @@ $factory->define(User::class, function (Faker $faker) {
         'country' => $faker->country,
         'avatar' => "/images/avatar/default.png",
         'rating_count' => rand(0, 100),
-//        'rating_visibility' => '',
+        'rating_visibility_id' => function () {
+            if (App\RatingVisibility::count() === 0)
+                return factory(App\RatingVisibility::class, 3)->create()->pluck('id')->random();
+            return App\RatingVisibility::all()->pluck('id')->random();
+        },
         'newsletter' => !! random_int(0, 1),
         'email_offers' => !! random_int(0, 1),
         'rank' => $faker->unique()->randomNumber(2),

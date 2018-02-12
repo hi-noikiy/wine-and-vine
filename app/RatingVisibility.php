@@ -17,13 +17,24 @@ class RatingVisibility extends Model
     ];
 
     /**
+     * Fetch all user's associated with a rating visibility
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    /**
      * Gets the rating visibility option
      *
      * @param string $name
      * @return void
      */
-    public function setNameAttribute(string $name) {
-        $this->attributes['name'] = strtolower($name."");
+    public function setNameAttribute(string $name)
+    {
+        $this->attributes['name'] = strtolower($name . "");
     }
 
     /**
@@ -32,7 +43,8 @@ class RatingVisibility extends Model
      * @param string $name
      * @return string
      */
-    public function getNameAttribute(string $name) {
+    public function getNameAttribute(string $name)
+    {
         return ucfirst($name);
     }
 }

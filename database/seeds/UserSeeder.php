@@ -1,8 +1,9 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,9 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            RatingVisibilitiesSeeder::class,
-            UserSeeder::class,
-        ]);
+        factory(User::class, 50)->create();
     }
 }

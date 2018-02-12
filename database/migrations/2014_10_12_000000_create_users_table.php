@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             // TODO: Add a default path for the user avatar
             $table->string('avatar')->default('');
             $table->unsignedBigInteger('rating_count')->default(0);
-            $table->enum('rating_visibility', ['private', 'friends', 'public'])->default('public');
+            $table->unsignedInteger('rating_visibility_id')->index();
             $table->boolean('newsletter')->default(true);
             $table->boolean('email_offers')->default(true);
             $table->unsignedInteger('rank')->default(0);

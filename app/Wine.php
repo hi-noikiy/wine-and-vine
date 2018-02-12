@@ -25,6 +25,7 @@ class Wine extends Model
     protected $dates = [
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
     /**
@@ -37,5 +38,25 @@ class Wine extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
-    // TODO: Add some accessor's and mutator's
+    /**
+     * Set the wine's name
+     *
+     * @param string $name
+     * @return void
+     */
+    public function setNameAttribute(string $name): void
+    {
+        $this->attributes['name'] = strtolower($name);
+    }
+
+    /**
+     * Fetch the wine's name
+     *
+     * @param string $name
+     * @return string
+     */
+    public function getNameAttribute(string $name): string
+    {
+        return ucwords($name);
+    }
 }

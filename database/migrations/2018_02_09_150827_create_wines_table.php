@@ -32,6 +32,7 @@ class CreateWinesTable extends Migration
             $table->string('country');
             $table->string('food_pairing');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

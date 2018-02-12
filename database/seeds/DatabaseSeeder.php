@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RatingVisibilitiesSeeder::class,
             UserSeeder::class,
+            WineSeeder::class,
         ]);
     }
 }

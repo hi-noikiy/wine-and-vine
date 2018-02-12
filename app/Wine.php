@@ -46,7 +46,7 @@ class Wine extends Model
      */
     public function setNameAttribute(string $name): void
     {
-        $this->attributes['name'] = strtolower($name);
+        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
     }
 
     /**
@@ -57,7 +57,7 @@ class Wine extends Model
      */
     public function getNameAttribute(string $name): string
     {
-        return ucwords($name);
+        return trim(preg_replace('/\s+/', ' ', ucwords($name)));
     }
 
     /**
@@ -68,7 +68,7 @@ class Wine extends Model
      */
     public function setTypeAttribute(string $type): void
     {
-        $this->attributes['type'] = strtolower($type);
+        $this->attributes['type'] = trim(preg_replace('/\s+/', ' ', strtolower($type)));
     }
 
     /**
@@ -79,7 +79,7 @@ class Wine extends Model
      */
     public function getTypeAttribute(string $type): string
     {
-        return ucwords($type);
+        return trim(preg_replace('/\s+/', ' ', ucwords($type)));
     }
 
     /**
@@ -90,7 +90,7 @@ class Wine extends Model
      */
     public function setStyleAttribute(string $style): void
     {
-        $this->attributes['style'] = strtolower($style);
+        $this->attributes['style'] = trim(preg_replace('/\s+/', ' ', strtolower($style)));
     }
 
     /**
@@ -101,6 +101,28 @@ class Wine extends Model
      */
     public function getStyleAttribute(string $style): string
     {
-        return ucwords($style);
+        return trim(preg_replace('/\s+/', ' ', ucwords($style)));
+    }
+
+    /**
+     * Set the wine's description
+     *
+     * @param string $description
+     * @return void
+     */
+    public function setDescriptionAttribute(string $description): void
+    {
+        $this->attributes['description'] = trim(preg_replace('/\s+/', ' ', $description));
+    }
+
+    /**
+     * Fetch the wine's description
+     *
+     * @param string $description
+     * @return string
+     */
+    public function getDescriptionAttribute(string $description): string
+    {
+        return trim(preg_replace('/\s+/', ' ', $description));
     }
 }

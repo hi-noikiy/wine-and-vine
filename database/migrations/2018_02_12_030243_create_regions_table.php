@@ -15,8 +15,8 @@ class CreateRegionsTable extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->unsignedInteger('country_id');
+            $table->string('name');
             $table->timestamps();
 
             $table->unique(['name', 'country_id']);

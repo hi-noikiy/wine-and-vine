@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             RatingVisibilitiesSeeder::class,
             UserSeeder::class,
             WineSeeder::class,
+            AddressSeeder::class,
         ]);
     }
 }

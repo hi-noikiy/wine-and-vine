@@ -81,4 +81,26 @@ class Wine extends Model
     {
         return ucwords($type);
     }
+
+    /**
+     * Set the wine's style
+     *
+     * @param string $style
+     * @return void
+     */
+    public function setStyleAttribute(string $style): void
+    {
+        $this->attributes['style'] = strtolower($style);
+    }
+
+    /**
+     * Fetch the wine's style
+     *
+     * @param string $style
+     * @return string
+     */
+    public function getStyleAttribute(string $style): string
+    {
+        return ucwords($style);
+    }
 }

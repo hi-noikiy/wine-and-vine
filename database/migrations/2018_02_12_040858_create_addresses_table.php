@@ -17,12 +17,12 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('city_id');
             $table->string('name');
-            $table->string('street');
-            $table->string('post_code', 3);
+            $table->string('street_name');
+            $table->string('postcode', 3);
             $table->boolean('is_primary');
             $table->timestamps();
 
-            $table->unique(['street', 'city_id']);
+            $table->unique(['street_name', 'city_id']);
 
             $table->foreign('city_id')
                 ->references('id')

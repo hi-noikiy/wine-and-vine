@@ -17,7 +17,7 @@ class CreateCitiesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('region_id');
             $table->string('name');
-            $table->string('postal_code', 4);
+            $table->string('postcode', 4);
             $table->timestamps();
 
             $table->unique(['name', 'region_id']);

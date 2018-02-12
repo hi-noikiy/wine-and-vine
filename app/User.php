@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $with = [
-        'wishlist'
+        'wishlist', 'ratingVisibility'
     ];
 
     /**
@@ -50,11 +50,11 @@ class User extends Authenticatable
     /**
      * Fetch user Rating Visibility
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function ratingVisibility()
     {
-        return $this->hasOne(RatingVisibility::class);
+        return $this->belongsTo(RatingVisibility::class);
     }
 
     /**
@@ -119,6 +119,16 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    /**
+     * Get the user's rating visibility name.
+     *
+     * @return string
+     */
+    public function getRatingVisibilityNameAttribute()
+    {
+        return ucwords($this->ratingVisibility->name);
     }
 
     /**

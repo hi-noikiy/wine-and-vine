@@ -48,7 +48,17 @@ class User extends Authenticatable
     ];
 
     /**
-     * Fetch user Rating Visibility
+     * Fetch all User's known addresses
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function addresses()
+    {
+        return $this->morphMany(Address::class, 'addressable');
+    }
+
+    /**
+     * Fetch User's Rating Visibility
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -58,7 +68,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch user wines on his wishlist
+     * Fetch User's wines wishlist
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -68,7 +78,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Set the user's first name.
+     * Set the User's first name.
      *
      * @param  string  $firstname
      * @return void
@@ -79,7 +89,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's first name.
+     * Get the User's first name.
      *
      * @param  string  $firstname
      * @return string
@@ -90,7 +100,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Set the user's last name.
+     * Set the User's last name.
      *
      * @param  string  $lastname
      * @return void
@@ -101,7 +111,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's last name.
+     * Get the User's last name.
      *
      * @param  string  $lastname
      * @return string
@@ -112,7 +122,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's full name.
+     * Get the User's full name.
      *
      * @return string
      */
@@ -122,7 +132,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's rating visibility name.
+     * Get the User's rating visibility name.
      *
      * @return string
      */

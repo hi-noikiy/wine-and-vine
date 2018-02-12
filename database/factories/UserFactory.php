@@ -11,7 +11,6 @@ $factory->define(User::class, function (Faker $faker) {
         'username' => $faker->unique()->userName,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm',
         'description' => $faker->text,
-        'country' => $faker->country,
         'avatar' => "/images/avatar/default.png",
         'rating_count' => rand(0, 100),
         'rating_visibility_id' => function () {

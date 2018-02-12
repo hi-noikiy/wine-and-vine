@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('username')->unique();
             $table->text('description')->nullable();
-            $table->string('country');
             // TODO: Add a default path for the user avatar
             $table->string('avatar')->default('');
             $table->unsignedBigInteger('rating_count')->default(0);

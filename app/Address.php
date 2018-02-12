@@ -73,6 +73,30 @@ class Address extends Model
     }
 
     /**
+     * Set the Addresses street name
+     *
+     * @param string $streetName
+     * @return void
+     */
+    public function setStreetNameAttribute(string $streetName)
+    {
+        $this->attributes['street_name'] = trim(
+            preg_replace('/\s+/', ' ', strtolower($streetName))
+        );
+    }
+
+    /**
+     * Get the Addresses street name
+     *
+     * @param string $streetName
+     * @return string
+     */
+    public function getStreetNameAttribute(string $streetName)
+    {
+        return trim(preg_replace('/\s+/', ' ', ucwords($streetName)));
+    }
+
+    /**
      * Get the City's full name, including the Country
      *
      * @return string

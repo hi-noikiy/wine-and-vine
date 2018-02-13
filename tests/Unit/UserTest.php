@@ -5,12 +5,30 @@ namespace Tests\Unit;
 use App\User;
 use App\Address;
 use Tests\TestCase;
+use App\RatingVisibility;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected $user;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->user = factory(User::class)->create();
+    }
+
+    /** @test
+     * @throws \Exception
+     */
+    function a_user_has_addresses()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->addresses);
+    }
 
     /** @test
      * @throws \Exception
@@ -50,5 +68,26 @@ class UserTest extends TestCase
         $user->addresses()->each(function ($address, $key) use ($addresses) {
             $this->assertTrue($addresses->contains($address));
         });
+    }
+
+    /** @test
+     * @throws \Exception
+     */
+    public function a_user_may_change_between_rating_visibilities()
+    {
+        // Given we have 3 types of rating visibilities
+        $visibilities = factory(RatingVisibility::class, 2)->create();
+
+        // And a we have a user with the first visibility
+        $user = factory(User::class)->create(['rating_visibility_id' => $id = $visibilities->pop()->id]);
+
+        // Assert that the visibility was persisted
+        $this->assertEquals($id, $user->rating->id);
+
+        // Update the user rating visibility option
+        $user->update(['rating_visibility_id' => $id = $visibilities->pop()->id]);
+
+        // Assert that the visibility was persisted
+        $this->assertEquals($id, $user->fresh()->rating->id);
     }
 }

@@ -53,7 +53,7 @@ class UserRegistrationTest extends TestCase
             "email" => "john@example.com",
             "password" => "secret",
             "password_confirmation" => "secret",
-            "country" => "Portugal",
+//            "country" => "Portugal",
             "rating-visibility" => "1",
             "newsletter" => "1",
             "email-offers" => "1"

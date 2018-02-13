@@ -15,7 +15,7 @@ class CreateWinesTable extends Migration
     {
         Schema::create('wines', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('winnery_id');
+            $table->unsignedInteger('winery_id');
             $table->string('name');
             // Example: ['Red', 'White', 'Sparkling', 'Rosé', 'Dessert', 'Port']
             $table->string('type');
@@ -33,6 +33,10 @@ class CreateWinesTable extends Migration
             $table->string('food_pairing');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('winery_id')
+                ->references('id')
+                ->on('wineries');
         });
     }
 

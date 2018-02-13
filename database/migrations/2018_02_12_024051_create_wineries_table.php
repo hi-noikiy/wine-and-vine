@@ -15,7 +15,7 @@ class CreateWineriesTable extends Migration
     {
         Schema::create('wineries', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id')->index();
+            $table->unsignedInteger('owner_id')->index();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
@@ -23,7 +23,7 @@ class CreateWineriesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')
+            $table->foreign('owner_id')
                 ->references('id')
                 ->on('users');
         });

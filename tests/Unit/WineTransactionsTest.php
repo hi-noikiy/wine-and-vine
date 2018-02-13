@@ -7,7 +7,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class WineTransactions extends TestCase
+class WineTransactionsTest extends TestCase
 {
     use RefreshDatabase;
 

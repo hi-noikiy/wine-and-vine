@@ -80,7 +80,7 @@ class User extends Authenticatable
     /**
      * Set the User's first name.
      *
-     * @param  string  $firstname
+     * @param  string $firstname
      * @return void
      */
     public function setFirstNameAttribute(string $firstname)
@@ -91,7 +91,7 @@ class User extends Authenticatable
     /**
      * Get the User's first name.
      *
-     * @param  string  $firstname
+     * @param  string $firstname
      * @return string
      */
     public function getFirstNameAttribute(string $firstname)
@@ -102,7 +102,7 @@ class User extends Authenticatable
     /**
      * Set the User's last name.
      *
-     * @param  string  $lastname
+     * @param  string $lastname
      * @return void
      */
     public function setLastNameAttribute(string $lastname)
@@ -113,7 +113,7 @@ class User extends Authenticatable
     /**
      * Get the User's last name.
      *
-     * @param  string  $lastname
+     * @param  string $lastname
      * @return string
      */
     public function getLastNameAttribute(string $lastname)

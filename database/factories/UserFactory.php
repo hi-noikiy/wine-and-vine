@@ -18,8 +18,8 @@ $factory->define(User::class, function (Faker $faker) {
                 return factory(App\RatingVisibility::class, 3)->create()->pluck('id')->random();
             return App\RatingVisibility::all()->pluck('id')->random();
         },
-        'newsletter' => !! random_int(0, 1),
-        'email_offers' => !! random_int(0, 1),
+        'newsletter' => !!random_int(0, 1),
+        'email_offers' => !!random_int(0, 1),
         'rank' => $faker->unique()->randomNumber(2),
         'remember_token' => str_random(10),
     ];

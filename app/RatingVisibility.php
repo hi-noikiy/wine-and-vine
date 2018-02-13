@@ -34,7 +34,7 @@ class RatingVisibility extends Model
      */
     public function setNameAttribute(string $name)
     {
-        $this->attributes['name'] = strtolower($name);
+        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
     }
 
     /**
@@ -45,6 +45,6 @@ class RatingVisibility extends Model
      */
     public function getNameAttribute(string $name)
     {
-        return ucfirst($name);
+        return trim(preg_replace('/\s+/', ' ', ucfirst($name)));
     }
 }

@@ -16,7 +16,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'password', 'username', 'description', 'country', 'rating_count',
-        'rating_visibility', 'newsletter', 'email_offers', 'rank'
+        'rating_visibility_id', 'newsletter', 'email_offers', 'rank'
     ];
 
     /**
@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $with = [
-        'wishlist', 'ratingVisibility', 'addresses'
+        'wishlist', 'rating', 'addresses'
     ];
 
     /**
@@ -62,9 +62,9 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function ratingVisibility()
+    public function rating()
     {
-        return $this->belongsTo(RatingVisibility::class);
+        return $this->belongsTo(RatingVisibility::class, 'rating_visibility_id');
     }
 
     /**
@@ -85,7 +85,7 @@ class User extends Authenticatable
      */
     public function setFirstNameAttribute(string $firstname)
     {
-        $this->attributes['first_name'] = strtolower($firstname);
+        $this->attributes['first_name'] = trim(preg_replace('/\s+/', ' ', strtolower($firstname)));
     }
 
     /**
@@ -96,7 +96,7 @@ class User extends Authenticatable
      */
     public function getFirstNameAttribute(string $firstname)
     {
-        return ucwords($firstname);
+        return trim(preg_replace('/\s+/', ' ', ucwords($firstname)));
     }
 
     /**
@@ -107,7 +107,7 @@ class User extends Authenticatable
      */
     public function setLastNameAttribute(string $lastname)
     {
-        $this->attributes['last_name'] = strtolower($lastname);
+        $this->attributes['last_name'] = trim(preg_replace('/\s+/', ' ', strtolower($lastname)));
     }
 
     /**
@@ -118,7 +118,7 @@ class User extends Authenticatable
      */
     public function getLastNameAttribute(string $lastname)
     {
-        return ucwords($lastname);
+        return trim(preg_replace('/\s+/', ' ', ucwords($lastname)));
     }
 
     /**
@@ -138,7 +138,7 @@ class User extends Authenticatable
      */
     public function getRatingVisibilityNameAttribute()
     {
-        return ucwords($this->ratingVisibility->name);
+        return trim(preg_replace('/\s+/', ' ', ucwords($this->rating->name)));
     }
 
     /**

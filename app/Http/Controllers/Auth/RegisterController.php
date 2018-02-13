@@ -64,7 +64,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first-name' => 'required|string|max:25',
             'last-name' => 'required|string|max:25',
-            'country' => 'required|string',
+//            'country' => 'required|string',
             'rating-visibility' => 'required',
             'newsletter' => 'required',
             'email-offers' => 'required',
@@ -90,8 +90,8 @@ class RegisterController extends Controller
             'username' => $this->uniqueUsername($firstname, $lastname),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'country' => $data['country'],
-            'rating_visibility' => $data['rating-visibility'],
+//            'country' => $data['country'],
+            'rating_visibility_id' => $data['rating-visibility'],
             'newsletter' => $data['newsletter'],
             'email_offers' => $data['email-offers']
         ]);

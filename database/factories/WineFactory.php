@@ -1,10 +1,15 @@
 <?php
 
+use App\Winery;
 use Faker\Generator as Faker;
 
 $factory->define(App\Wine::class, function (Faker $faker) {
     return [
-        'winnery_id' => $faker->numberBetween(1, 100),
+        'winery_id' => function () {
+            if (($wineries = Winery::all())->isEmpty())
+                return factory(Winery::class)->create()->id;
+            return $wineries->random()->id;
+        },
         'name' => $faker->word,
         'type' => $faker->randomElement(['Red', 'White', 'Sparkling', 'Rosé', 'Dessert', 'Port']),
         'style' => $faker->randomElement(

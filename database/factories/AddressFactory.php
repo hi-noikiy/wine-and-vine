@@ -2,8 +2,8 @@
 
 use App\User;
 use App\City;
-use App\Address;
 use App\Winery;
+use App\Address;
 use Faker\Generator as Faker;
 
 $factory->define(Address::class, function (Faker $faker) {

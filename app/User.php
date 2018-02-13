@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $with = [
-        'wishlist', 'ratingVisibility'
+        'wishlist', 'ratingVisibility', 'addresses'
     ];
 
     /**

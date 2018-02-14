@@ -11,7 +11,7 @@ $factory->define(User::class, function (Faker $faker) {
         'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
         'username' => $faker->unique()->userName,
-        'password' => bcrypt('secret'),
+        'password' => '$2y$10$vCJwSQ0B6cSpgJ4I/3l70.p60GVu7W.j909osW08kpB6Y0WxRnBwq', // secret
         'description' => $faker->text,
         'avatar' => "/images/avatar/default.png",
         'rating_count' => rand(0, 100),

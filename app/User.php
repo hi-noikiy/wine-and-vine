@@ -78,6 +78,26 @@ class User extends Authenticatable
     }
 
     /**
+     * Fetch User's Winery's that he owns
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function owns()
+    {
+        return $this->hasMany(Winery::class);
+    }
+
+    /**
+     * Fetch User's Winery's where he works
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function employedAt()
+    {
+        return $this->belongsToMany(Winery::class);
+    }
+
+    /**
      * Set the User's first name.
      *
      * @param  string $firstname
@@ -139,6 +159,26 @@ class User extends Authenticatable
     public function getRatingVisibilityNameAttribute()
     {
         return trim(preg_replace('/\s+/', ' ', ucwords($this->rating->name)));
+    }
+
+    /**
+     * Attaches the User and a given Winery to the user_winery pivot table
+     *
+     * @param $winery
+     */
+    public function employTo($winery)
+    {
+        $this->employedAt()->attach($winery);
+    }
+
+    /**
+     * Detaches the User and a given Winery from the user_winery pivot table
+     *
+     * @param $winery
+     */
+    public function quitFrom($winery)
+    {
+        $this->employedAt()->detach($winery);
     }
 
     /**

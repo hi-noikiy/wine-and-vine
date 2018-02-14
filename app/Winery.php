@@ -55,6 +55,36 @@ class Winery extends Model
     }
 
     /**
+     * Fetch the Winery's employees
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function employees()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    /**
+     * Attaches the Winery and a given User to the user_winery pivot table
+     *
+     * @param $user
+     */
+    public function employ($user)
+    {
+        $this->employees()->attach($user);
+    }
+
+    /**
+     * Detaches the Winery and a given User to the user_winery pivot table
+     *
+     * @param $user
+     */
+    public function fire($user)
+    {
+        $this->employees()->detach($user);
+    }
+
+    /**
      * Set the Winery's name
      *
      * @param string $name

@@ -33,7 +33,7 @@ class Wine extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function onWishList()
+    public function wishlists()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }

@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\User;
-use App\Address;
 use Tests\TestCase;
-use App\RatingVisibility;
+use App\{
+    User, Wine, Address, RatingVisibility
+};
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,7 +25,7 @@ class UserTest extends TestCase
     /** @test
      * @throws \Exception
      */
-    function a_user_has_addresses()
+    public function a_user_has_many_addresses()
     {
         $this->assertInstanceOf(Collection::class, $this->user->addresses);
     }
@@ -89,5 +89,19 @@ class UserTest extends TestCase
 
         // Assert that the visibility was persisted
         $this->assertEquals($id, $user->fresh()->rating->id);
+    }
+
+    /** @test */
+    public function a_wine_can_be_attached_to_a_user()
+    {
+        // Given we have a wine
+        $wine = factory(Wine::class)->create();
+        // Attach this wine to a user
+        $this->user->wishlist()->attach($wine->id);
+        // Assert that the pivot table has the user_id and wine_id
+        $this->assertDatabaseHas('user_wine', [
+            'user_id' => $this->user->id,
+            'wine_id' => $wine->id
+        ]);
     }
 }

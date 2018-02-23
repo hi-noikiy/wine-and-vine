@@ -17,6 +17,10 @@ class Wine extends Model
         'rating_count', 'rating_sum', 'region', 'country', 'food_pairing'
     ];
 
+    protected $with = [
+        'grapes', 'wishlists', 'winery'
+    ];
+
     /**
      * The attributes that should be mutated to dates.
      *
@@ -29,7 +33,27 @@ class Wine extends Model
     ];
 
     /**
-     * Returns the users that wishes this particular wine
+     * Returns the Wine's winery
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function winery()
+    {
+        return $this->belongsTo(Winery::class);
+    }
+
+    /**
+     * Returns the Wine's grapes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function grapes()
+    {
+        return $this->BelongsToMany(Grape::class);
+    }
+
+    /**
+     * Returns the User's that wishes this particular wine
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\{
-    User, Wine
+    User, Wine, Winery
 };
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -23,10 +23,16 @@ class WineTest extends TestCase
         $this->wine = factory(Wine::class)->create();
     }
 
+    /** @test */
+    public function a_wine_belongs_to_a_winery()
+    {
+        $this->assertInstanceOf(Winery::class, $this->wine->winery);
+    }
+
     /** @test
      * @throws \Exception
      */
-    public function a_wine_belongs_to_many_users_wishlist()
+    public function a_wine_belongs_to_many_users_wishlists()
     {
         $this->assertInstanceOf(Collection::class, $this->wine->wishlists);
     }

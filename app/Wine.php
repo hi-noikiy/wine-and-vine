@@ -13,7 +13,7 @@ class Wine extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'type', 'style', 'description', 'year', 'price', 'quantity_in_stock',
+        'name', 'type', 'description', 'year', 'price', 'quantity_in_stock',
         'rating_count', 'rating_sum', 'region', 'country', 'food_pairing'
     ];
 
@@ -104,28 +104,6 @@ class Wine extends Model
     public function getTypeAttribute(string $type): string
     {
         return trim(preg_replace('/\s+/', ' ', ucwords($type)));
-    }
-
-    /**
-     * Set the wine's style
-     *
-     * @param string $style
-     * @return void
-     */
-    public function setStyleAttribute(string $style): void
-    {
-        $this->attributes['style'] = trim(preg_replace('/\s+/', ' ', strtolower($style)));
-    }
-
-    /**
-     * Fetch the wine's style
-     *
-     * @param string $style
-     * @return string
-     */
-    public function getStyleAttribute(string $style): string
-    {
-        return trim(preg_replace('/\s+/', ' ', ucwords($style)));
     }
 
     /**

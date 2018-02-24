@@ -12,9 +12,6 @@ $factory->define(App\Wine::class, function (Faker $faker) {
         },
         'name' => $faker->word,
         'type' => $faker->randomElement(['Red', 'White', 'Sparkling', 'Rosé', 'Dessert', 'Port']),
-        'style' => $faker->randomElement(
-            ['Portuguese Douro Red', 'Portuguese Alentejo Red', 'Portuguese Dão Red', 'Portuguese Moscatel']
-        ),
         'description' => $faker->text,
         'year' => $faker->year,
         'price' => $faker->randomFloat(2, 0, 1000),

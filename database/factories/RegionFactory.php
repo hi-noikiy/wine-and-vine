@@ -8,7 +8,11 @@ $factory->define(Region::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'country_id' => function () {
-            return factory(Country::class)->create()->id;
-        }
+            if (($countries = Country::all())->isEmpty()) {
+                return factory(Country::class)->create()->id;
+            }
+            return $countries->random()->id;
+        },
+        'description' => $faker->text()
     ];
 });

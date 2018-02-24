@@ -17,6 +17,7 @@ class CreateRegionsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('country_id');
             $table->string('name');
+            $table->text('description');
             $table->timestamps();
 
             $table->unique(['name', 'country_id']);

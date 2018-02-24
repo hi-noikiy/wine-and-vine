@@ -19,9 +19,6 @@ class CreateWinesTable extends Migration
             $table->string('name');
             // Example: ['Red', 'White', 'Sparkling', 'Rosé', 'Dessert', 'Port']
             $table->string('type');
-            // TODO: investigate if it is necessary to make an enum out of type
-            // Example: ['Portuguese Alentejo Red', 'Portuguese Dão Red', 'Portuguese Moscatel']
-            $table->string('style');
             $table->text('description');
             $table->year('year');
             $table->float('price');

@@ -2,9 +2,10 @@
 
 namespace Tests\Unit;
 
+use Exception;
 use Tests\TestCase;
 use App\{
-    User, Wine, Address, RatingVisibility, Winery
+    Country, User, Wine, Address, RatingVisibility, Winery
 };
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Database\Eloquent\Collection;
@@ -22,8 +23,14 @@ class UserTest extends TestCase
         $this->user = factory(User::class)->create();
     }
 
+    /** @test */
+    public function a_user_belongs_to_a_country()
+    {
+        $this->assertInstanceOf(Country::class, $this->user->country);
+    }
+
     /** @test
-     * @throws \Exception
+     * @throws Exception
      */
     public function a_user_has_many_addresses()
     {
@@ -31,25 +38,22 @@ class UserTest extends TestCase
     }
 
     /** @test
-     * @throws \Exception
+     * @throws Exception
      */
     public function a_user_can_have_one_address()
     {
-        // Given we have a user
-        $user = factory(User::class)->create();
-
         // Add an address to the user
-        $user->addresses()->save($address = factory(Address::class)->create());
+        $this->user->addresses()->save($address = factory(Address::class)->create());
 
         // Assert that there is only one address in the addresses collection
-        $this->assertCount(1, $user->addresses);
+        $this->assertCount(1, $this->user->addresses);
 
         // Assert that the addresses match
-        $this->assertEquals($address->fullname, $user->addresses()->first()->fullname);
+        $this->assertEquals($address->fullname, $this->user->addresses()->first()->fullname);
     }
 
     /** @test
-     * @throws \Exception
+     * @throws Exception
      */
     public function a_user_can_be_employed_at_a_winery()
     {
@@ -67,7 +71,7 @@ class UserTest extends TestCase
     }
 
     /** @test
-     * @throws \Exception
+     * @throws Exception
      */
     public function a_user_can_be_employed_at_many_wineries()
     {
@@ -82,7 +86,7 @@ class UserTest extends TestCase
     }
 
     /** @test
-     * @throws \Exception
+     * @throws Exception
      */
     public function a_user_can_quit_from_a_winery()
     {
@@ -102,7 +106,7 @@ class UserTest extends TestCase
     }
 
     /** @test
-     * @throws \Exception
+     * @throws Exception
      */
     public function a_user_can_have_multiple_addresses()
     {
@@ -117,28 +121,26 @@ class UserTest extends TestCase
         $this->assertCount(5, $this->user->addresses);
 
         // Assert that the addresses match
-        $this->user->addresses()->each(function ($address, $key) use ($addresses) {
-            $this->assertTrue($addresses->contains($address));
-        });
+        $this->user
+            ->addresses()
+            ->each(function ($address, $key) use ($addresses) {
+                $this->assertTrue($addresses->contains($address));
+            });
     }
 
     /** @test
-     * @throws \Exception
+     * @throws Exception
      */
     public function a_user_may_change_between_rating_visibilities()
     {
-        // Given we have 3 types of rating visibilities
+        // Given we have 2 types of rating visibilities
         $visibilities = factory(RatingVisibility::class, 2)->create();
-
         // And a we have a user with the first visibility
         $user = factory(User::class)->create(['rating_visibility_id' => $id = $visibilities->pop()->id]);
-
         // Assert that the visibility was persisted
         $this->assertEquals($id, $user->rating->id);
-
         // Update the user rating visibility option
         $user->update(['rating_visibility_id' => $id = $visibilities->pop()->id]);
-
         // Assert that the visibility was persisted
         $this->assertEquals($id, $user->fresh()->rating->id);
     }
@@ -155,5 +157,23 @@ class UserTest extends TestCase
             'user_id' => $this->user->id,
             'wine_id' => $wine->id
         ]);
+    }
+
+    /** @test */
+    public function a_user_can_fetch_his_full_name()
+    {
+        $this->user->update([
+            'first_name' => 'Rafael',
+            'last_name'  => 'Macedo'
+        ]);
+        $this->assertEquals('Rafael Macedo', $this->user->fullName);
+    }
+
+    /** @test */
+    public function a_user_can_fetch_his_country_name()
+    {
+        $this->user->update(['country_id' => ($country = factory(Country::class)->create())->id]);
+
+        $this->assertEquals($country->name, $this->user->countryName());
     }
 }

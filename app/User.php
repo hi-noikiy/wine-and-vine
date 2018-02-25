@@ -48,6 +48,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Fetch the User's country
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
      * Fetch all User's known addresses
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
@@ -97,11 +107,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Winery::class);
     }
 
-    public function countryName()
-    {
-        return $this->country->name;
-    }
-
     /**
      * Set the User's first name.
      *
@@ -130,7 +135,7 @@ class User extends Authenticatable
      * @param  string $last_name
      * @return void
      */
-    public function setLastNameAttribute(string $last_name)
+    public function setLastNameAttribute(string $last_name) : void
     {
         $this->attributes['last_name'] = trim(preg_replace('/\s+/', ' ', strtolower($last_name)));
     }
@@ -147,13 +152,34 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch the User's country
+     * Sets the User's email
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @param string $email
      */
-    public function country()
+    public function setEmailAttribute(string $email) : void
     {
-        return $this->belongsTo(Country::class);
+        $this->attributes['email'] = trim(preg_replace('/\s+/', ' ', strtolower($email)));
+    }
+
+    /**
+     * Fetch the User's email
+     *
+     * @param string $email
+     * @return string
+     */
+    public function getEmailAttribute(string $email) : string
+    {
+        return trim(preg_replace('/\s+/', ' ', strtolower($email)));
+    }
+
+    /**
+     * Fetch User's country name
+     *
+     * @return string
+     */
+    public function countryName()
+    {
+        return $this->country->name;
     }
 
     /**
@@ -171,7 +197,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function getRatingVisibilityNameAttribute()
+    public function getRatingNameAttribute()
     {
         return trim(preg_replace('/\s+/', ' ', ucwords($this->rating->name)));
     }

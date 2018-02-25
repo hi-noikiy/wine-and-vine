@@ -18,9 +18,9 @@ class CreateAddressesTable extends Migration
             $table->unsignedInteger('city_id');
             $table->unsignedInteger('addressable_id');  // !! very important for the polymorphic relation
             $table->string('addressable_type');         // !! very important for the polymorphic relation
-            $table->string('name');
+            $table->string('type');
             $table->string('street_name');
-            $table->string('postcode', 3);
+            $table->string('postcode');
             $table->boolean('is_primary');
             $table->timestamps();
 

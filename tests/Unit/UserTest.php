@@ -24,6 +24,12 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    public function a_user_may_have_a_shipping_address()
+    {
+        $this->assertInstanceOf(Address::class, $this->user->shipping);
+    }
+
+    /** @test */
     public function a_user_belongs_to_a_country()
     {
         $this->assertInstanceOf(Country::class, $this->user->country);
@@ -42,14 +48,14 @@ class UserTest extends TestCase
      */
     public function a_user_can_have_one_address()
     {
+        // Given we have a user
+        $user = factory(User::class)->create(['shipping_address_id' => null]);
         // Add an address to the user
-        $this->user->addresses()->save($address = factory(Address::class)->create());
-
+        $user->addresses()->save($address = factory(Address::class)->create());
         // Assert that there is only one address in the addresses collection
-        $this->assertCount(1, $this->user->addresses);
-
+        $this->assertCount(1, $user->addresses);
         // Assert that the addresses match
-        $this->assertEquals($address->fullname, $this->user->addresses()->first()->fullname);
+        $this->assertEquals($address->fullAddress, $user->addresses()->first()->fullAddress);
     }
 
     /** @test
@@ -110,20 +116,21 @@ class UserTest extends TestCase
      */
     public function a_user_can_have_multiple_addresses()
     {
+        // Given we have a user
+        $user = factory(User::class)->create(['shipping_address_id' => null]);
         // Add 5 addresses to the user
         $addresses = factory(Address::class, 5)
             ->create()
-            ->each(function ($address, $key) {
-                $this->user->addresses()->save($address);
+            ->each(function ($address, $key) use($user) {
+                $user->addresses()->save($address);
             });
 
         // Assert that there is only five address in the addresses collection
-        $this->assertCount(5, $this->user->addresses);
+        $this->assertCount(5, $user->addresses);
 
         // Assert that the addresses match
-        $this->user
-            ->addresses()
-            ->each(function ($address, $key) use ($addresses) {
+        $user->addresses()
+            ->each(function ($address, $key) use ($user, $addresses) {
                 $this->assertTrue($addresses->contains($address));
             });
     }
@@ -164,7 +171,7 @@ class UserTest extends TestCase
     {
         $this->user->update([
             'first_name' => 'Rafael',
-            'last_name'  => 'Macedo'
+            'last_name' => 'Macedo'
         ]);
         $this->assertEquals('Rafael Macedo', $this->user->fullName);
     }
@@ -174,6 +181,33 @@ class UserTest extends TestCase
     {
         $this->user->update(['country_id' => ($country = factory(Country::class)->create())->id]);
 
-        $this->assertEquals($country->name, $this->user->countryName());
+        $this->assertEquals($country->name, $this->user->countryName);
+    }
+
+    /** @test */
+    public function a_user_may_change_shipping_address()
+    {
+        // Given I have a user with no shipping address
+        $user = factory(User::class)->create([
+            'shipping_address_id' => null
+        ]);
+        // Assert that the user has no shipping address
+        $this->assertNull($user->shipping);
+        // Given I have a collection of addresses
+        $addresses = factory(Address::class, 5)->create([
+            'addressable_id' => $user->id,
+            'addressable_type' => User::class
+        ]);
+        // foreach address
+        $addresses->each(function ($address) use ($user) {
+            // Associate to the user the current address
+            $user->shipping()->associate($address);
+            // Assert that the user shipping address is the current address
+            $this->assertEquals($address, $user->shipping);
+        });
+        // Finally disassociate any shipping addresses from the user
+        $user->shipping()->dissociate();
+        // And lastly, check that the user has no shipping addresses
+        $this->assertNull($user->shipping);
     }
 }

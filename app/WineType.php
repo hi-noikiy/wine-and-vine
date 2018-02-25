@@ -2,10 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Model, Relations\HasMany
+};
 
 class WineType extends Model
 {
+    /************************* Properties ******************************/
+
     /**
      * The attributes that are mass assignable.
      *
@@ -15,12 +19,14 @@ class WineType extends Model
         'name'
     ];
 
+    /************************* Relations ******************************/
+
     /**
-     * Returns Wine's with this type
+     * Fetch WineType's wines
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function wines()
+    public function wines(): HasMany
     {
         return $this->hasMany(Wine::class);
     }

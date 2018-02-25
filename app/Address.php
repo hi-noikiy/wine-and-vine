@@ -2,10 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Model, Relations\BelongsTo, Relations\HasMany, Relations\MorphTo
+};
 
 class Address extends Model
 {
+    /************************* Properties ******************************/
     /**
      * The attributes that are mass assignable.
      *
@@ -28,99 +31,155 @@ class Address extends Model
         'postcode' => 'integer'
     ];
 
+    /************************* Relations ******************************/
+
     /**
      * Get all of the owning addressable models.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function addressable()
+    public function addressable(): MorphTo
     {
         return $this->morphTo();
     }
 
     /**
-     * Fetch the City's Region
+     * Fetch the Address's city relation
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function city()
+    public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
 
     /**
-     * Fetch the City's Addresses
+     * Fetch the Address's user relation
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
 
-    public function country()
-    {
-        return $this->city->country();
-    }
+    /************************* Accessors ******************************/
 
     /**
-     * Set the Addresses name
+     * Fetch the Address's city name
      *
-     * @param string $name
-     * @return void
-     */
-    public function setNameAttribute(string $name)
-    {
-        $this->attributes['name'] = trim(
-            preg_replace('/\s+/', ' ', strtolower($name))
-        );
-    }
-
-    /**
-     * Get the Addresses name
-     *
-     * @param string $name
      * @return string
      */
-    public function getNameAttribute(string $name)
+    public function getCityNameAttribute(): string
     {
-        return trim(preg_replace('/\s+/', ' ', ucwords($name)));
+        return $this->city->name;
     }
 
     /**
-     * Set the Addresses street name
+     * Fetch the Address's region
      *
-     * @param string $streetName
-     * @return void
+     * @return Region
      */
-    public function setStreetNameAttribute(string $streetName)
+    public function getRegionAttribute(): Region
     {
-        $this->attributes['street_name'] = trim(
-            preg_replace('/\s+/', ' ', strtolower($streetName))
-        );
+        return $this->city->region;
     }
 
     /**
-     * Get the Addresses street name
+     * Fetch the Address's region name
+     *
+     * @return string
+     */
+    public function getRegionNameAttribute(): string
+    {
+        return $this->city->region->name;
+    }
+
+    /**
+     * Fetch the Address's country
+     *
+     * @return Country
+     */
+    public function getCountryAttribute(): Country
+    {
+        return $this->city->country;
+    }
+
+    /**
+     * Fetch the Address's country name
+     *
+     * @return string
+     */
+    public function getCountryNameAttribute(): string
+    {
+        return $this->city->country->name;
+    }
+
+    /**
+     * Get the Address's name
+     *
+     * @param string $type
+     * @return string
+     */
+    public function getTypeAttribute(string $type): string
+    {
+        return trim(preg_replace('/\s+/', ' ', ucwords($type)));
+    }
+
+    /**
+     * Get the Address's street name
      *
      * @param string $streetName
      * @return string
      */
-    public function getStreetNameAttribute(string $streetName)
+    public function getStreetNameAttribute(string $streetName): string
     {
         return trim(preg_replace('/\s+/', ' ', ucwords($streetName)));
     }
 
     /**
-     * Get the City's full name, including the Country
+     * Get the Address's full address
      *
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getFullAddressAttribute(): string
     {
-        return "{$this->street_name}, {$this->city->postcode}-{$this->postcode} {$this->city->name}, {$this->city->region->name}, {$this->city->region->country->name}";
+        return "$this->street_name, $this->postcode $this->cityName, $this->regionName, $this->countryName";
     }
 
+    /************************* Mutators ******************************/
+
+    /**
+     * Set the Address's name
+     *
+     * @param string $type
+     * @return void
+     */
+    public function setTypeAttribute(string $type): void
+    {
+        $this->attributes['type'] = trim(
+            preg_replace('/\s+/', ' ', strtolower($type))
+        );
+    }
+
+    /**
+     * Set the Address's street name
+     *
+     * @param string $streetName
+     * @return void
+     */
+    public function setStreetNameAttribute(string $streetName): void
+    {
+        $this->attributes['street_name'] = trim(preg_replace('/\s+/', ' ', strtolower($streetName)));
+    }
+
+    /************************* Functions ******************************/
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
     public function getRouteKeyName()
     {
         return 'name';

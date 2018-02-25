@@ -2,10 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Model, Relations\HasMany
+};
 
 class RatingVisibility extends Model
 {
+    /************************* Properties ******************************/
 
     /**
      * The attributes that are mass assignable.
@@ -16,35 +19,41 @@ class RatingVisibility extends Model
         'name'
     ];
 
+    /************************* Relations ******************************/
+
     /**
-     * Fetch all user's associated with a rating visibility
+     * Fetch Rating Visibility's users
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
 
-    /**
-     * Gets the rating visibility option
-     *
-     * @param string $name
-     * @return void
-     */
-    public function setNameAttribute(string $name)
-    {
-        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
-    }
+    /************************* Accessors ******************************/
 
     /**
-     * Gets the rating visibility option
+     * Fetch the rating visibility's name
      *
      * @param string $name
      * @return string
      */
-    public function getNameAttribute(string $name)
+    public function getNameAttribute(string $name): string
     {
-        return trim(preg_replace('/\s+/', ' ', ucfirst($name)));
+        return trim(preg_replace('/\s+/', ' ', ucwords($name)));
+    }
+
+    /************************* Mutators ******************************/
+
+    /**
+     * Sets the rating visibility option
+     *
+     * @param string $name
+     * @return void
+     */
+    public function setNameAttribute(string $name): void
+    {
+        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
     }
 }

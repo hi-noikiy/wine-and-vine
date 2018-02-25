@@ -1,7 +1,12 @@
 TODO: check a slug package to implement
 
-$users = factory(App\User::class, 3)
-           ->create()
-           ->each(function ($u) {
-                $u->posts()->save(factory(App\Post::class)->make());
-            });
+/*
+     * TIPO
+     * vinhos de mesa -> branco, tinto e rosé
+     * espumantes
+     * frutificados
+     *
+     * CLASSIFICACAO
+     * classificação [doc -> 65pts, igp -> 60 pts, comuns]
+     * designativo de qualidade [reserva]
+     */

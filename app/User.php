@@ -2,12 +2,17 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\{
+    BelongsTo, BelongsToMany, HasMany, MorphMany
+};
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+    /************************* Properties ******************************/
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'password', 'username', 'description', 'country', 'rating_count',
-        'rating_visibility_id', 'newsletter', 'email_offers', 'rank', 'country_id'
+        'rating_visibility_id', 'newsletter', 'email_offers', 'rank', 'country_id', 'shipping_address_id'
     ];
 
     /**
@@ -47,12 +52,24 @@ class User extends Authenticatable
         'email_offers' => 'boolean',
     ];
 
+    /************************* Relations ******************************/
+
+    /**
+     * Fetch the User's shipping address instance
+     *
+     * @return BelongsTo
+     */
+    public function shipping(): BelongsTo
+    {
+        return $this->belongsTo(Address::class, 'shipping_address_id');
+    }
+
     /**
      * Fetch the User's country
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function country()
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
     }
@@ -60,9 +77,9 @@ class User extends Authenticatable
     /**
      * Fetch all User's known addresses
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return MorphMany
      */
-    public function addresses()
+    public function addresses(): MorphMany
     {
         return $this->morphMany(Address::class, 'addressable');
     }
@@ -70,9 +87,9 @@ class User extends Authenticatable
     /**
      * Fetch User's Rating Visibility
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function rating()
+    public function rating(): BelongsTo
     {
         return $this->belongsTo(RatingVisibility::class, 'rating_visibility_id');
     }
@@ -80,9 +97,9 @@ class User extends Authenticatable
     /**
      * Fetch User's wines wishlist
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function wishlist()
+    public function wishlist(): BelongsToMany
     {
         return $this->belongsToMany(Wine::class)->withTimestamps();
     }
@@ -90,9 +107,9 @@ class User extends Authenticatable
     /**
      * Fetch User's Winery's that he owns
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function owns()
+    public function owns(): HasMany
     {
         return $this->hasMany(Winery::class, 'owner_id');
     }
@@ -100,74 +117,54 @@ class User extends Authenticatable
     /**
      * Fetch User's Winery's where he works
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function employedAt()
+    public function employedAt(): BelongsToMany
     {
         return $this->belongsToMany(Winery::class);
     }
 
-    /**
-     * Set the User's first name.
-     *
-     * @param  string $first_name
-     * @return void
-     */
-    public function setFirstNameAttribute(string $first_name)
-    {
-        $this->attributes['first_name'] = trim(preg_replace('/\s+/', ' ', strtolower($first_name)));
-    }
+    /************************* Accessors ******************************/
 
     /**
-     * Get the User's first name.
+     * Fetch User's first name.
      *
      * @param  string $first_name
      * @return string
      */
-    public function getFirstNameAttribute(string $first_name)
+    public function getFirstNameAttribute(string $first_name): string
     {
         return trim(preg_replace('/\s+/', ' ', ucwords($first_name)));
     }
 
     /**
-     * Set the User's last name.
-     *
-     * @param  string $last_name
-     * @return void
-     */
-    public function setLastNameAttribute(string $last_name) : void
-    {
-        $this->attributes['last_name'] = trim(preg_replace('/\s+/', ' ', strtolower($last_name)));
-    }
-
-    /**
-     * Get the User's last name.
+     * Fetch User's last name.
      *
      * @param  string $last_name
      * @return string
      */
-    public function getLastNameAttribute(string $last_name)
+    public function getLastNameAttribute(string $last_name): string
     {
         return trim(preg_replace('/\s+/', ' ', ucwords($last_name)));
     }
 
     /**
-     * Sets the User's email
+     * Fetch User's full name.
      *
-     * @param string $email
+     * @return string
      */
-    public function setEmailAttribute(string $email) : void
+    public function getFullNameAttribute(): string
     {
-        $this->attributes['email'] = trim(preg_replace('/\s+/', ' ', strtolower($email)));
+        return "$this->first_name $this->last_name";
     }
 
     /**
-     * Fetch the User's email
+     * Fetch User's email
      *
      * @param string $email
      * @return string
      */
-    public function getEmailAttribute(string $email) : string
+    public function getEmailAttribute(string $email): string
     {
         return trim(preg_replace('/\s+/', ' ', strtolower($email)));
     }
@@ -177,35 +174,62 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function countryName()
+    public function getCountryNameAttribute(): string
     {
         return $this->country->name;
     }
 
     /**
-     * Get the User's full name.
+     * Fetch User's full shipping address
      *
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getShippingAddressAttribute(): string
     {
-        return "{$this->first_name} {$this->last_name}";
+        return $this->shipping->fullAddress;
     }
 
+    /************************* Mutators ******************************/
+
     /**
-     * Get the User's rating visibility name.
+     * Set User's first name.
      *
-     * @return string
+     * @param  string $first_name
+     * @return void
      */
-    public function getRatingNameAttribute()
+    public function setFirstNameAttribute(string $first_name): void
     {
-        return trim(preg_replace('/\s+/', ' ', ucwords($this->rating->name)));
+        $this->attributes['first_name'] = trim(preg_replace('/\s+/', ' ', strtolower($first_name)));
     }
 
     /**
-     * Attaches the User and a given Winery to the user_winery pivot table
+     * Set User's last name.
      *
-     * @param $winery
+     * @param  string $last_name
+     * @return void
+     */
+    public function setLastNameAttribute(string $last_name): void
+    {
+        $this->attributes['last_name'] = trim(preg_replace('/\s+/', ' ', strtolower($last_name)));
+    }
+
+    /**
+     * Set User's email
+     *
+     * @param string $email
+     * @return void
+     */
+    public function setEmailAttribute(string $email): void
+    {
+        $this->attributes['email'] = trim(preg_replace('/\s+/', ' ', strtolower($email)));
+    }
+
+    /************************* Functions ******************************/
+
+    /**
+     * Attaches the User to a given Winery
+     *
+     * @param Winery|integer $winery
      */
     public function employTo($winery)
     {
@@ -213,14 +237,16 @@ class User extends Authenticatable
     }
 
     /**
-     * Detaches the User and a given Winery from the user_winery pivot table
+     * Detaches the User from a given Winery
      *
-     * @param $winery
+     * @param Winery|integer $winery
      */
     public function quitFrom($winery)
     {
         $this->employedAt()->detach($winery);
     }
+
+    /************************* Functions ******************************/
 
     /**
      * Get the route key for the model.

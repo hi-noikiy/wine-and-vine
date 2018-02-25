@@ -2,21 +2,25 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Model, Relations\BelongsTo, Relations\BelongsToMany, Relations\HasMany, Relations\MorphOne
+};
 
 class Winery extends Model
 {
+    /************************* Properties ******************************/
+
     /**
-     *
+     * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'owner_id'
+        'name', 'email', 'phone_number', 'mobile_number', 'owner_id'
     ];
 
     /**
-     *
+     * The relations to be eager loaded every time a user is fetched from the database
      *
      * @var array
      */
@@ -24,114 +28,237 @@ class Winery extends Model
         'address',
     ];
 
-    /**
-     * Fetch Winery's address
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
-     */
-    public function address()
-    {
-        return $this->morphOne(Address::class, 'addressable');
-    }
+    /************************* Relations ******************************/
 
     /**
      * Fetch the Winery's wines
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function wines()
+    public function wines(): HasMany
     {
         return $this->hasMany(Wine::class);
     }
 
     /**
-     * Fetch the Winery's owner
+     * Fetch Winery's owner
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function owner()
+    public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
 
     /**
-     * Fetch the Winery's employees
+     * Fetch Winery's employees
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function employees()
+    public function employees(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
     /**
-     * Returns the Winery's city
+     * Fetch Winery's address
+     *
+     * @return MorphOne
+     */
+    public function address(): MorphOne
+    {
+        return $this->morphOne(Address::class, 'addressable');
+    }
+
+    /************************* Accessors ******************************/
+
+    /**
+     * Fetch Winery's name
+     *
+     * @param string $name
+     * @return string
+     */
+    public function getNameAttribute(string $name): string
+    {
+        return trim(preg_replace('/\s+/', ' ', ucwords($name)));
+    }
+
+    /**
+     * Fetch Winery's email
+     *
+     * @param string $email
+     * @return string
+     */
+    public function getEmailAttribute(string $email): string
+    {
+        return trim(preg_replace('/\s+/', ' ', strtolower($email)));
+    }
+
+    /**
+     * Fetch Winery's phone number
+     *
+     * @param string $phone
+     * @return string
+     */
+    public function getPhoneNumberAttribute(string $phone): string
+    {
+        return trim(preg_replace('/\s+/', ' ', $phone));
+    }
+
+    /**
+     * Fetch Winery's mobile number
+     *
+     * @param string $mobile
+     * @return string
+     */
+    public function getMobileNumberAttribute(string $mobile): string
+    {
+        return trim(preg_replace('/\s+/', ' ', $mobile));
+    }
+
+    /**
+     * Fetch Winery's address name
+     *
+     * @return string
+     */
+    public function getAddressNameAttribute(): string
+    {
+        return $this->address->name;
+    }
+
+    /**
+     * Fetch Winery's city
      *
      * @return City
      */
-    public function city()
+    public function getCityAttribute(): City
     {
-        return $this->address->city->name;
+        return $this->address->city;
     }
 
     /**
-     * Returns the Winery's region
+     * Fetch Winery's city name
      *
-     * @return City
+     * @return string
      */
-    public function region()
+    public function getCityNameAttribute(): string
     {
-        return $this->address->city->region->name;
+        return $this->city->name;
     }
 
     /**
-     * Returns the Winery's country
+     * Fetch Winery's region
      *
-     * @return City
+     * @return Region
      */
-    public function country()
+    public function getRegionAttribute(): Region
     {
-        return $this->address->city->region->country->name;
+        return $this->city->region;
     }
 
     /**
-     * Attaches the Winery and a given User to the user_winery pivot table
+     * Fetch Winery's region name
      *
-     * @param $user
+     * @return string
      */
-    public function employ($user)
+    public function getRegionNameAttribute(): string
     {
-        $this->employees()->attach($user);
+        return $this->region->name;
     }
 
     /**
-     * Detaches the Winery and a given User to the user_winery pivot table
+     * Fetch Winery's country
      *
-     * @param $user
+     * @return Country
      */
-    public function fire($user)
+    public function getCountryAttribute(): Country
     {
-        $this->employees()->detach($user);
+        return $this->region->country;
     }
+
+    /**
+     * Fetch Winery's country name
+     *
+     * @return string
+     */
+    public function getCountryNameAttribute(): string
+    {
+        return $this->country->name;
+    }
+
+    /************************* Mutators ******************************/
 
     /**
      * Set the Winery's name
      *
      * @param string $name
      */
-    public function setNameAttribute(string $name)
+    public function setNameAttribute(string $name): void
     {
         $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
     }
 
     /**
-     * Get the Winery's name
+     * Set the Winery's email
      *
-     * @param string $name
+     * @param string $email
+     */
+    public function setEmailAttribute(string $email): void
+    {
+        $this->attributes['email'] = trim(preg_replace('/\s+/', ' ', strtolower($email)));
+    }
+
+    /**
+     * Set the Winery's phone number
+     *
+     * @param string $phone
+     */
+    public function setPhoneNumberAttribute(string $phone): void
+    {
+        $this->attributes['phone_number'] = trim(preg_replace('/\s+/', ' ', $phone));
+    }
+
+    /**
+     * Set the Winery's mobile number
+     *
+     * @param string $mobile
+     */
+    public function setMobileNumberAttribute(string $mobile): void
+    {
+        $this->attributes['mobile_number'] = trim(preg_replace('/\s+/', ' ', $mobile));
+    }
+
+    /************************* Functions ******************************/
+
+    /**
+     * Attaches the Winery to a given User
+     *
+     * @param User|integer $user
+     * @return void
+     */
+    public function employ($user): void
+    {
+        $this->employees()->attach($user);
+    }
+
+    /**
+     * Detaches the Winery from a given User
+     *
+     * @param User|integer $user
+     * @return void
+     */
+    public function fire($user): void
+    {
+        $this->employees()->detach($user);
+    }
+
+    /**
+     * Get the route key for the model.
+     *
      * @return string
      */
-    public function getNameAttribute(string $name)
+    public function getRouteKeyName()
     {
-        return trim(preg_replace('/\s+/', ' ', ucwords($name)));
+        return 'name';
     }
 }

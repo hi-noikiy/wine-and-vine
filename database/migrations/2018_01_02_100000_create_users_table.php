@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('rank')->default(0);
 
             $table->unsignedInteger('country_id');
+            $table->unsignedInteger('shipping_address_id')->nullable();
             $table->unsignedInteger('rating_visibility_id')->nullable();
 
             $table->rememberToken();

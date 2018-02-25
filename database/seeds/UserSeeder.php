@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             ->each(function ($user) use ($wines) {
                 $user->addresses()->save(factory(Address::class)->create([
                     'addressable_id' => $user->id,
-                    'addressable_type' => User::class
+                    'addressable_type' => User::class,
                 ]));
                 $user->wishlist()->attach(
                     $wines->isEmpty() ? factory(Wine::class, rand(1, 5))->create() : $wines->chunk(rand(1, 5))->first()

@@ -1,20 +1,14 @@
 <?php
-/*
-     * TIPO
-     * vinhos de mesa -> branco, tinto e rosé
-     * espumantes
-     * frutificados
-     *
-     * CLASSIFICACAO
-     * classificação [doc -> 65pts, igp -> 60 pts, comuns]
-     * designativo de qualidade [reserva]
-     */
+
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Model, Relations\BelongsTo, Relations\BelongsToMany
+};
 
 class   Wine extends Model
 {
+    /************************* Properties ******************************/
 
     /**
      * The attributes that are mass assignable.
@@ -47,119 +41,82 @@ class   Wine extends Model
         'deleted_at',
     ];
 
+    /************************* Relations ******************************/
+
     /**
-     * Fetch the Wine's acidity
+     * Fetch Wine's acidity
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function acidity()
+    public function acidity(): BelongsTo
     {
         return $this->belongsTo(Acidity::class);
     }
 
     /**
-     * Fetch the Wine's body
+     * Fetch Wine's body
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function body()
+    public function body(): BelongsTo
     {
         return $this->belongsTo(Body::class);
     }
 
     /**
-     * Fetch the Wine's color
+     * Fetch Wine's color
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function color()
+    public function color(): BelongsTo
     {
         return $this->belongsTo(Color::class);
     }
 
     /**
-     * Returns the Wine's castes
+     * Fetch Wine's castes
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function castes()
+    public function castes(): BelongsToMany
     {
         return $this->BelongsToMany(Grape::class);
     }
 
     /**
-     * Returns Wine's type
+     * Fetch Wine's type
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(WineType::class, 'wine_type_id');
     }
 
     /**
-     * Returns the Wine's winery
+     * Fetch Wine's winery
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function winery()
+    public function winery(): BelongsTo
     {
         return $this->belongsTo(Winery::class);
     }
 
     /**
-     * Returns the User's that wishes this particular wine
+     * Fetch Wine's wishlists
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function wishlists()
+    public function wishlists(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
-    /**
-     * Fetch the Wine's region
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function region()
-    {
-        return $this->winery->region();
-    }
+    /************************* Accessors ******************************/
 
     /**
-     * Fetch the Wine's country name
-     *
-     * @return Country
-     */
-    public function country()
-    {
-        return $this->winery->country();
-    }
-
-    /**
-     * Fetch the Wine's rating
-     *
-     * @return float
-     */
-    public function rating() : float
-    {
-        return $this->rating_sum / $this->rating_count;
-    }
-
-    /**
-     * Set the wine's name
-     *
-     * @param string $name
-     * @return void
-     */
-    public function setNameAttribute(string $name): void
-    {
-        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
-    }
-
-    /**
-     * Fetch the wine's name
+     * Fetch Wine's name
      *
      * @param string $name
      * @return string
@@ -170,7 +127,81 @@ class   Wine extends Model
     }
 
     /**
-     * Set the wine's description
+     * Fetch Wine's description
+     *
+     * @param string $description
+     * @return string
+     */
+    public function getDescriptionAttribute(string $description): string
+    {
+        return trim(preg_replace('/\s+/', ' ', $description));
+    }
+
+    /**
+     * Fetch Wine's region
+     *
+     * @return Region
+     */
+    public function getRegionAttribute(): Region
+    {
+        return $this->winery->region;
+    }
+
+    /**
+     * Fetch Wine's region name
+     *
+     * @return string
+     */
+    public function getRegionNameAttribute(): string
+    {
+        return $this->region->name;
+    }
+
+    /**
+     * Fetch Wine's country
+     *
+     * @return Country
+     */
+    public function getCountryAttribute(): Country
+    {
+        return $this->winery->country;
+    }
+
+    /**
+     * Fetch Wine's country name
+     *
+     * @return string
+     */
+    public function getCountryNameAttribute(): string
+    {
+        return $this->country->name;
+    }
+
+    /**
+     * Fetch Wine's rating
+     *
+     * @return float
+     */
+    public function getRatingAttribute() : float
+    {
+        return $this->rating_sum / $this->rating_count;
+    }
+
+    /************************* Mutators ******************************/
+
+    /**
+     * Set the Wine's name
+     *
+     * @param string $name
+     * @return void
+     */
+    public function setNameAttribute(string $name): void
+    {
+        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
+    }
+
+    /**
+     * Set the Wine's description
      *
      * @param string $description
      * @return void
@@ -180,14 +211,15 @@ class   Wine extends Model
         $this->attributes['description'] = trim(preg_replace('/\s+/', ' ', $description));
     }
 
+    /************************* Functions ******************************/
+
     /**
-     * Fetch the wine's description
+     * Get the route key for the model.
      *
-     * @param string $description
      * @return string
      */
-    public function getDescriptionAttribute(string $description): string
+    public function getRouteKeyName()
     {
-        return trim(preg_replace('/\s+/', ' ', $description));
+        return 'name';
     }
 }

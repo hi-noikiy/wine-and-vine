@@ -24,9 +24,9 @@ $factory->define(Address::class, function (Faker $faker) {
         'addressable_type' => function () use (&$type) {
             return $type;
         },
-        'name' => $faker->randomElement(['Work Address', 'Personal Address']),
+        'type' => $faker->randomElement(['Work Address', 'Personal Address']),
         'street_name' => $faker->streetName,
-        'postcode' => $faker->numberBetween(001, 999),
+        'postcode' => $faker->postcode,
         'is_primary' => $faker->boolean
     ];
 });

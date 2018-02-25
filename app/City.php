@@ -2,10 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Model, Relations\BelongsTo, Relations\HasMany
+};
 
 class City extends Model
 {
+    /************************* Properties ******************************/
 
     /**
      * The attributes that are mass assignable.
@@ -25,16 +28,14 @@ class City extends Model
         'region'
     ];
 
-    protected $casts = [
-        'postcode' => 'integer'
-    ];
+    /************************* Relations ******************************/
 
     /**
      * Fetch the City's Region
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function region()
+    public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);
     }
@@ -44,23 +45,12 @@ class City extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function addresses()
+    public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
     }
 
-    /**
-     * Set the City's name
-     *
-     * @param string $name
-     * @return void
-     */
-    public function setNameAttribute(string $name)
-    {
-        $this->attributes['name'] = trim(
-            preg_replace('/\s+/', ' ', strtolower($name))
-        );
-    }
+    /************************* Accessors ******************************/
 
     /**
      * Get the City's name
@@ -68,9 +58,39 @@ class City extends Model
      * @param string $name
      * @return string
      */
-    public function getNameAttribute(string $name)
+    public function getNameAttribute(string $name): string
     {
         return trim(preg_replace('/\s+/', ' ', ucwords($name)));
+    }
+
+    /**
+     * Fetch the City's region name
+     *
+     * @return string
+     */
+    public function getRegionNameAttribute(): string
+    {
+        return $this->region->name;
+    }
+
+    /**
+     * Fetch the City's country
+     *
+     * @return Country
+     */
+    public function getCountryAttribute(): Country
+    {
+        return $this->region->country;
+    }
+
+    /**
+     * Fetch the City's country name
+     *
+     * @return Country
+     */
+    public function getCountryNameAttribute(): string
+    {
+        return $this->region->countryName;
     }
 
     /**
@@ -78,11 +98,31 @@ class City extends Model
      *
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
-        return "{$this->name}, {$this->region->name}, {$this->region->country->name}";
+        return "$this->name, $this->regionName, $this->countryName";
     }
 
+    /************************* Mutators ******************************/
+
+    /**
+     * Set the City's name
+     *
+     * @param string $name
+     * @return void
+     */
+    public function setNameAttribute(string $name): void
+    {
+        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
+    }
+
+    /************************* Functions ******************************/
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
     public function getRouteKeyName()
     {
         return 'name';

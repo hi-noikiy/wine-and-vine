@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
+    /************************* Properties ******************************/
 
     /**
      * The attributes that are mass assignable.
@@ -15,6 +16,8 @@ class Country extends Model
     protected $fillable = [
         'name'
     ];
+
+    /************************* Relations ******************************/
 
     /**
      * Fetch Country's Regions
@@ -26,16 +29,7 @@ class Country extends Model
         return $this->hasMany(Region::class);
     }
 
-    /**
-     * Set the Country's name
-     *
-     * @param string $name
-     * @return void
-     */
-    public function setNameAttribute(string $name)
-    {
-        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
-    }
+    /************************* Accessors ******************************/
 
     /**
      * Get the Country's name
@@ -43,10 +37,25 @@ class Country extends Model
      * @param string $name
      * @return string
      */
-    public function getNameAttribute(string $name)
+    public function getNameAttribute(string $name): string
     {
         return trim(preg_replace('/\s+/', ' ', ucwords($name)));
     }
+
+    /************************* Mutators ******************************/
+
+    /**
+     * Set the Country's name
+     *
+     * @param string $name
+     * @return void
+     */
+    public function setNameAttribute(string $name): void
+    {
+        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
+    }
+
+    /************************* Functions ******************************/
 
     /**
      * Get the route key for the model.

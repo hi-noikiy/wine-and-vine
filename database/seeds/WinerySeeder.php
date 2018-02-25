@@ -16,10 +16,12 @@ class WinerySeeder extends Seeder
     {
         factory(Winery::class, 10)->create()
             ->each(function ($winery) {
-                $winery->address()->save(factory(Address::class)->create([
-                    'addressable_id' => $winery->id,
-                    'addressable_type' => Winery::class
-                ]));
+                $winery->address()
+                    ->save(factory(Address::class)
+                        ->create([
+                            'addressable_id' => $winery->id,
+                            'addressable_type' => Winery::class
+                        ]));
             });
     }
 }

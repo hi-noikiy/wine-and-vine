@@ -123,7 +123,7 @@ class Winery extends Model
      */
     public function getAddressNameAttribute(): string
     {
-        return $this->address->name;
+        return $this->address->street_name;
     }
 
     /**
@@ -184,6 +184,16 @@ class Winery extends Model
     public function getCountryNameAttribute(): string
     {
         return $this->country->name;
+    }
+
+    /**
+     * Fetch the Winery's full address
+     *
+     * @return string
+     */
+    public function getFullAddressAttribute(): string
+    {
+        return $this->address->fullAddress;
     }
 
     /************************* Mutators ******************************/

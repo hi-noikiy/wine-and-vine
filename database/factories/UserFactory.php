@@ -10,7 +10,7 @@ $id = 1;
 $factory->define(User::class, function (Faker $faker) use (&$id) {
     $username = $faker->unique()->userName;
     return [
-        'id' => $id ++ ,
+        'id' => $id++,
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,

@@ -1,18 +1,14 @@
 <?php
 
-use App\Region;
-use App\Country;
+use App\{
+    Region, Country
+};
 use Faker\Generator as Faker;
 
 $factory->define(Region::class, function (Faker $faker) {
     return [
-        'name' => $faker->word,
-        'country_id' => function () {
-            if (($countries = Country::all())->isEmpty()) {
-                return factory(Country::class)->create()->id;
-            }
-            return $countries->random()->id;
-        },
+        'name'        => $faker->unique()->word,
+        'country_id'  => ($countries = Country::all())->isEmpty() ? factory(Country::class)->create()->id : $countries->random()->id,
         'description' => $faker->text()
     ];
 });

@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\{
-    User, Wine, Winery
+    Acidity, Body, Color, User, Grape, Wine, Winery, WineType
 };
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,6 +21,36 @@ class WineTest extends TestCase
         parent::setUp();
 
         $this->wine = factory(Wine::class)->create();
+    }
+
+    /** @test */
+    public function a_wine_belongs_to_many_castes()
+    {
+        $this->assertInstanceOf(Collection::class, $this->wine->castes);
+    }
+
+    /** @test */
+    public function a_wine_belongs_to_an_acidity()
+    {
+        $this->assertInstanceOf(Acidity::class, $this->wine->acidity);
+    }
+
+    /** @test */
+    public function a_wine_belongs_to_a_body()
+    {
+        $this->assertInstanceOf(Body::class, $this->wine->body);
+    }
+
+    /** @test */
+    public function a_wine_belongs_to_a_color()
+    {
+        $this->assertInstanceOf(Color::class, $this->wine->color);
+    }
+
+    /** @test */
+    public function a_wine_belongs_to_a_type()
+    {
+        $this->assertInstanceOf(WineType::class, $this->wine->type);
     }
 
     /** @test */

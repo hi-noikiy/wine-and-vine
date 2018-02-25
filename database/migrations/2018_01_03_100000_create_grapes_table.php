@@ -18,24 +18,9 @@ class CreateGrapesTable extends Migration
             $table->string('name');
             $table->string('short_description');
             $table->text('description');
-            $table->unsignedInteger('acidity_id');
-            $table->unsignedInteger('body_id');
-            $table->unsignedInteger('color_id');
             $table->timestamps();
 
             $table->unique(['name']);
-
-            $table->foreign('acidity_id')
-                ->references('id')
-                ->on('acidities');
-
-            $table->foreign('body_id')
-                ->references('id')
-                ->on('bodies');
-
-            $table->foreign('color_id')
-                ->references('id')
-                ->on('colors');
         });
     }
 

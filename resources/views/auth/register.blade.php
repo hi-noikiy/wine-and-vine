@@ -108,9 +108,9 @@
                                     <input id="country"
                                            type="text"
                                            class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}"
-                                           {{--name="country"--}}
+                                           name="country"
                                            value="{{ old('country') }}"
-                                           {{--required--}}
+                                           required
                                     >
 
                                     @if ($errors->has('country'))

@@ -1,17 +1,14 @@
 <?php
 
-use App\User;
-use App\City;
-use App\Winery;
-use App\Address;
+use App\{
+    User, City, Winery, Address
+};
 use Faker\Generator as Faker;
 
 $factory->define(Address::class, function (Faker $faker) {
     $type = '';
     return [
-        'city_id' => function () {
-            return factory(City::class)->create()->id;
-        },
+        'city_id' => ($cities = City::all())->isEmpty() ? factory(City::class)->create()->id : $cities->random()->id,
         'addressable_id' => function () use ($faker, &$type) {
             if ($faker->boolean) {
                 $type = 'App\User';

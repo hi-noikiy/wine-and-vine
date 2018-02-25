@@ -21,7 +21,7 @@ class Winery extends Model
      * @var array
      */
     protected $with = [
-        'address', 'owner'
+        'address',
     ];
 
     /**
@@ -62,6 +62,36 @@ class Winery extends Model
     public function employees()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    /**
+     * Returns the Winery's city
+     *
+     * @return City
+     */
+    public function city()
+    {
+        return $this->address->city->name;
+    }
+
+    /**
+     * Returns the Winery's region
+     *
+     * @return City
+     */
+    public function region()
+    {
+        return $this->address->city->region->name;
+    }
+
+    /**
+     * Returns the Winery's country
+     *
+     * @return City
+     */
+    public function country()
+    {
+        return $this->address->city->region->country->name;
     }
 
     /**

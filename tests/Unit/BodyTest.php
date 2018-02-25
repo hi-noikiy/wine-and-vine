@@ -21,8 +21,8 @@ class BodyTest extends TestCase
     }
 
     /** @test */
-    public function a_body_has_many_grapes()
+    public function a_body_has_many_wines()
     {
-        $this->assertInstanceOf(Collection::class, $this->body->grapes);
+        $this->assertInstanceOf(Collection::class, $this->body->wines);
     }
 }

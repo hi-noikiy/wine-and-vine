@@ -12,15 +12,21 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            CountrySeeder::class,
+            RegionSeeder::class,
+            CitySeeder::class,
             AciditySeeder::class,
             BodySeeder::class,
             ColorSeeder::class,
-            GrapeSeeder::class,
             RatingVisibilitiesSeeder::class,
-            AddressSeeder::class,
+            WineTypeSeeder::class,
             UserSeeder::class,
             WinerySeeder::class,
+            // UserWinerySeeder::class,
+            GrapeSeeder::class,
             WineSeeder::class,
+            // UserWineSeeder::class,
+            // GrapeWineSeeder::class,
         ]);
     }
 }

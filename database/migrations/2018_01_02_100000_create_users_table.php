@@ -21,16 +21,31 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('username')->unique();
             $table->text('description')->nullable();
-            // TODO: Add a default path for the user avatar
-            $table->string('avatar')->default('');
+            $table->string('avatar')->default(storage_path('app/public/images/user/default.png'));
             $table->unsignedBigInteger('rating_count')->default(0);
-            $table->unsignedInteger('rating_visibility_id');
             $table->boolean('newsletter')->default(true);
             $table->boolean('email_offers')->default(true);
             $table->unsignedInteger('rank')->default(0);
+
+            $table->unsignedInteger('country_id');
+            $table->unsignedInteger('rating_visibility_id')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['rating_visibility_id', 'country_id']);
+
+            $table->foreign('country_id')
+                ->references('id')
+                ->on('countries')
+                ->onUpdate('cascade');
+
+            $table->foreign('rating_visibility_id')
+                ->references('id')
+                ->on('rating_visibilities')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
     }
 

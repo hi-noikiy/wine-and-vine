@@ -23,24 +23,6 @@ class GrapeTest extends TestCase
     }
 
     /** @test */
-    public function a_grape_has_a_acidity()
-    {
-        $this->assertInstanceOf(Acidity::class, $this->grape->acidity);
-    }
-
-    /** @test */
-    public function a_grape_has_a_body()
-    {
-        $this->assertInstanceOf(Body::class, $this->grape->body);
-    }
-
-    /** @test */
-    public function a_grape_has_a_color()
-    {
-        $this->assertInstanceOf(Color::class, $this->grape->color);
-    }
-
-    /** @test */
     public function a_grape_has_many_wines()
     {
         $this->assertInstanceOf(Collection::class, $this->grape->wines);

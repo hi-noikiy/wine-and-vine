@@ -2,27 +2,27 @@
 
 namespace Tests\Unit;
 
-use App\Acidity;
+use App\WineType;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AcidityTest extends TestCase
+class WineTypeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $acidity;
+    protected $wine_type;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->acidity = factory(Acidity::class)->create();
+        $this->wine_type = factory(WineType::class)->create();
     }
 
     /** @test */
-    public function an_acidity_has_many_wines()
+    public function a_wine_type_has_many_wines()
     {
-        $this->assertInstanceOf(Collection::class, $this->acidity->wines);
+        $this->assertInstanceOf(Collection::class, $this->wine_type->wines);
     }
 }

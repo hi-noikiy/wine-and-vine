@@ -21,8 +21,8 @@ class ColorTest extends TestCase
     }
 
     /** @test */
-    public function a_color_has_many_grapes()
+    public function a_color_has_many_wines()
     {
-        $this->assertInstanceOf(Collection::class, $this->color->grapes);
+        $this->assertInstanceOf(Collection::class, $this->color->wines);
     }
 }

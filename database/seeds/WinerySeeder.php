@@ -1,6 +1,8 @@
 <?php
 
-use App\Winery;
+use App\{
+    Address, Winery
+};
 use Illuminate\Database\Seeder;
 
 class WinerySeeder extends Seeder
@@ -12,6 +14,12 @@ class WinerySeeder extends Seeder
      */
     public function run()
     {
-        factory(Winery::class, 20)->create();
+        factory(Winery::class, 10)->create()
+            ->each(function ($winery) {
+                $winery->address()->save(factory(Address::class)->create([
+                    'addressable_id' => $winery->id,
+                    'addressable_type' => Winery::class
+                ]));
+            });
     }
 }

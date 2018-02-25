@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\{
+    Country, RatingVisibility
+};
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -53,8 +56,8 @@ class UserRegistrationTest extends TestCase
             "email" => "john@example.com",
             "password" => "secret",
             "password_confirmation" => "secret",
-//            "country" => "Portugal",
-            "rating-visibility" => "1",
+            "country" => factory(Country::class)->create()->id,
+            "rating-visibility" => factory(RatingVisibility::class)->create()->id,
             "newsletter" => "1",
             "email-offers" => "1"
         ], $overrides);

@@ -16,7 +16,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'password', 'username', 'description', 'country', 'rating_count',
-        'rating_visibility_id', 'newsletter', 'email_offers', 'rank'
+        'rating_visibility_id', 'newsletter', 'email_offers', 'rank', 'country_id'
     ];
 
     /**
@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $with = [
-        'wishlist', 'rating', 'addresses'
+        'wishlist', 'rating', 'addresses', 'country'
     ];
 
     /**
@@ -84,7 +84,7 @@ class User extends Authenticatable
      */
     public function owns()
     {
-        return $this->hasMany(Winery::class);
+        return $this->hasMany(Winery::class, 'owner_id');
     }
 
     /**
@@ -97,48 +97,63 @@ class User extends Authenticatable
         return $this->belongsToMany(Winery::class);
     }
 
+    public function countryName()
+    {
+        return $this->country->name;
+    }
+
     /**
      * Set the User's first name.
      *
-     * @param  string $firstname
+     * @param  string $first_name
      * @return void
      */
-    public function setFirstNameAttribute(string $firstname)
+    public function setFirstNameAttribute(string $first_name)
     {
-        $this->attributes['first_name'] = trim(preg_replace('/\s+/', ' ', strtolower($firstname)));
+        $this->attributes['first_name'] = trim(preg_replace('/\s+/', ' ', strtolower($first_name)));
     }
 
     /**
      * Get the User's first name.
      *
-     * @param  string $firstname
+     * @param  string $first_name
      * @return string
      */
-    public function getFirstNameAttribute(string $firstname)
+    public function getFirstNameAttribute(string $first_name)
     {
-        return trim(preg_replace('/\s+/', ' ', ucwords($firstname)));
+        return trim(preg_replace('/\s+/', ' ', ucwords($first_name)));
     }
 
     /**
      * Set the User's last name.
      *
-     * @param  string $lastname
+     * @param  string $last_name
      * @return void
      */
-    public function setLastNameAttribute(string $lastname)
+    public function setLastNameAttribute(string $last_name)
     {
-        $this->attributes['last_name'] = trim(preg_replace('/\s+/', ' ', strtolower($lastname)));
+        $this->attributes['last_name'] = trim(preg_replace('/\s+/', ' ', strtolower($last_name)));
     }
 
     /**
      * Get the User's last name.
      *
-     * @param  string $lastname
+     * @param  string $last_name
      * @return string
      */
-    public function getLastNameAttribute(string $lastname)
+    public function getLastNameAttribute(string $last_name)
     {
-        return trim(preg_replace('/\s+/', ' ', ucwords($lastname)));
+        return trim(preg_replace('/\s+/', ' ', ucwords($last_name)));
+    }
+
+    /**
+     * Fetch the User's country
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 
     /**

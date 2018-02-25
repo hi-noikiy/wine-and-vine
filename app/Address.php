@@ -58,6 +58,11 @@ class Address extends Model
         return $this->hasMany(User::class);
     }
 
+    public function country()
+    {
+        return $this->city->country();
+    }
+
     /**
      * Set the Addresses name
      *

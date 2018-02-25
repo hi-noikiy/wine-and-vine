@@ -20,8 +20,8 @@ class Body extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function grapes()
+    public function wines()
     {
-        return $this->hasMany(Grape::class);
+        return $this->hasMany(Wine::class);
     }
 }

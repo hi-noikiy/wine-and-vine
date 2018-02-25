@@ -64,7 +64,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first-name' => 'required|string|max:25',
             'last-name' => 'required|string|max:25',
-//            'country' => 'required|string',
+            'country' => 'required|int',
             'rating-visibility' => 'required',
             'newsletter' => 'required',
             'email-offers' => 'required',
@@ -81,24 +81,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $firstname = $data['first-name'];
-        $lastname = $data['last-name'];
+        $first_name = $data['first-name'];
+        $last_name = $data['last-name'];
 
         return User::create([
-            'first_name' => $firstname,
-            'last_name' => $lastname,
-            'username' => $this->uniqueUsername($firstname, $lastname),
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'username' => $this->uniqueUsername($first_name, $last_name),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-//            'country' => $data['country'],
+            'country_id' => $data['country'],
             'rating_visibility_id' => $data['rating-visibility'],
             'newsletter' => $data['newsletter'],
             'email_offers' => $data['email-offers']
         ]);
     }
 
-    protected function uniqueUsername($firstname, $lastname) {
-        $username = strtolower("{$firstname}_{$lastname}");
+    protected function uniqueUsername($first_name, $last_name) {
+        $username = strtolower("{$first_name}_{$last_name}");
         $count = User::where('username', 'like', "%{$username}%")->count();
 
         return $count > 0 ? "{$username}_{$count}" : $username;

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Grape extends Model
+class WineType extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,16 +12,16 @@ class Grape extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'short_description', 'description',
+        'name'
     ];
 
     /**
-     * Returns the Wines's where this Grape is
+     * Returns Wine's with this type
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function wines()
     {
-        return $this->belongsToMany(Wine::class);
+        return $this->hasMany(Wine::class);
     }
 }

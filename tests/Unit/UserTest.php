@@ -78,15 +78,7 @@ class UserTest extends TestCase
             $this->user->employTo($winery);
         });
         // Assert that the user works at 5 wineries
-        $this->assertCount(5, $this->user->employedAt()->get());
-        // Quit from the wineries where the id is an even number
-        $wineries->filter(function ($winery) {
-            return $winery->id % 2 === 0;
-        })->each(function ($winery) {
-            $this->user->quitFrom($winery);
-        });
-        // assert that the user is only working in 3 wineries [id = 1, 3, 5]
-        $this->assertTrue($this->user->employedAt->count() === 3);
+        $this->assertCount(5, $this->user->employedAt);
     }
 
     /** @test

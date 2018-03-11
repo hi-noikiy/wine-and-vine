@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             RegionSeeder::class,
             CitySeeder::class,
-            AciditySeeder::class,
-            BodySeeder::class,
-            ColorSeeder::class,
-            RatingVisibilitiesSeeder::class,
+            WineAciditySeeder::class,
+            WineBodySeeder::class,
+            WineColorSeeder::class,
+            FoodPairSeeder::class,
+            WineOriginDenominationSeeder::class,
             WineTypeSeeder::class,
             UserSeeder::class,
             WinerySeeder::class,
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             WineSeeder::class,
             // UserWineSeeder::class,
             // GrapeWineSeeder::class,
+            RatingVisibilitiesSeeder::class,
         ]);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Color;
+use App\WineColor;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -17,7 +17,7 @@ class ColorTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->color = factory(Color::class)->create();
+        $this->color = factory(WineColor::class)->create();
     }
 
     /** @test */

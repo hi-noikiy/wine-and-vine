@@ -25,12 +25,13 @@ class CreateWinesTable extends Migration
             $table->unsignedInteger('temperature');
             $table->unsignedInteger('alcohol');
 
-            $table->unsignedInteger('acidity_id');
-            $table->unsignedInteger('body_id');
-            $table->unsignedInteger('color_id');
-            $table->string('food_pairing');
-            $table->unsignedInteger('winery_id');
+            $table->unsignedInteger('wine_acidity_id');
+            $table->unsignedInteger('wine_body_id');
+            $table->unsignedInteger('wine_color_id');
+            $table->unsignedInteger('wine_origin_denomination_id');
             $table->unsignedInteger('wine_type_id');
+            $table->unsignedInteger('food_pairing_id');
+            $table->unsignedInteger('winery_id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -39,21 +40,29 @@ class CreateWinesTable extends Migration
                 ->references('id')
                 ->on('wineries');
 
+            $table->foreign('wine_acidity_id')
+                ->references('id')
+                ->on('wine_acidities');
+
+            $table->foreign('wine_body_id')
+                ->references('id')
+                ->on('wine_bodies');
+
+            $table->foreign('wine_color_id')
+                ->references('id')
+                ->on('wine_colors');
+
+            $table->foreign('wine_origin_denomination_id')
+                ->references('id')
+                ->on('wine_origin_denominations');
+
+            $table->foreign('food_pairing_id')
+                ->references('id')
+                ->on('food_pairs');
+
             $table->foreign('wine_type_id')
                 ->references('id')
                 ->on('wine_types');
-
-            $table->foreign('acidity_id')
-                ->references('id')
-                ->on('acidities');
-
-            $table->foreign('body_id')
-                ->references('id')
-                ->on('bodies');
-
-            $table->foreign('color_id')
-                ->references('id')
-                ->on('colors');
         });
     }
 

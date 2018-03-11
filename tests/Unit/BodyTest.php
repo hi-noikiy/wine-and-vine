@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Body;
+use App\WineBody;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -17,7 +17,7 @@ class BodyTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->body = factory(Body::class)->create();
+        $this->body = factory(WineBody::class)->create();
     }
 
     /** @test */

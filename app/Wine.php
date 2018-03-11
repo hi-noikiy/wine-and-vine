@@ -18,7 +18,7 @@ class   Wine extends Model
     protected $fillable = [
         'name', 'year', 'price', 'description', 'quantity_in_stock',
         'rating_count', 'rating_sum', 'temperature', 'alcohol',
-        'acidity_id', 'body_id', 'color_id', 'food_pairing', 'winery_id', 'wine_type_id'
+        'wine_acidity_id', 'wine_body_id', 'wine_color_id', 'wine_type_id', 'food_pairing_id', 'winery_id',
     ];
 
     /**
@@ -27,7 +27,7 @@ class   Wine extends Model
      * @var array
      */
     protected $with = [
-        'acidity', 'body', 'castes', 'color', 'type', 'winery', //'wishlists'
+        'acidity', 'body', 'castes', 'color', 'denomination', 'food_pairing', 'type', 'winery', //'wishlists'
     ];
 
     /**
@@ -50,7 +50,7 @@ class   Wine extends Model
      */
     public function acidity(): BelongsTo
     {
-        return $this->belongsTo(Acidity::class);
+        return $this->belongsTo(WineAcidity::class, 'wine_acidity_id');
     }
 
     /**
@@ -60,7 +60,17 @@ class   Wine extends Model
      */
     public function body(): BelongsTo
     {
-        return $this->belongsTo(Body::class);
+        return $this->belongsTo(WineBody::class, 'wine_body_id');
+    }
+
+    /**
+     * Fetch Wine's food pairings
+     *
+     * @return BelongsToMany
+     */
+    public function food_pairing(): BelongsToMany
+    {
+        return $this->belongsToMany(FoodPair::class);
     }
 
     /**
@@ -70,17 +80,17 @@ class   Wine extends Model
      */
     public function color(): BelongsTo
     {
-        return $this->belongsTo(Color::class);
+        return $this->belongsTo(WineColor::class, 'wine_color_id');
     }
 
     /**
-     * Fetch Wine's castes
+     * Fetch Wine's origin denomination
      *
-     * @return BelongsToMany
+     * @return BelongsTo
      */
-    public function castes(): BelongsToMany
+    public function denomination(): BelongsTo
     {
-        return $this->BelongsToMany(Grape::class);
+        return $this->belongsTo(WineOriginDenomination::class, 'wine_origin_denomination_id');
     }
 
     /**
@@ -91,6 +101,16 @@ class   Wine extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(WineType::class, 'wine_type_id');
+    }
+
+    /**
+     * Fetch Wine's castes
+     *
+     * @return BelongsToMany
+     */
+    public function castes(): BelongsToMany
+    {
+        return $this->BelongsToMany(Grape::class);
     }
 
     /**

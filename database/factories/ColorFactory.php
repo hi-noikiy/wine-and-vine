@@ -1,9 +1,9 @@
 <?php
 
-use App\Color;
+use App\WineColor;
 use Faker\Generator as Faker;
 
-$factory->define(Color::class, function (Faker $faker) {
+$factory->define(WineColor::class, function (Faker $faker) {
     $color = collect(['crimson', 'dark blue', 'black', 'yellow', 'green', 'orange', 'pink'])->random();
     return [
         'name'  => $color,

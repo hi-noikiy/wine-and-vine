@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\{
-    Acidity, Body, Color, Grape
+    WineAcidity, WineBody, WineColor, Grape
 };
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;

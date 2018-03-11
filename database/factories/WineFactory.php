@@ -1,25 +1,27 @@
 <?php
 
 use App\{
-    Acidity, Address, Body, Color, Region, Winery, WineType
+    Address, FoodPair, WineAcidity, WineBody, WineOriginDenomination, WineColor, Winery, WineType
 };
 use Faker\Generator as Faker;
 
 $factory->define(App\Wine::class, function (Faker $faker) {
     return [
-        'name'              => $faker->word,
-        'description'       => $faker->text,
-        'year'              => $faker->year,
-        'price'             => $faker->randomFloat(2, 0, 1000),
+        'name' => $faker->word,
+        'description' => $faker->text,
+        'year' => $faker->year,
+        'price' => $faker->randomFloat(2, 0, 1000),
         'quantity_in_stock' => $faker->randomNumber(3),
-        'rating_count'      => $faker->randomNumber(3),
-        'rating_sum'        => $faker->randomNumber(3),
-        'temperature'       => $faker->numberBetween(8, 24),
-        'alcohol'           => $faker->numberBetween(8, 24),
-        'acidity_id'        => ($acidities = Acidity::all())->isEmpty() ? factory(Acidity::class)->create()->id : $acidities->random()->id,
-        'body_id'           => ($bodies = Body::all())->isEmpty() ? factory(Body::class)->create()->id : $bodies->random()->id,
-        'color_id'          => ($colors = Color::all())->isEmpty() ? factory(Color::class)->create()->id : $colors->random()->id,
-        'winery_id'         => function ($wine) {
+        'rating_count' => $faker->randomNumber(3),
+        'rating_sum' => $faker->randomNumber(3),
+        'temperature' => $faker->numberBetween(8, 24),
+        'alcohol' => $faker->numberBetween(8, 24),
+        'wine_acidity_id' => ($acidities = WineAcidity::all())->isEmpty() ? factory(WineAcidity::class)->create()->id : $acidities->random()->id,
+        'wine_body_id' => ($bodies = WineBody::all())->isEmpty() ? factory(WineBody::class)->create()->id : $bodies->random()->id,
+        'wine_color_id' => ($colors = WineColor::all())->isEmpty() ? factory(WineColor::class)->create()->id : $colors->random()->id,
+        'wine_origin_denomination_id' => ($classifications = WineOriginDenomination::all())->isEmpty() ? factory(WineOriginDenomination::class)->create()->id : $classifications->random()->id,
+        'wine_type_id' => ($type = WineType::all())->isEmpty() ? factory(WineType::class)->create()->id : $type->random()->id,
+        'winery_id' => function ($wine) {
             if (($wineries = Winery::all())->isEmpty()) {
                 ($winery = factory(Winery::class)->create())->address()->save(factory(Address::class)->create([
                     'addressable_id' => $winery->id,
@@ -29,9 +31,6 @@ $factory->define(App\Wine::class, function (Faker $faker) {
             }
             return $wineries->random()->id;
         },
-        'wine_type_id'      => ($type = WineType::all())->isEmpty() ? factory(WineType::class)->create()->id : $type->random()->id,
-        'food_pairing'      => $faker->randomElement([
-            'Poultry', 'Rich Fish (Salmon, Tuna, etc...)', 'Sweet Desserts', 'Veal', 'Spicy Food', 'Junk Food'
-        ])
+        'food_pairing_id' => ($pairs = FoodPair::all())->isEmpty() ? factory(FoodPair::class)->create() : $pairs->random()->id
     ];
 });

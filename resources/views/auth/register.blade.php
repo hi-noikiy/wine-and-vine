@@ -8,9 +8,12 @@
                     <div class="card-header">Register</div>
 
                     <div class="card-body">
+                        {{--Form--}}
                         <form method="POST" action="{{ route('register') }}">
+                            {{--CSRF Token--}}
                             @csrf
 
+                            {{--First Name--}}
                             <div class="form-group row">
                                 <label for="first-name" class="col-md-4 col-form-label text-md-right">First Name</label>
 
@@ -31,6 +34,7 @@
                                 </div>
                             </div>
 
+                            {{--Last Name--}}
                             <div class="form-group row">
                                 <label for="last-name" class="col-md-4 col-form-label text-md-right">Last Name</label>
 
@@ -50,6 +54,7 @@
                                 </div>
                             </div>
 
+                            {{--Email--}}
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
@@ -69,6 +74,7 @@
                                 </div>
                             </div>
 
+                            {{--Password--}}
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
@@ -87,6 +93,7 @@
                                 </div>
                             </div>
 
+                            {{--Password Confirmation--}}
                             <div class="form-group row">
                                 <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm
                                     Password</label>
@@ -100,27 +107,27 @@
                                 </div>
                             </div>
 
-                            {{--TODO: Change country to a SELECT--}}
+                            {{--Countries--}}
                             <div class="form-group row">
                                 <label for="country" class="col-md-4 col-form-label text-md-right">Country</label>
 
                                 <div class="col-md-6">
-                                    <input id="country"
-                                           type="text"
-                                           class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}"
-                                           name="country"
-                                           value="{{ old('country') }}"
-                                           required
-                                    >
+                                    <select id="country" class="form-control" name="country">
+                                        <option selected>Select your Country</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{ $country->name->common }}">{{ $country->name->common }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                                    @if ($errors->has('country'))
-                                        <span class="invalid-feedback">
+                                @if ($errors->has('country'))
+                                    <span class="invalid-feedback">
                                         <strong>{{ $errors->first('country') }}</strong>
                                     </span>
-                                    @endif
-                                </div>
+                                @endif
                             </div>
 
+                            {{--Ratings--}}
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label text-md-right">Who can see your ratings</label>
 
@@ -133,7 +140,7 @@
                                                    id="rating-visibility-{{ $rating->id }}"
                                                    value="{{ $rating->id }}"
                                                    required
-                                                   {{ $rating->id === 1 || $rating->name === 'Public' ? 'checked' : '' }}
+                                                    {{ $rating->id === 1 || $rating->name === 'Public' ? 'checked' : '' }}
                                             >
                                             <label class="form-check-label"
                                                    for="rating-visibility-{{ $rating->id }}">{{ $rating->name }}</label>
@@ -148,6 +155,7 @@
                                 </div>
                             </div>
 
+                            {{--Newsletter--}}
                             <div class="form-group row">
                                 <label for="newsletter" class="col-md-4 col-form-label text-md-right">Want to receive
                                     newsletter?</label>
@@ -184,6 +192,7 @@
                                 </div>
                             </div>
 
+                            {{--Offers?--}}
                             <div class="form-group row">
                                 <label for="email_offers" class="col-md-4 col-form-label text-md-right">Want to receive
                                     offers?</label>
@@ -220,6 +229,7 @@
                                 </div>
                             </div>
 
+                            {{--Submit Button--}}
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">

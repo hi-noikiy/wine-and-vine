@@ -5,8 +5,9 @@ namespace Tests\Unit;
 use Exception;
 use Tests\TestCase;
 use App\{
-    Country, User, Wine, Address, RatingVisibility, Winery
+    User, Wine, Address, RatingVisibility, Winery
 };
+use PragmaRX\Countries\Package\Countries;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,12 +28,6 @@ class UserTest extends TestCase
     public function a_user_may_have_a_shipping_address()
     {
         $this->assertInstanceOf(Address::class, $this->user->shipping);
-    }
-
-    /** @test */
-    public function a_user_belongs_to_a_country()
-    {
-        $this->assertInstanceOf(Country::class, $this->user->country);
     }
 
     /** @test
@@ -179,9 +174,8 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_can_fetch_his_country_name()
     {
-        $this->user->update(['country_id' => ($country = factory(Country::class)->create())->id]);
-
-        $this->assertEquals($country->name, $this->user->countryName);
+        $this->user->update(['country' => ($country = Countries::first())->name->common]);
+        $this->assertEquals($country->name->common, $this->user->country);
     }
 
     /** @test */

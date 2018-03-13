@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('username')->unique();
+            $table->string('country');
             $table->text('description')->nullable();
             $table->string('avatar')->default(storage_path('app/public/images/user/default.png'));
             $table->unsignedBigInteger('rating_count')->default(0);
@@ -27,7 +28,6 @@ class CreateUsersTable extends Migration
             $table->boolean('email_offers')->default(true);
             $table->unsignedInteger('rank')->default(0);
 
-            $table->unsignedInteger('country_id');
             $table->unsignedInteger('shipping_address_id')->nullable();
             $table->unsignedInteger('rating_visibility_id')->nullable();
 
@@ -35,12 +35,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['rating_visibility_id', 'country_id']);
-
-            $table->foreign('country_id')
-                ->references('id')
-                ->on('countries')
-                ->onUpdate('cascade');
+            $table->index(['rating_visibility_id', 'country']);
 
             $table->foreign('rating_visibility_id')
                 ->references('id')

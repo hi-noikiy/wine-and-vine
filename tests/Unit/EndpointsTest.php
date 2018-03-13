@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\User;
 use Tests\TestCase;
 
 class EndpointsTest extends TestCase
@@ -27,23 +28,20 @@ class EndpointsTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_cant_load_the_login_page_and_is_redirected_home()
+    public function authenticated_users_cant_load_the_login_page_and_are_redirected_home()
     {
-        $anAuthenticatedUser = factory('App\User')->make();
+        $this->actingAs(factory(User::class)->make(['rating_visibility_id' => 1]));
 
-        $this->actingAs($anAuthenticatedUser);
-
-        $response = $this->get('login');
-
-        $response->assertStatus(302);
-
-        $response->assertRedirect('home');
+        $this->get('login')
+            ->assertStatus(302)
+            ->assertHeader('Location', url('/home'))
+            ->assertRedirect('home');
     }
 
     /** @test */
     public function an_authenticated_user_cant_load_the_register_page_and_is_redirected_home()
     {
-        $anAuthenticatedUser = factory('App\User')->make();
+        $anAuthenticatedUser = factory(User::class)->make();
 
         $this->actingAs($anAuthenticatedUser);
 

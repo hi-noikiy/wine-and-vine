@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             FoodPairSeeder::class,
             WineOriginDenominationSeeder::class,
             WineTypeSeeder::class,
+            RatingVisibilitiesSeeder::class,
             UserSeeder::class,
             WinerySeeder::class,
             // UserWinerySeeder::class,
@@ -28,7 +29,6 @@ class DatabaseSeeder extends Seeder
             WineSeeder::class,
             // UserWineSeeder::class,
             // GrapeWineSeeder::class,
-            RatingVisibilitiesSeeder::class,
         ]);
     }
 }

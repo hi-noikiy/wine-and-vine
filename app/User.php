@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\{
 };
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use PragmaRX\Countries\Package\Countries;
 
 class User extends Authenticatable
 {
@@ -20,8 +21,19 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'username', 'description', 'country', 'rating_count',
-        'rating_visibility_id', 'newsletter', 'email_offers', 'rank', 'country_id', 'shipping_address_id'
+        'first_name',
+        'last_name',
+        'username',
+        'email',
+        'password',
+        'description',
+        'country',
+        'rating_count',
+        'rating_visibility_id',
+        'newsletter',
+        'email_offers',
+        'rank',
+        'shipping_address_id'
     ];
 
     /**
@@ -39,7 +51,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $with = [
-        'wishlist', 'rating', 'addresses', 'country'
+        'wishlist', 'rating', 'addresses'
     ];
 
     /**
@@ -62,16 +74,6 @@ class User extends Authenticatable
     public function shipping(): BelongsTo
     {
         return $this->belongsTo(Address::class, 'shipping_address_id');
-    }
-
-    /**
-     * Fetch the User's country
-     *
-     * @return BelongsTo
-     */
-    public function country(): BelongsTo
-    {
-        return $this->belongsTo(Country::class);
     }
 
     /**
@@ -170,13 +172,14 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's country name
+     * Fetch User's country
      *
+     * @param string $country
      * @return string
      */
-    public function getCountryNameAttribute(): string
+    public function getCountryAttribute(string $country): string
     {
-        return $this->country->name;
+        return trim(preg_replace('/\s+/', ' ', $country));
     }
 
     /**

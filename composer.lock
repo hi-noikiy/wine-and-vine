@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "15873cfbff315efb4e3d3f4f4eb86d62",
+    "content-hash": "8e798238abdf7eb480b8b26fbedfbea4",
     "packages": [
         {
             "name": "colinodell/json5",
@@ -922,16 +922,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.24.1",
+            "version": "1.24.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "ef12cbd8ba5ce624f0a6a95e0850c4cc13e71e41"
+                "reference": "bba6c6e410c6b4317e37a9474aeaa753808c3875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/ef12cbd8ba5ce624f0a6a95e0850c4cc13e71e41",
-                "reference": "ef12cbd8ba5ce624f0a6a95e0850c4cc13e71e41",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bba6c6e410c6b4317e37a9474aeaa753808c3875",
+                "reference": "bba6c6e410c6b4317e37a9474aeaa753808c3875",
                 "shasum": ""
             },
             "require": {
@@ -971,7 +971,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-03-09T15:49:34+00:00"
+            "time": "2018-03-10T10:10:14+00:00"
         },
         {
             "name": "nette/caching",
@@ -1403,6 +1403,77 @@
                 "topology"
             ],
             "time": "2018-02-17T16:54:12+00:00"
+        },
+        {
+            "name": "pragmarx/countries-laravel",
+            "version": "v0.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antonioribeiro/countries-laravel.git",
+                "reference": "822e453d608e289742ecd9c6e1ff7b867df27c0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antonioribeiro/countries-laravel/zipball/822e453d608e289742ecd9c6e1ff7b867df27c0e",
+                "reference": "822e453d608e289742ecd9c6e1ff7b867df27c0e",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.3",
+                "php": ">=7.0",
+                "pragmarx/coollection": ">=0.5",
+                "pragmarx/countries": "^0.5.0",
+                "psr/simple-cache": "^1.0"
+            },
+            "require-dev": {
+                "colinodell/json5": "^1.0",
+                "gasparesganga/php-shapefile": "^2.3",
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "~6.0",
+                "squizlabs/php_codesniffer": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "PragmaRX\\CountriesLaravel\\Package\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Countries": "PragmaRX\\CountriesLaravel\\Package\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PragmaRX\\CountriesLaravel\\Package\\": "src/package"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Carlos Ribeiro",
+                    "email": "acr@antoniocarlosribeiro.com",
+                    "role": "Creator"
+                }
+            ],
+            "description": "Countries for Laravel",
+            "keywords": [
+                "borders",
+                "cities",
+                "countries",
+                "currencies",
+                "flag",
+                "geometry",
+                "laravel",
+                "states",
+                "taxes",
+                "timezones",
+                "topology"
+            ],
+            "time": "2018-02-17T16:38:10+00:00"
         },
         {
             "name": "pragmarx/ia-arr",

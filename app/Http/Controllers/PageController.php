@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use PragmaRX\Countries\Package\Countries;
 
 class PageController extends Controller
 {
@@ -14,7 +15,7 @@ class PageController extends Controller
      */
     public function welcome()
     {
-        return view('pages.welcome');
+        return view('pages.welcome', ['countries' => Countries::all()]);
     }
 
     /**

@@ -2,14 +2,35 @@
 
 namespace Tests\Unit;
 
+use App\Country;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use PragmaRX\Countries\Package\Countries;
 
 class CountriesTest extends TestCase
 {
-    /** @test */
-    public function a_country_name_can_be_fetched()
+    use RefreshDatabase;
+
+    private $country;
+
+    protected function setUp()
     {
-        $this->assertEquals('Portugal', Countries::where('name.common', 'Portugal')->first()->name->common);
+        parent::setUp();
+
+        $this->country = factory(Country::class)->create();
+    }
+
+    /** @test */
+    public function a_country_has_many_regions()
+    {
+        $this->assertInstanceOf(Collection::class, $this->country->regions);
+    }
+
+    /** @test */
+    public function a_country_can_be_fetched_by_name()
+    {
+        $this->country->update(['name' => 'Portugal']);
+
+        $this->assertEquals('Portugal', Country::whereName('Portugal')->first()->name);
     }
 }

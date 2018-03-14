@@ -5,9 +5,8 @@ namespace Tests\Unit;
 use App\{
     Address, City, Country, Region, User, Winery
 };
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AddressTest extends TestCase
 {
@@ -25,8 +24,8 @@ class AddressTest extends TestCase
     public function an_address_can_belong_to_a_user()
     {
         $address = factory(Address::class)->create([
-            'addressable_id'    => factory(User::class)->create()->id,
-            'addressable_type'  => User::class
+            'addressable_id' => factory(User::class)->create()->id,
+            'addressable_type' => User::class
         ]);
         $this->assertInstanceOf(User::class, $address->addressable);
     }
@@ -35,8 +34,8 @@ class AddressTest extends TestCase
     public function an_address_can_belong_to_a_winery()
     {
         $address = factory(Address::class)->create([
-            'addressable_id'    => factory(Winery::class)->create()->id,
-            'addressable_type'  => Winery::class
+            'addressable_id' => factory(Winery::class)->create()->id,
+            'addressable_type' => Winery::class
         ]);
         $this->assertInstanceOf(Winery::class, $address->addressable);
     }

@@ -20,20 +20,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'username',
-        'email',
-        'password',
-        'description',
-        'country',
-        'rating_count',
-        'rating_visibility_id',
-        'newsletter',
-        'email_offers',
-        'rank',
-        'shipping_address_id'
+    protected $fillable = ['first_name', 'last_name', 'username', 'email', 'password', 'description', 'rating_count',
+        'country_id', 'rating_visibility_id', 'shipping_address_id', 'newsletter', 'email_offers', 'rank',
     ];
 
     /**
@@ -41,18 +29,14 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * The relations to be eager loaded every time a user is fetched from the database
      *
      * @var array
      */
-    protected $with = [
-        'wishlist', 'rating', 'addresses'
-    ];
+    protected $with = ['wishlist', 'rating', 'addresses'];
 
     /**
      * The attributes that should be cast to native types.
@@ -126,6 +110,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Winery::class);
     }
 
+    /**
+     * Fetch User's country
+     *
+     * @return BelongsTo
+     */
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     /************************* Accessors ******************************/
 
     /**
@@ -172,14 +166,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's country
+     * Fetch User's country name
      *
-     * @param string $country
      * @return string
      */
-    public function getCountryAttribute(string $country): string
+    public function getCountryNameAttribute(): string
     {
-        return trim(preg_replace('/\s+/', ' ', $country));
+        return $this->country->name;
     }
 
     /**

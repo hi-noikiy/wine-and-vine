@@ -15,7 +15,14 @@ class PageController extends Controller
      */
     public function welcome()
     {
-        return view('pages.welcome', ['countries' => Countries::all()]);
+        $countries = Countries::all()
+            ->map(function ($country) {
+                return collect($country->toArray())
+                    ->only(['cca2'])
+                    ->put('name', $country->name->common);
+            })->random(2);
+
+        return view('pages.welcome', compact('countries'));
     }
 
     /**

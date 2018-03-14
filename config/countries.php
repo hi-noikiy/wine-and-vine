@@ -1,22 +1,15 @@
 <?php
 
 return [
-
     'cache' => [
         'enabled' => true,
-
         'service' => PragmaRX\Countries\Package\Services\Cache::class,
-
         'duration' => 180,
-
         'directory' => sys_get_temp_dir().'/__PRAGMARX_COUNTRIES__/cache',
     ],
-
     'hydrate' => [
         'before' => true,
-
-        'after' => true,
-
+        'after' => false,
         'elements' => [
             'borders' => false,
             'cities' => false,
@@ -30,12 +23,10 @@ return [
             'topology' => false,
         ],
     ],
-
     'maps' => [
         'lca3' => 'cca3',
         'currencies' => 'currency',
     ],
-
     'validation' => [
         'enabled' => true,
         'rules' => [
@@ -51,5 +42,4 @@ return [
             'language_short'    => 'ISO639_3',
         ],
     ],
-
 ];

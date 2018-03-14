@@ -4,16 +4,16 @@ namespace Tests\Feature;
 
 use App\User;
 use App\Wine;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class WishlistTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function a_user_can_add_a_wine_into_his_wishlist() {
+    public function a_user_can_add_a_wine_into_his_wishlist()
+    {
         $user = factory(User::class)->create();
 
         $wine = factory(Wine::class)->create();
@@ -32,7 +32,8 @@ class WishlistTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_add_multiple_wines_into_his_wishlist() {
+    public function a_user_can_add_multiple_wines_into_his_wishlist()
+    {
         $user = factory(User::class)->create();
 
         $wines = factory(Wine::class, 5)->create();
@@ -55,7 +56,8 @@ class WishlistTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_remove_a_wine_from_his_wishlist() {
+    public function a_user_can_remove_a_wine_from_his_wishlist()
+    {
         $user = factory(User::class)->create();
 
         $wine = factory(Wine::class)->create();
@@ -76,7 +78,8 @@ class WishlistTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_remove_multiple_wines_from_his_wishlist() {
+    public function a_user_can_remove_multiple_wines_from_his_wishlist()
+    {
         $user = factory(User::class)->create();
 
         $wines = factory(Wine::class, 5)->create();

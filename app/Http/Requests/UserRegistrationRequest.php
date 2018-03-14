@@ -28,22 +28,10 @@ class UserRegistrationRequest extends FormRequest
             'last-name' => 'required|string|max:25',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'country' => 'required|country',
+            'country' => 'required|integer|exists:countries,id',
             'rating-visibility' => 'required|integer|exists:rating_visibilities,id',
             'newsletter' => 'required|boolean',
-            'email-offers' => 'required|boolean',
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-
+            'email-offers' => 'required|boolean'
         ];
     }
 }

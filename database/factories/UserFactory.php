@@ -1,10 +1,9 @@
 <?php
 
 use App\{
-    Address, User, RatingVisibility as Rating
+    Address,Country, User, RatingVisibility as Rating
 };
 use Faker\Generator as Faker;
-use PragmaRX\Countries\Package\Countries;
 
 $id = 1;
 
@@ -31,6 +30,6 @@ $factory->define(User::class, function (Faker $faker) use (&$id) {
             ])->id;
         },
         'rating_visibility_id' => ($ratings = Rating::all())->isEmpty() ? factory(Rating::class)->create()->id : $ratings->random()->id,
-        'country' => Countries::all()->random()->name->common
+        'country_id' => ($countries = Country::all())->isEmpty() ? factory(Country::class)->create()->id : $countries->random()->id
     ];
 });

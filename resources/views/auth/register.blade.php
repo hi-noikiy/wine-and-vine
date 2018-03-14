@@ -115,7 +115,7 @@
                                     <select id="country" class="form-control" name="country">
                                         <option selected>Select your Country</option>
                                         @foreach($countries as $country)
-                                            <option value="{{ $country->name->common }}">{{ $country->name->common }}</option>
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

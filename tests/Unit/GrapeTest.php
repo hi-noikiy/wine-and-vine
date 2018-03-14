@@ -3,12 +3,11 @@
 namespace Tests\Unit;
 
 use App\{
-    WineAcidity, WineBody, WineColor, Grape
+    Grape
 };
 use Illuminate\Database\Eloquent\Collection;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class GrapeTest extends TestCase
 {

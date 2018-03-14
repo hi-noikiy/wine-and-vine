@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 
+use App\Country;
 use App\Http\Requests\UserRegistrationRequest;
 use App\User;
 use App\RatingVisibility;
@@ -54,7 +55,7 @@ class RegisterController extends Controller
     {
         return view('auth.register', [
             'ratings' => RatingVisibility::all(),
-            'countries' => Countries::all()
+            'countries' => Country::all()
         ]);
     }
 
@@ -90,7 +91,7 @@ class RegisterController extends Controller
             'username' => $this->uniqueUsername($first_name, $last_name),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'country' => $data['country'],
+            'country_id' => $data['country'],
             'rating_visibility_id' => $data['rating-visibility'],
             'newsletter' => $data['newsletter'],
             'email_offers' => $data['email-offers']

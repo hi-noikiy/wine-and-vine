@@ -6,9 +6,8 @@ use App\{
     City, Country, Region
 };
 use Illuminate\Database\Eloquent\Collection;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CityTest extends TestCase
 {

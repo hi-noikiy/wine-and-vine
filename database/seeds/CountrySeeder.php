@@ -1,7 +1,8 @@
 <?php
 
-use App\Country;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use PragmaRX\Countries\Package\Countries;
 
 class CountrySeeder extends Seeder
 {
@@ -12,6 +13,12 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        factory(Country::class, 10)->create();
+        foreach (Countries::all() as $country)
+        {
+            DB::table('countries')->insert([
+                'name' => $country->name->common,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+        }
     }
 }

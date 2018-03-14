@@ -6,10 +6,9 @@ use App\{
     Address, City, Country, Region, User, Winery
 };
 use Exception;
-use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class WineryTest extends TestCase
 {

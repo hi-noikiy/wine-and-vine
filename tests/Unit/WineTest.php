@@ -3,8 +3,9 @@
 namespace Tests\Unit;
 
 use App\{
-    User, Wine, WineAcidity, WineBody, WineColor, WineOriginDenomination, Winery, WineType
+    Address, User, Wine, WineAcidity, WineBody, WineColor, WineOriginDenomination, Winery, WineType
 };
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,7 +14,7 @@ class WineTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $wine;
+    private $wine;
 
     public function setUp()
     {
@@ -71,7 +72,7 @@ class WineTest extends TestCase
     }
 
     /** @test
-     * @throws \Exception
+     * @throws Exception
      */
     public function a_wine_belongs_to_many_users_wishlists()
     {
@@ -108,5 +109,78 @@ class WineTest extends TestCase
             'wine_id' => $this->wine->id,
             'user_id' => $user->id
         ]);
+    }
+
+    /** @test */
+    public function a_wine_has_a_name()
+    {
+        $this->assertEquals('Wine Name', factory(Wine::class)->create(['name' => 'wine name'])->name);
+    }
+
+    /** @test */
+    public function a_wine_has_a_description()
+    {
+        $this->assertEquals('Wine Description', factory(Wine::class)->create(['description' => 'Wine Description'])->description);
+    }
+
+    /** @test */
+    public function a_wine_can_access_its_region_directly()
+    {
+        $wine = factory(Wine::class)->create([
+            'winery_id' => ($winery = factory(Winery::class)->create())->id
+        ]);
+
+        $winery->address()->save($address = factory(Address::class)->create());
+
+        $this->assertEquals($address->region, $wine->region);
+    }
+
+    /** @test */
+    public function a_wine_can_access_its_region_name_directly()
+    {
+        $wine = factory(Wine::class)->create([
+            'winery_id' => ($winery = factory(Winery::class)->create())->id
+        ]);
+
+        $winery->address()->save($address = factory(Address::class)->create());
+
+        $this->assertEquals($address->region->name, $wine->region_name);
+    }
+
+    /** @test */
+    public function a_wine_can_access_its_country_directly()
+    {
+        $wine = factory(Wine::class)->create([
+            'winery_id' => ($winery = factory(Winery::class)->create())->id
+        ]);
+
+        $winery->address()->save($address = factory(Address::class)->create());
+
+        $this->assertEquals($address->country, $wine->country);
+    }
+
+    /** @test */
+    public function a_wine_can_access_its_country_name_directly()
+    {
+        $wine = factory(Wine::class)->create([
+            'winery_id' => ($winery = factory(Winery::class)->create())->id
+        ]);
+
+        $winery->address()->save($address = factory(Address::class)->create());
+
+        $this->assertEquals($address->country->name, $wine->country_name);
+    }
+
+    /** @test */
+    public function a_wine_has_a_rating()
+    {
+        $this->assertTrue(is_float($this->wine->rating));
+
+        $wine = factory(Wine::class)->create([
+            'rating_sum' => 25,
+            'rating_count' => 5
+        ]);
+
+        $this->assertEquals(5.0, $wine->rating);
     }
 }

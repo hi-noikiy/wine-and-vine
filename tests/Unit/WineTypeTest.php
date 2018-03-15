@@ -11,11 +11,12 @@ class WineTypeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $wine_type;
+    private $wine_type;
 
     protected function setUp()
     {
         parent::setUp();
+
         $this->wine_type = factory(WineType::class)->create();
     }
 
@@ -23,5 +24,13 @@ class WineTypeTest extends TestCase
     public function a_wine_type_has_many_wines()
     {
         $this->assertInstanceOf(Collection::class, $this->wine_type->wines);
+    }
+
+    /** @test */
+    public function a_wine_type_has_a_name()
+    {
+        $this->wine_type->update(['name' => 'different name']);
+
+        $this->assertEquals('Different Name', $this->wine_type->name);
     }
 }

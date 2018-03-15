@@ -209,4 +209,20 @@ class UserTest extends TestCase
         // And lastly, check that the user has no shipping addresses
         $this->assertNull($user->shipping);
     }
+
+    /** @test */
+    public function a_user_may_own_many_wineries()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->wineries);
+    }
+
+    /** @test */
+    public function a_user_may_access_his_shipping_address()
+    {
+        $address = $this->user->shipping;
+        $this->assertEquals(
+            "$address->street_name, $address->postcode $address->cityName, $address->regionName, $address->countryName",
+            $this->user->shipping_address
+        );
+    }
 }

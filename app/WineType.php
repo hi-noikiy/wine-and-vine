@@ -30,4 +30,30 @@ class WineType extends Model
     {
         return $this->hasMany(Wine::class);
     }
+
+    /************************* Accessors ******************************/
+
+    /**
+     * Fetch Color's name
+     *
+     * @param string $name
+     * @return string
+     */
+    public function getNameAttribute(string $name) : string
+    {
+        return trim(preg_replace('/\s+/', ' ', ucwords($name)));
+    }
+
+    /************************* Mutators ******************************/
+
+    /**
+     * Set the Color's name
+     *
+     * @param string $name
+     * @return void
+     */
+    public function setNameAttribute(string $name) : void
+    {
+        $this->attributes['name'] = trim(preg_replace('/\s+/', ' ', strtolower($name)));
+    }
 }

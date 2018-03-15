@@ -13,17 +13,17 @@ class GrapeTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $grape;
-
-    public function setUp()
-    {
-        parent::setUp();
-        $this->grape = factory(Grape::class)->create();
-    }
-
     /** @test */
     public function a_grape_has_many_wines()
     {
-        $this->assertInstanceOf(Collection::class, $this->grape->wines);
+        $this->assertInstanceOf(Collection::class, factory(Grape::class)->make()->wines);
+    }
+
+    /** @test */
+    public function a_grape_has_a_name()
+    {
+        $grape = factory(Grape::class)->create(['name' => 'some name']);
+
+        $this->assertEquals('Some Name', $grape->name);
     }
 }

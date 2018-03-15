@@ -31,6 +31,13 @@ class AddressTest extends TestCase
     }
 
     /** @test */
+    public function an_address_has_a_type()
+    {
+        $address = factory(Address::class)->create(['type' => 'work address']);
+        $this->assertEquals('Work Address', $address->type);
+    }
+
+    /** @test */
     public function an_address_can_belong_to_a_winery()
     {
         $address = factory(Address::class)->create([

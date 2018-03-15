@@ -95,7 +95,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function owns(): HasMany
+    public function wineries(): HasMany
     {
         return $this->hasMany(Winery::class, 'owner_id');
     }
@@ -182,7 +182,7 @@ class User extends Authenticatable
      */
     public function getShippingAddressAttribute(): string
     {
-        return $this->shipping->fullAddress;
+        return $this->shipping->full_address;
     }
 
     /************************* Mutators ******************************/

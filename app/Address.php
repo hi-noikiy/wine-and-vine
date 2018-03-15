@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsTo, Relations\HasMany, Relations\MorphTo
+    Model, Relations\BelongsTo, Relations\HasMany, Relations\HasOne, Relations\MorphTo
 };
 
 class Address extends Model
@@ -36,7 +36,7 @@ class Address extends Model
     /**
      * Get all of the owning addressable models.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @return MorphTo
      */
     public function addressable(): MorphTo
     {
@@ -46,21 +46,11 @@ class Address extends Model
     /**
      * Fetch the Address's city relation
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
-    }
-
-    /**
-     * Fetch the Address's user relation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class);
     }
 
     /************************* Accessors ******************************/

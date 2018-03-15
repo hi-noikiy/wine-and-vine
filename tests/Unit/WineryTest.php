@@ -19,6 +19,7 @@ class WineryTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         $this->winery = factory(Winery::class)->create();
     }
 
@@ -203,5 +204,29 @@ class WineryTest extends TestCase
         $winery = factory(Winery::class)->create(['name' => 'winE NaMe']);
         // Assert that the name is capitalised after fetching it from the database
         $this->assertEquals('Wine Name', $winery->name);
+    }
+
+    /** @test */
+    public function a_winery_has_an_email_address()
+    {
+        $this->winery->update(['email' => 'wine@winery.com']);
+
+        $this->assertEquals('wine@winery.com', $this->winery->email);
+    }
+
+    /** @test */
+    public function a_winery_has_a_phone_number()
+    {
+        $this->winery->update(['phone_number' => '123-98765']);
+
+        $this->assertEquals('123-98765', $this->winery->phone_number);
+    }
+
+    /** @test */
+    public function a_winery_has_a_mobile_phone_number()
+    {
+        $this->winery->update(['mobile_number' => '756-98765']);
+
+        $this->assertEquals('756-98765', $this->winery->mobile_number);
     }
 }

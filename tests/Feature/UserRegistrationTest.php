@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use PragmaRX\Countries\Package\Countries;
 use Tests\TestCase;
 
 class UserRegistrationTest extends TestCase

@@ -1,7 +1,7 @@
 <?php
 
 use App\{
-    Address, User, Wine
+    Address, Country, RatingVisibility as Rating, User, Wine
 };
 use Illuminate\Database\Seeder;
 
@@ -14,8 +14,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        factory(User::class)->create([
+            'first_name' => 'Rafael',
+            'last_name' => 'Macedo',
+            'email' => 'macedorjd.dev@gmail.com',
+            'password' => 'secret',
+            'username' => 'rafaelmacedo',
+            'rating_visibility_id' => Rating::first()->id,
+            'country_id' => Country::whereName('Portugal')->first()->id,
+        ])->assignRole('admin');
+
         $wines = Wine::all();
-        factory(User::class, 10)->create()
+        factory(User::class, 9)->create()
             ->each(function ($user) use ($wines) {
                 $user->addresses()->save(factory(Address::class)->create([
                     'addressable_id' => $user->id,

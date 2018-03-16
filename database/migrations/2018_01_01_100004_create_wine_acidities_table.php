@@ -16,7 +16,7 @@ class CreateWineAciditiesTable extends Migration
         Schema::create('wine_acidities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('image')->default(storage_path('app/public/images/grape/acidity/default.png'));
+            $table->string('image')->default(storage_path('app/public/images/grapes/acidity/default.png'));
             $table->timestamps();
 
             $table->unique('name');

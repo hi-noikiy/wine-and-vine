@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Relations\{
 };
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use PragmaRX\Countries\Package\Countries;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /************************* Properties ******************************/
 
@@ -218,6 +218,16 @@ class User extends Authenticatable
     public function setEmailAttribute(string $email): void
     {
         $this->attributes['email'] = trim(preg_replace('/\s+/', ' ', strtolower($email)));
+    }
+
+    /**
+     * Set User's password with an hash representation
+     *
+     * @param $password
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
     }
 
     /************************* Functions ******************************/

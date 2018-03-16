@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            RatingVisibilitiesSeeder::class,
+            RoleSeeder::class,
             CountrySeeder::class,
             RegionSeeder::class,
             CitySeeder::class,
@@ -21,14 +23,10 @@ class DatabaseSeeder extends Seeder
             FoodPairSeeder::class,
             WineOriginDenominationSeeder::class,
             WineTypeSeeder::class,
-            RatingVisibilitiesSeeder::class,
             UserSeeder::class,
             WinerySeeder::class,
-            // UserWinerySeeder::class,
             GrapeSeeder::class,
             WineSeeder::class,
-            // UserWineSeeder::class,
-            // GrapeWineSeeder::class,
         ]);
     }
 }

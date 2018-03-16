@@ -1,12 +1,67 @@
 TODO: check a slug package to implement
 
-/*
-     * TIPO
-     * vinhos de mesa -> branco, tinto e rosé
-     * espumantes
-     * frutificados
-     *
-     * CLASSIFICACAO
-     * classificação [doc -> 65pts, igp -> 60 pts, comuns]
-     * designativo de qualidade [reserva]
-     */
+- app                                                                           // app/
+    - public                                                                    // app/public/
+        - images                                                                // app/public/images/
+            - users                                                             // app/public/images/users/
+                - user_default.png                                              // app/public/images/users/user_default.png
+                - user_default_thumbnail.png                                    // app/public/images/users/user_default_thumbnail.png
+                user_{{$username}}                                              // app/public/images/users/user_rafaelmacedo/
+                    - user_{{$username}}.png                                    // app/public/images/users/user_rafaelmacedo/user_rafaelmacedo.png
+                    - user_{{$username}}_thumbnail.png                          // app/public/images/users/user_rafaelmacedo/avatar/user_rafaelmacedo_thumbnail.png
+            - wines                                                             // app/public/images/wines/
+
+                - acidity                                                       // app/public/images/wines/acidity/
+                    - wine_acidity_default.png                                  // app/public/images/wines/acidity/wine_acidity_default.png
+                    - wine_acidity_default_thumbnail.png                        // app/public/images/wines/acidity/wine_acidity_default_thumbnail.png
+                    - wine_acidity_{{$acidity_slug}}                            // app/public/images/wines/acidity/wine_acidity_low/
+                        - {{$acidity_slug}}.png                                 // app/public/images/wines/acidity/wine_acidity_low/low.png
+                        - thumbnail                                             // app/public/images/wines/acidity/wine_acidity_low/thumbnail/
+                            - {{$acidity_slug}}_thumbnail.png                   // app/public/images/wines/acidity/wine_acidity_low/thumbnail/low_thumbnail.png
+
+                - body                                                          // app/public/images/wines/body/
+                    - wine_body_default.png                                     // app/public/images/wines/body/wine_body_default.png
+                    - wine_body_default_thumbnail.png                           // app/public/images/wines/body/wine_body_default_thumbnail.png
+                    - wine_body_{{$body_slug}}                                  // app/public/images/wines/body/wine_body_very_light_bodied/
+                        - {{$body_slug}}.png                                    // app/public/images/wines/body/wine_body_very_light_bodied/very_light_bodied.png
+                        - thumbnail                                             // app/public/images/wines/body/wine_body_very_light_bodied/thumbnail/
+                            - {{$body_slug}}_thumbnail.png                      // app/public/images/wines/body/wine_body_very_light_bodied/thumbnail/very_light_bodied_thumbnail.png
+
+                - color                                                         // app/public/images/wines/color/
+                    - wine_color_default.png                                    // app/public/images/wines/body/wine_color_default.png
+                    - wine_color_default_thumbnail.png                          // app/public/images/wines/body/wine_color_default_thumbnail.png
+                    - wine_color_{{$color_slug}}                                // app/public/images/wines/body/wine_color_default_crimson/
+                        {{$color_slug}}.png                                     // app/public/images/wines/body/wine_color_default_crimson/crimson.png
+                        - thumbnail                                             // app/public/images/wines/body/wine_color_default_crimson/thumbnail/
+                            - {{$color_slug}}_thumbnail.png                     // app/public/images/wines/body/wine_color_default_crimson/thumbnail/crimson_thumbnail.png
+
+                - origin_denomination                                           // app/public/images/wines/origin_denomination/
+                    - wine_origin_denomination_default.png                      // app/public/images/wines/origin_denomination/wine_origin_denomination_default.png
+                    - wine_origin_denomination_default_thumbnail.png            // app/public/images/wines/origin_denomination/wine_origin_denomination_default_thumbnail.png
+                    - wine_origin_denomination_{{$origin_slug}}                 // app/public/images/wines/origin_denomination/wine_origin_denomination_doc/
+                        {{$origin_slug}}.png                                    // app/public/images/wines/origin_denomination/wine_origin_denomination_doc/doc.png
+                        - thumbnail                                             // app/public/images/wines/origin_denomination/wine_origin_denomination_doc/thumbnail/
+                            - {{$origin_slug}}_thumbnail.png                    // app/public/images/wines/origin_denomination/wine_origin_denomination_doc/thumbnail/doc_thumbnail.png
+
+                - wine_main_default.png                                         // app/public/images/wines/wine_main_default.png
+                - wine_main_default_thumbnail.png                               // app/public/images/wines/wine_main_default_thumbnail.png
+                - wine_{{$wine_slug}}                                           // app/public/images/wines/wine_grous_reserva/
+                    - wine_{{$wine_slug}}_main.png                              // app/public/images/wines/wine_grous_reserva/wine_grous_reserva_main.png
+                    - thumbnail                                                 // app/public/images/wines/wine_grous_reserva/wine_grous_reserva/thumbnail/
+                        - wine_{{$wine_slug}}_main_thumbnail.png                // app/public/images/wines/wine_grous_reserva/thumbnail/wine_grous_reserva_main_thumbnail.png
+                    - wine_{{$wine_slug}}_{{$wine_id}}.png                      // app/public/images/wines/wine_grous_reserva/wine_grous_reserva_1.png
+                    - wine_{{$wine_slug}}_{{$wine_id}}.png                      // app/public/images/wines/wine_grous_reserva/wine_grous_reserva_2.png
+            - wineries
+                - default.png
+                    - winery_{{$winery_id}}_hash
+                        - thumbnail
+                            - winery_{{$winery_id}}_datetime_thumbnail.png
+
+TIPO
+    vinhos de mesa -> branco, tinto e rosé
+    espumantes
+    frutificados
+
+CLASSIFICACAO
+    classificação [doc -> 65pts, igp -> 60 pts, comuns]
+    designativo de qualidade [reserva]

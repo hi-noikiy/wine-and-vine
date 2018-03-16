@@ -36,6 +36,11 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
+    protected function redirectTo()
+    {
+        return route('home');
+    }
+
     /**
      * Create a new controller instance.
      *
@@ -90,7 +95,7 @@ class RegisterController extends Controller
             'last_name' => $last_name,
             'username' => $this->uniqueUsername($first_name, $last_name),
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => $data['password'],
             'country_id' => $data['country'],
             'rating_visibility_id' => $data['rating-visibility'],
             'newsletter' => $data['newsletter'],

@@ -16,7 +16,7 @@ class CreateWineBodiesTable extends Migration
         Schema::create('wine_bodies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('image')->default(storage_path('app/public/images/bodies/default.png'));
+            $table->string('image')->default(storage_path('app/public/images/wines/bodies/default.png'));
             $table->timestamps();
 
             $table->unique('name');

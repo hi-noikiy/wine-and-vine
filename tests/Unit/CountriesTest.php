@@ -31,6 +31,6 @@ class CountriesTest extends TestCase
     {
         $this->country->update(['name' => 'Portugal']);
 
-        $this->assertEquals('Portugal', Country::whereName('Portugal')->first()->name);
+        $this->assertEquals('Portugal', Country::whereName('portugal')->first()->name);
     }
 }

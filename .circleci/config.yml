@@ -7,14 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: image: circleci/php:7.1
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
-
-    working_directory: ~/repo
+      - image: circleci/php:7.1.5-browsers
 
     install_composer: &install_composer
         command: |
@@ -32,6 +25,12 @@ jobs:
             RESULT=$?
             rm composer-setup.php
             exit $RESULT
+          # Specify service dependencies here if necessary
+          # CircleCI maintains a library of pre-built images
+          # documented at https://circleci.com/docs/2.0/circleci-images/
+          # - image: circleci/mysql:9.4
+
+    working_directory: ~/repo
 
     steps:
       - checkout

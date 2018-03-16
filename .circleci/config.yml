@@ -5,6 +5,12 @@ jobs:
     docker:
       - image: circleci/php:7.1-node-browsers
     working_directory: ~/laravel
+
+    test:
+      override:
+        - mkdir -p $CIRCLE_TEST_REPORTS/phpunit
+        - phpunit --log-junit $CIRCLE_TEST_REPORTS/phpunit/junit.xml tests
+
     steps:
       - checkout
       - run: sudo apt install -y libsqlite3-dev zlib1g-dev

@@ -20,6 +20,8 @@ class CreateWinesTable extends Migration
             $table->float('price');
             $table->text('description');
             $table->unsignedBigInteger('quantity_in_stock');
+            $table->string('image')->default(storage_path('app/public/images/wines/default.png'));
+            $table->string('thumbnail')->default(storage_path('app/public/images/wines/thumbnails/default.png'));
             $table->unsignedInteger('rating_count');
             $table->float('rating_sum');
             $table->unsignedInteger('temperature');

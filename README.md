@@ -1,2 +1,2 @@
-# Wine & Vine Web Application [![Build Status](https://travis-ci.org/RafaelMLMacedo/wine-and-vine.svg?branch=master)](https://travis-ci.org/RafaelMLMacedo/wine-and-vine)
+# Wine & Vine Web Application [![Build Status](https://travis-ci.org/RafaelMLMacedo/wine-and-vine.svg?branch=master)](https://travis-ci.org/RafaelMLMacedo/wine-and-vine) [![CircleCI](https://circleci.com/gh/RafaelMLMacedo/wine-and-vine/tree/master.svg?style=svg)](https://circleci.com/gh/RafaelMLMacedo/wine-and-vine/tree/master)
 The wine shopping application, where producers can sell their wines and consumers can buy

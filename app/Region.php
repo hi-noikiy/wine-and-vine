@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsTo, Relations\HasMany
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Region extends Model
 {
@@ -20,7 +20,7 @@ class Region extends Model
     ];
 
     /**
-     * The relations to be eager loaded every time a user is fetched from the database
+     * The relations to be eager loaded every time a user is fetched from the database.
      *
      * @var array
      */
@@ -31,7 +31,7 @@ class Region extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch the Region's Country
+     * Fetch the Region's Country.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -41,7 +41,7 @@ class Region extends Model
     }
 
     /**
-     * Fetch the Region's Cities
+     * Fetch the Region's Cities.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -53,7 +53,7 @@ class Region extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Get the Region's name
+     * Get the Region's name.
      *
      * @param string $name
      * @return string
@@ -64,7 +64,7 @@ class Region extends Model
     }
 
     /**
-     * Fetch the Region's country name
+     * Fetch the Region's country name.
      *
      * @return string
      */
@@ -74,7 +74,7 @@ class Region extends Model
     }
 
     /**
-     * Get the Region's full name, including the Country
+     * Get the Region's full name, including the Country.
      *
      * @return string
      */
@@ -86,7 +86,7 @@ class Region extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Sets the Region's name
+     * Sets the Region's name.
      *
      * @param string $name
      * @return void

@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsTo, Relations\BelongsToMany
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class   Wine extends Model
+class Wine extends Model
 {
     /************************* Properties ******************************/
 
@@ -21,7 +21,7 @@ class   Wine extends Model
     ];
 
     /**
-     * The relations to be eager loaded every time a wine is fetched from the database
+     * The relations to be eager loaded every time a wine is fetched from the database.
      *
      * @var array
      */
@@ -38,7 +38,7 @@ class   Wine extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch Wine's acidity
+     * Fetch Wine's acidity.
      *
      * @return BelongsTo
      */
@@ -48,7 +48,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's body
+     * Fetch Wine's body.
      *
      * @return BelongsTo
      */
@@ -58,7 +58,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's castes
+     * Fetch Wine's castes.
      *
      * @return BelongsToMany
      */
@@ -68,7 +68,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's color
+     * Fetch Wine's color.
      *
      * @return BelongsTo
      */
@@ -78,7 +78,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's origin denomination
+     * Fetch Wine's origin denomination.
      *
      * @return BelongsTo
      */
@@ -88,7 +88,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's food pairings
+     * Fetch Wine's food pairings.
      *
      * @return BelongsToMany
      */
@@ -98,7 +98,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's type
+     * Fetch Wine's type.
      *
      * @return BelongsTo
      */
@@ -108,7 +108,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's winery
+     * Fetch Wine's winery.
      *
      * @return BelongsTo
      */
@@ -118,7 +118,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's wishlists
+     * Fetch Wine's wishlists.
      *
      * @return BelongsToMany
      */
@@ -130,7 +130,7 @@ class   Wine extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Fetch Wine's name
+     * Fetch Wine's name.
      *
      * @param string $name
      * @return string
@@ -141,7 +141,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's description
+     * Fetch Wine's description.
      *
      * @param string $description
      * @return string
@@ -152,7 +152,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's region
+     * Fetch Wine's region.
      *
      * @return Region
      */
@@ -162,7 +162,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's region name
+     * Fetch Wine's region name.
      *
      * @return string
      */
@@ -172,7 +172,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's country
+     * Fetch Wine's country.
      *
      * @return Country
      */
@@ -182,7 +182,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's country name
+     * Fetch Wine's country name.
      *
      * @return string
      */
@@ -192,7 +192,7 @@ class   Wine extends Model
     }
 
     /**
-     * Fetch Wine's rating
+     * Fetch Wine's rating.
      *
      * @return float
      */
@@ -204,7 +204,7 @@ class   Wine extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Set the Wine's name
+     * Set the Wine's name.
      *
      * @param string $name
      * @return void
@@ -215,7 +215,7 @@ class   Wine extends Model
     }
 
     /**
-     * Set the Wine's description
+     * Set the Wine's description.
      *
      * @param string $description
      * @return void

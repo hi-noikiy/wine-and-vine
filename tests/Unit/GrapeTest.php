@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
+use Tests\TestCase;
 use App\{
     Grape
 };
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class GrapeTest extends TestCase
 {

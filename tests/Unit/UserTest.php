@@ -2,15 +2,18 @@
 
 namespace Tests\Unit;
 
-use App\{
-    Address, Country, RatingVisibility, User, Wine, Winery
-};
+use App\User;
+use App\Wine;
 use Exception;
+use App\Winery;
+use App\Address;
+use App\Country;
+use Tests\TestCase;
+use App\RatingVisibility;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Tests\TestCase;
 
 class UserTest extends TestCase
 {

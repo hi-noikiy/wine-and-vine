@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\HasMany
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class WineColor extends Model
 {
@@ -22,7 +21,7 @@ class WineColor extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch the Grape's with this Color
+     * Fetch the Grape's with this Color.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -34,7 +33,7 @@ class WineColor extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Fetch Color's name
+     * Fetch Color's name.
      *
      * @param string $name
      * @return string
@@ -47,7 +46,7 @@ class WineColor extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Set the Color's name
+     * Set the Color's name.
      *
      * @param string $name
      * @return void

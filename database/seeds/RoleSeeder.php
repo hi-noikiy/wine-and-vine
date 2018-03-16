@@ -2,8 +2,8 @@
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleSeeder extends Seeder
 {
@@ -14,8 +14,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        foreach (config('wine-and-vine.data.roles') as $data)
-        {
+        foreach (config('wine-and-vine.data.roles') as $data) {
             $role = create(Role::class, [
                 'name' => $data['name'],
                 'guard_name' => $data['guard_name'],
@@ -23,8 +22,7 @@ class RoleSeeder extends Seeder
                 'updated_at' => null
             ]);
 
-            foreach ($data['permissions'] as $permission)
-            {
+            foreach ($data['permissions'] as $permission) {
                 $role->givePermissionTo(
                     create(Permission::class, [
                         'name' => $permission['name'],

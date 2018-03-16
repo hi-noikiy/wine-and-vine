@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\{
-    City, Country, Region
-};
+use App\City;
+use App\Region;
+use App\Country;
+use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class CityTest extends TestCase
 {

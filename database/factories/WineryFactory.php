@@ -1,7 +1,7 @@
 <?php
 
-use App\Winery;
 use App\User;
+use App\Winery;
 use Faker\Generator as Faker;
 
 $factory->define(Winery::class, function (Faker $faker) {

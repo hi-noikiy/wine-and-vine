@@ -27,6 +27,7 @@ class RatingVisibilitiesSeeder extends Seeder
                 'name' => 'private',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
-        } catch (Exception $e){}
+        } catch (Exception $e) {
+        }
     }
 }

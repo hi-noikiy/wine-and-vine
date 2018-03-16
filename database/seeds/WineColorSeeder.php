@@ -53,7 +53,7 @@ class WineColorSeeder extends Seeder
                 'image' => storage_path('app/public/images/grape/color/yellow.png'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
-        } catch (Exception $e){}
-
+        } catch (Exception $e) {
+        }
     }
 }

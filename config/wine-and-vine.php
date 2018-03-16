@@ -7,7 +7,6 @@ return [
 
     'data' => [
 
-
         /*
          * By default RoleSeeder class is loading this roles and building the database.
          * Each collection inside each role is its permissions that are being attached to the given role
@@ -15,7 +14,7 @@ return [
          */
         'roles' => [
             [
-                /**
+                /*
                  * Admin Role
                  */
                 'name' => 'admin',
@@ -25,7 +24,7 @@ return [
                 ],
             ],
             [
-                /**
+                /*
                  * Support Role
                  */
                 'name' => 'support',
@@ -35,7 +34,7 @@ return [
                 ]
             ],
             [
-                /**
+                /*
                  * Winery Owner Role
                  */
                 'name' => 'winery owner',
@@ -50,7 +49,7 @@ return [
                 ]
             ],
             [
-                /**
+                /*
                  * Winery Employee Role
                  */
                 'name' => 'winery employee',
@@ -62,7 +61,7 @@ return [
                 ]
             ],
             [
-                /**
+                /*
                  * Client Role
                  */
                 'name' => 'client',

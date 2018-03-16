@@ -1,7 +1,7 @@
 <?php
 
-use App\WineOriginDenomination;
 use Faker\Generator as Faker;
+use App\WineOriginDenomination;
 
 $factory->define(WineOriginDenomination::class, function (Faker $faker) {
     return [

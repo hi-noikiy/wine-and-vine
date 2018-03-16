@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use App\Country;
+use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class CountriesTest extends TestCase
 {

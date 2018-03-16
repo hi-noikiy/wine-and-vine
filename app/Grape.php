@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsToMany
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Grape extends Model
 {
@@ -22,7 +21,7 @@ class Grape extends Model
     /************************* Relations ******************************/
 
     /**
-     * Returns the Wines's where this Grape is
+     * Returns the Wines's where this Grape is.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -34,7 +33,7 @@ class Grape extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Fetch the Grape's name
+     * Fetch the Grape's name.
      *
      * @param string $name
      * @return string
@@ -47,7 +46,7 @@ class Grape extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Sets the Grape's name
+     * Sets the Grape's name.
      *
      * @param string $name
      * @return void

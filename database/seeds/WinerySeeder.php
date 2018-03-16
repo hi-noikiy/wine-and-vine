@@ -1,8 +1,7 @@
 <?php
 
-use App\{
-    Address, Winery
-};
+use App\Winery;
+use App\Address;
 use Illuminate\Database\Seeder;
 
 class WinerySeeder extends Seeder

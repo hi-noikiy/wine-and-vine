@@ -1,9 +1,14 @@
 <?php
 
-use App\{
-    Address, FoodPair, WineAcidity, WineBody, WineOriginDenomination, WineColor, Winery, WineType
-};
+use App\Winery;
+use App\Address;
+use App\FoodPair;
+use App\WineBody;
+use App\WineType;
+use App\WineColor;
+use App\WineAcidity;
 use Faker\Generator as Faker;
+use App\WineOriginDenomination;
 
 $factory->define(App\Wine::class, function (Faker $faker) {
     return [
@@ -27,8 +32,10 @@ $factory->define(App\Wine::class, function (Faker $faker) {
                     'addressable_id' => $winery->id,
                     'addressable_type' => Winery::class
                 ]));
+
                 return $winery->id;
             }
+
             return $wineries->random()->id;
         },
         'food_pairing_id' => ($pairs = FoodPair::all())->isEmpty() ? factory(FoodPair::class)->create() : $pairs->random()->id

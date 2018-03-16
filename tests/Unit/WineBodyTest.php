@@ -3,9 +3,8 @@
 namespace Tests\Unit;
 
 use App\WineBody;
-use Illuminate\Support\Collection;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class WineBodyTest extends TestCase

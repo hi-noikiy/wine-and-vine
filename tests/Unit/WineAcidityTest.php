@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
+use Tests\TestCase;
 use App\WineAcidity;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class WineAcidityTest extends TestCase
 {

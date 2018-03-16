@@ -13,8 +13,7 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        foreach (Countries::all() as $country)
-        {
+        foreach (Countries::all() as $country) {
             DB::table('countries')->insert([
                 'name' => $country->name->common,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')

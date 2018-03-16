@@ -1,8 +1,7 @@
 <?php
 
-use App\{
-    Region, Country
-};
+use App\Region;
+use App\Country;
 use Faker\Generator as Faker;
 
 $factory->define(Region::class, function (Faker $faker) {

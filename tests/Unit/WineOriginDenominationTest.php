@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
+use Tests\TestCase;
+use Illuminate\Support\Collection;
 use App\{
     WineOriginDenomination
 };
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Collection;
-use Tests\TestCase;
 
 class WineOriginDenominationTest extends TestCase
 {

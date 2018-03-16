@@ -10,6 +10,7 @@ $factory->define(WineAcidity::class, function (Faker $faker) {
         ['name' => 'high', 'image' => 'high.png'],
         ['name' => 'very high', 'image' => 'very_high.png']
     ])->random();
+
     return [
         'name'  => $acidity['name'],
         'image' => storage_path("app/public/images/grape/acidity/${acidity['image']}")

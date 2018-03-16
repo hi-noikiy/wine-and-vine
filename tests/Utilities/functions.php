@@ -2,11 +2,11 @@
 
 /**
  * Creates an instance of the given $class with the given $attributes or a collection of $class objects if the $times
- * variable is overridden and persists the object or objects to the database
+ * variable is overridden and persists the object or objects to the database.
  *
  * @param string $class
  * @param array $attributes
- * @param integer|null $times
+ * @param int|null $times
  * @return mixed
  */
 function create(string $class, array $attributes = [], $times = null)
@@ -16,11 +16,11 @@ function create(string $class, array $attributes = [], $times = null)
 
 /**
  * Creates an instance of the given $class with the given $attributes or a collection of $class objects if the $times
- * variable is overridden
+ * variable is overridden.
  *
  * @param string $class
  * @param array $attributes
- * @param integer|null $times
+ * @param int|null $times
  * @return mixed
  */
 function make(string $class, array $attributes = [], $times = null)

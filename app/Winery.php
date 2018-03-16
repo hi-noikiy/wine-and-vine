@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsTo, Relations\BelongsToMany, Relations\HasMany, Relations\MorphOne
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Winery extends Model
 {
@@ -20,7 +22,7 @@ class Winery extends Model
     ];
 
     /**
-     * The relations to be eager loaded every time a user is fetched from the database
+     * The relations to be eager loaded every time a user is fetched from the database.
      *
      * @var array
      */
@@ -31,7 +33,7 @@ class Winery extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch the Winery's wines
+     * Fetch the Winery's wines.
      *
      * @return HasMany
      */
@@ -41,7 +43,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's owner
+     * Fetch Winery's owner.
      *
      * @return BelongsTo
      */
@@ -51,7 +53,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's employees
+     * Fetch Winery's employees.
      *
      * @return BelongsToMany
      */
@@ -61,7 +63,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's address
+     * Fetch Winery's address.
      *
      * @return MorphOne
      */
@@ -73,7 +75,7 @@ class Winery extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Fetch Winery's name
+     * Fetch Winery's name.
      *
      * @param string $name
      * @return string
@@ -84,7 +86,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's email
+     * Fetch Winery's email.
      *
      * @param string $email
      * @return string
@@ -95,7 +97,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's phone number
+     * Fetch Winery's phone number.
      *
      * @param string $phone
      * @return string
@@ -106,7 +108,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's mobile number
+     * Fetch Winery's mobile number.
      *
      * @param string $mobile
      * @return string
@@ -117,7 +119,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's address name
+     * Fetch Winery's address name.
      *
      * @return string
      */
@@ -127,7 +129,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's city
+     * Fetch Winery's city.
      *
      * @return City
      */
@@ -137,7 +139,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's city name
+     * Fetch Winery's city name.
      *
      * @return string
      */
@@ -147,7 +149,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's region
+     * Fetch Winery's region.
      *
      * @return Region
      */
@@ -157,7 +159,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's region name
+     * Fetch Winery's region name.
      *
      * @return string
      */
@@ -167,7 +169,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's country
+     * Fetch Winery's country.
      *
      * @return Country
      */
@@ -177,7 +179,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's country name
+     * Fetch Winery's country name.
      *
      * @return string
      */
@@ -187,7 +189,7 @@ class Winery extends Model
     }
 
     /**
-     * Fetch the Winery's full address
+     * Fetch the Winery's full address.
      *
      * @return string
      */
@@ -199,7 +201,7 @@ class Winery extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Set the Winery's name
+     * Set the Winery's name.
      *
      * @param string $name
      */
@@ -209,7 +211,7 @@ class Winery extends Model
     }
 
     /**
-     * Set the Winery's email
+     * Set the Winery's email.
      *
      * @param string $email
      */
@@ -219,7 +221,7 @@ class Winery extends Model
     }
 
     /**
-     * Set the Winery's phone number
+     * Set the Winery's phone number.
      *
      * @param string $phone
      */
@@ -229,7 +231,7 @@ class Winery extends Model
     }
 
     /**
-     * Set the Winery's mobile number
+     * Set the Winery's mobile number.
      *
      * @param string $mobile
      */
@@ -241,9 +243,9 @@ class Winery extends Model
     /************************* Functions ******************************/
 
     /**
-     * Attaches the Winery to a given User
+     * Attaches the Winery to a given User.
      *
-     * @param User|integer $user
+     * @param User|int $user
      * @return void
      */
     public function employ($user): void
@@ -252,9 +254,9 @@ class Winery extends Model
     }
 
     /**
-     * Detaches the Winery from a given User
+     * Detaches the Winery from a given User.
      *
-     * @param User|integer $user
+     * @param User|int $user
      * @return void
      */
     public function fire($user): void

@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\HasMany
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class WineBody extends Model
 {
@@ -22,7 +21,7 @@ class WineBody extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch the Grape's with this Body
+     * Fetch the Grape's with this Body.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -34,7 +33,7 @@ class WineBody extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Fetch Acidity's name
+     * Fetch Acidity's name.
      *
      * @param string $name
      * @return string
@@ -47,7 +46,7 @@ class WineBody extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Set the Acidity's name
+     * Set the Acidity's name.
      *
      * @param string $name
      * @return void

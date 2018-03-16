@@ -21,7 +21,7 @@ class WineOriginDenomination extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch Origin Denomination's wines
+     * Fetch Origin Denomination's wines.
      *
      * @return HasMany
      */
@@ -33,7 +33,7 @@ class WineOriginDenomination extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Fetch Wine Origin's name
+     * Fetch Wine Origin's name.
      *
      * @param string $name
      * @return string
@@ -44,7 +44,7 @@ class WineOriginDenomination extends Model
     }
 
     /**
-     * Fetch Wine Origin's short name
+     * Fetch Wine Origin's short name.
      *
      * @param string $short_name
      * @return string
@@ -57,7 +57,7 @@ class WineOriginDenomination extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Set the Wine Origin's name
+     * Set the Wine Origin's name.
      *
      * @param string $name
      * @return void
@@ -68,7 +68,7 @@ class WineOriginDenomination extends Model
     }
 
     /**
-     * Set the Wine Origin's short name
+     * Set the Wine Origin's short name.
      *
      * @param string $short_name
      * @return void

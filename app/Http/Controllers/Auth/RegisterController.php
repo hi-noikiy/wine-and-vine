@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-
-use App\Country;
-use App\Http\Requests\UserRegistrationRequest;
 use App\User;
+use App\Country;
 use App\RatingVisibility;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
 use PragmaRX\Countries\Package\Countries;
+use App\Http\Requests\UserRegistrationRequest;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -90,6 +88,7 @@ class RegisterController extends Controller
     {
         $first_name = $data['first-name'];
         $last_name = $data['last-name'];
+
         return User::create([
             'first_name' => $first_name,
             'last_name' => $last_name,
@@ -103,7 +102,8 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function uniqueUsername($first_name, $last_name) {
+    protected function uniqueUsername($first_name, $last_name)
+    {
         $username = strtolower("{$first_name}_{$last_name}");
         $count = User::where('username', 'like', "%{$username}%")->count();
 

@@ -1,9 +1,11 @@
 <?php
 
-use App\{
-    Address, Country, RatingVisibility as Rating, User, Wine
-};
+use App\User;
+use App\Wine;
+use App\Address;
+use App\Country;
 use Illuminate\Database\Seeder;
+use App\RatingVisibility as Rating;
 
 class UserSeeder extends Seeder
 {

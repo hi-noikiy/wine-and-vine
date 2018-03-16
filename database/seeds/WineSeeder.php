@@ -1,8 +1,8 @@
 <?php
 
-use App\{
-    FoodPair, Grape, Wine
-};
+use App\Wine;
+use App\Grape;
+use App\FoodPair;
 use Illuminate\Database\Seeder;
 
 class WineSeeder extends Seeder

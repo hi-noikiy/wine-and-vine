@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\WineOriginDenomination;
 use Illuminate\Http\Request;
+use App\WineOriginDenomination;
 
 class WineOriginDenominationController extends Controller
 {

@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\{
-    Country, RatingVisibility, User
-};
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
+use App\Country;
+use Tests\TestCase;
+use App\RatingVisibility;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use PragmaRX\Countries\Package\Countries;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserRegistrationTest extends TestCase
 {
@@ -243,7 +243,7 @@ class UserRegistrationTest extends TestCase
         $this->assertCount(2, User::all());
         // Assert that their username's are different
         tap(User::all(), function ($users) {
-            /** @see https://laravel.com/docs/5.6/collections#method-diff */
+            /* @see https://laravel.com/docs/5.6/collections#method-diff */
             $this->assertEmpty(
                 $users->pluck('username', 'id')
                     ->diff(['john_doe', 'john_doe_1'])
@@ -261,15 +261,15 @@ class UserRegistrationTest extends TestCase
     public function validForm(array $overrides = []): array
     {
         return array_merge([
-            "first-name" => "John",
-            "last-name" => "Doe",
-            "email" => "john@example.com",
-            "password" => "secret",
-            "password_confirmation" => "secret",
-            "country" => factory(Country::class)->create()->id,
-            "rating-visibility" => factory(RatingVisibility::class)->create()->id,
-            "newsletter" => 1,
-            "email-offers" => 1
+            'first-name' => 'John',
+            'last-name' => 'Doe',
+            'email' => 'john@example.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret',
+            'country' => factory(Country::class)->create()->id,
+            'rating-visibility' => factory(RatingVisibility::class)->create()->id,
+            'newsletter' => 1,
+            'email-offers' => 1
         ], $overrides);
     }
 }

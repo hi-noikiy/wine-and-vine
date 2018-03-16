@@ -36,6 +36,7 @@ class WineBodySeeder extends Seeder
                 'image' => storage_path('app/public/images/grape/acidity/very_full_bodied.png'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
-        } catch (Exception $e){}
+        } catch (Exception $e) {
+        }
     }
 }

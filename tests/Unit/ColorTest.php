@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use App\WineColor;
+use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class ColorTest extends TestCase
 {

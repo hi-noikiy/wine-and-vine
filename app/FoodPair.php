@@ -19,7 +19,7 @@ class FoodPair extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch Food Pair's wines
+     * Fetch Food Pair's wines.
      *
      * @return BelongsToMany
      */

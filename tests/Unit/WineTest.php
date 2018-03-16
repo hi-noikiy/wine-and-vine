@@ -2,13 +2,19 @@
 
 namespace Tests\Unit;
 
-use App\{
-    Address, User, Wine, WineAcidity, WineBody, WineColor, WineOriginDenomination, Winery, WineType
-};
+use App\User;
+use App\Wine;
 use Exception;
+use App\Winery;
+use App\Address;
+use App\WineBody;
+use App\WineType;
+use App\WineColor;
+use Tests\TestCase;
+use App\WineAcidity;
+use App\WineOriginDenomination;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class WineTest extends TestCase
 {

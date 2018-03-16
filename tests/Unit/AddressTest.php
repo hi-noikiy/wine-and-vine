@@ -2,11 +2,14 @@
 
 namespace Tests\Unit;
 
-use App\{
-    Address, City, Country, Region, User, Winery
-};
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\City;
+use App\User;
+use App\Region;
+use App\Winery;
+use App\Address;
+use App\Country;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AddressTest extends TestCase
 {

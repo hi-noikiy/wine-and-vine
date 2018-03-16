@@ -2,10 +2,9 @@
 
 namespace Tests\Unit;
 
+use Tests\TestCase;
 use App\RatingVisibility;
 use Illuminate\Support\Collection;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RatingVisibilityTest extends TestCase

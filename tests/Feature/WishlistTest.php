@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use App\User;
 use App\Wine;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class WishlistTest extends TestCase
 {
@@ -101,7 +101,5 @@ class WishlistTest extends TestCase
                 'wine_id' => $wine->id
             ]);
         });
-
-
     }
 }

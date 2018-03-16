@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsTo, Relations\HasMany
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class City extends Model
 {
@@ -20,7 +20,7 @@ class City extends Model
     ];
 
     /**
-     * The relations to be eager loaded every time a user is fetched from the database
+     * The relations to be eager loaded every time a user is fetched from the database.
      *
      * @var array
      */
@@ -31,7 +31,7 @@ class City extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch the City's Region
+     * Fetch the City's Region.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -41,7 +41,7 @@ class City extends Model
     }
 
     /**
-     * Fetch the City's Addresses
+     * Fetch the City's Addresses.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -53,7 +53,7 @@ class City extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Get the City's name
+     * Get the City's name.
      *
      * @param string $name
      * @return string
@@ -64,7 +64,7 @@ class City extends Model
     }
 
     /**
-     * Fetch the City's region name
+     * Fetch the City's region name.
      *
      * @return string
      */
@@ -74,7 +74,7 @@ class City extends Model
     }
 
     /**
-     * Fetch the City's country
+     * Fetch the City's country.
      *
      * @return Country
      */
@@ -84,7 +84,7 @@ class City extends Model
     }
 
     /**
-     * Fetch the City's country name
+     * Fetch the City's country name.
      *
      * @return Country
      */
@@ -94,7 +94,7 @@ class City extends Model
     }
 
     /**
-     * Get the City's full name, including the Country
+     * Get the City's full name, including the Country.
      *
      * @return string
      */
@@ -106,7 +106,7 @@ class City extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Set the City's name
+     * Set the City's name.
      *
      * @param string $name
      * @return void

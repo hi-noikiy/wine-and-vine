@@ -2,12 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Relations\{
-    BelongsTo, BelongsToMany, HasMany, MorphMany
-};
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -32,7 +33,7 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
 
     /**
-     * The relations to be eager loaded every time a user is fetched from the database
+     * The relations to be eager loaded every time a user is fetched from the database.
      *
      * @var array
      */
@@ -51,7 +52,7 @@ class User extends Authenticatable
     /************************* Relations ******************************/
 
     /**
-     * Fetch the User's shipping address instance
+     * Fetch the User's shipping address instance.
      *
      * @return BelongsTo
      */
@@ -61,7 +62,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch all User's known addresses
+     * Fetch all User's known addresses.
      *
      * @return MorphMany
      */
@@ -71,7 +72,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's Rating Visibility
+     * Fetch User's Rating Visibility.
      *
      * @return BelongsTo
      */
@@ -81,7 +82,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's wines wishlist
+     * Fetch User's wines wishlist.
      *
      * @return BelongsToMany
      */
@@ -91,7 +92,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's Winery's that he owns
+     * Fetch User's Winery's that he owns.
      *
      * @return HasMany
      */
@@ -101,7 +102,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's Winery's where he works
+     * Fetch User's Winery's where he works.
      *
      * @return BelongsToMany
      */
@@ -111,7 +112,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's country
+     * Fetch User's country.
      *
      * @return BelongsTo
      */
@@ -155,7 +156,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's email
+     * Fetch User's email.
      *
      * @param string $email
      * @return string
@@ -166,7 +167,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's country name
+     * Fetch User's country name.
      *
      * @return string
      */
@@ -176,7 +177,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Fetch User's full shipping address
+     * Fetch User's full shipping address.
      *
      * @return string
      */
@@ -210,7 +211,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Set User's email
+     * Set User's email.
      *
      * @param string $email
      * @return void
@@ -221,7 +222,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Set User's password with an hash representation
+     * Set User's password with an hash representation.
      *
      * @param $password
      */
@@ -233,9 +234,9 @@ class User extends Authenticatable
     /************************* Functions ******************************/
 
     /**
-     * Attaches the User to a given Winery
+     * Attaches the User to a given Winery.
      *
-     * @param Winery|integer $winery
+     * @param Winery|int $winery
      */
     public function employTo($winery)
     {
@@ -243,9 +244,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Detaches the User from a given Winery
+     * Detaches the User from a given Winery.
      *
-     * @param Winery|integer $winery
+     * @param Winery|int $winery
      */
     public function quitFrom($winery)
     {

@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use App\Region;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Collection;
 use Tests\TestCase;
+use Illuminate\Support\Collection;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegionTest extends TestCase
 {

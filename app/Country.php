@@ -18,7 +18,7 @@ class Country extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch Country's Regions
+     * Fetch Country's Regions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -30,7 +30,7 @@ class Country extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Get the Country's name
+     * Get the Country's name.
      *
      * @param string $name
      * @return string
@@ -43,7 +43,7 @@ class Country extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Set the Country's name
+     * Set the Country's name.
      *
      * @param string $name
      * @return void

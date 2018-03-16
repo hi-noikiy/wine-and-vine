@@ -15,7 +15,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Signs in a user
+     * Signs in a user.
      *
      * @param mixed $user
      * @return $this
@@ -31,7 +31,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Signs in a user as an Admin
+     * Signs in a user as an Admin.
      *
      * @param mixed $admin
      * @return $this

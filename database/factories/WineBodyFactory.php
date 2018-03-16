@@ -10,6 +10,7 @@ $factory->define(WineBody::class, function (Faker $faker) {
         ['name' => 'full-bodied', 'image' => 'full_bodied.png'],
         ['name' => 'very full-bodied', 'image' => 'very_full_bodied.png']
     ])->random();
+
     return [
         'name'  => $body['name'],
         'image' => storage_path("app/public/images/grape/body/${body['image']}.png")

@@ -1,8 +1,7 @@
 <?php
 
-use App\{
-    City, Region
-};
+use App\City;
+use App\Region;
 use Faker\Generator as Faker;
 
 $factory->define(City::class, function (Faker $faker) {

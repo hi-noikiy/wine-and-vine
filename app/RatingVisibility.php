@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\HasMany
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RatingVisibility extends Model
 {
@@ -22,7 +21,7 @@ class RatingVisibility extends Model
     /************************* Relations ******************************/
 
     /**
-     * Fetch Rating Visibility's users
+     * Fetch Rating Visibility's users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -34,7 +33,7 @@ class RatingVisibility extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Fetch the rating visibility's name
+     * Fetch the rating visibility's name.
      *
      * @param string $name
      * @return string
@@ -47,7 +46,7 @@ class RatingVisibility extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Sets the rating visibility option
+     * Sets the rating visibility option.
      *
      * @param string $name
      * @return void

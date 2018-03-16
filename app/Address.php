@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\{
-    Model, Relations\BelongsTo, Relations\HasMany, Relations\HasOne, Relations\MorphTo
-};
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Address extends Model
 {
@@ -19,7 +19,7 @@ class Address extends Model
     ];
 
     /**
-     * The relations to be eager loaded every time a user is fetched from the database
+     * The relations to be eager loaded every time a user is fetched from the database.
      *
      * @var array
      */
@@ -44,7 +44,7 @@ class Address extends Model
     }
 
     /**
-     * Fetch the Address's city relation
+     * Fetch the Address's city relation.
      *
      * @return BelongsTo
      */
@@ -56,7 +56,7 @@ class Address extends Model
     /************************* Accessors ******************************/
 
     /**
-     * Fetch the Address's city name
+     * Fetch the Address's city name.
      *
      * @return string
      */
@@ -66,7 +66,7 @@ class Address extends Model
     }
 
     /**
-     * Fetch the Address's region
+     * Fetch the Address's region.
      *
      * @return Region
      */
@@ -76,7 +76,7 @@ class Address extends Model
     }
 
     /**
-     * Fetch the Address's region name
+     * Fetch the Address's region name.
      *
      * @return string
      */
@@ -86,7 +86,7 @@ class Address extends Model
     }
 
     /**
-     * Fetch the Address's country
+     * Fetch the Address's country.
      *
      * @return Country
      */
@@ -96,7 +96,7 @@ class Address extends Model
     }
 
     /**
-     * Fetch the Address's country name
+     * Fetch the Address's country name.
      *
      * @return string
      */
@@ -106,7 +106,7 @@ class Address extends Model
     }
 
     /**
-     * Get the Address's name
+     * Get the Address's name.
      *
      * @param string $type
      * @return string
@@ -117,7 +117,7 @@ class Address extends Model
     }
 
     /**
-     * Get the Address's street name
+     * Get the Address's street name.
      *
      * @param string $streetName
      * @return string
@@ -128,7 +128,7 @@ class Address extends Model
     }
 
     /**
-     * Get the Address's full address
+     * Get the Address's full address.
      *
      * @return string
      */
@@ -140,7 +140,7 @@ class Address extends Model
     /************************* Mutators ******************************/
 
     /**
-     * Set the Address's name
+     * Set the Address's name.
      *
      * @param string $type
      * @return void
@@ -153,7 +153,7 @@ class Address extends Model
     }
 
     /**
-     * Set the Address's street name
+     * Set the Address's street name.
      *
      * @param string $streetName
      * @return void

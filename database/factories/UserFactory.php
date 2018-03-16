@@ -1,14 +1,16 @@
 <?php
 
-use App\{
-    Address,Country, User, RatingVisibility as Rating
-};
+use App\User;
+use App\Address;
+use App\Country;
 use Faker\Generator as Faker;
+use App\RatingVisibility as Rating;
 
 $id = 1;
 
 $factory->define(User::class, function (Faker $faker) use (&$id) {
     $username = $faker->unique()->userName;
+
     return [
         'id' => $id++,
         'first_name' => $faker->firstName,

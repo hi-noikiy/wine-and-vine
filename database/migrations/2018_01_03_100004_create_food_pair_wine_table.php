@@ -14,11 +14,10 @@ class CreateFoodPairWineTable extends Migration
     public function up()
     {
         Schema::create('food_pair_wine', function (Blueprint $table) {
-            $table->increments('id');
             $table->unsignedInteger('food_pair_id');
             $table->unsignedInteger('wine_id');
 
-            $table->unique(['food_pair_id', 'wine_id']);
+            $table->primary(['food_pair_id', 'wine_id']);
 
             $table->foreign('food_pair_id')
                 ->references('id')

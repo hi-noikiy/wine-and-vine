@@ -25,7 +25,7 @@ class UserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = create(User::class);
     }
 
     /** @test */
@@ -220,6 +220,14 @@ class UserTest extends TestCase
     public function a_user_may_own_many_wineries()
     {
         $this->assertInstanceOf(Collection::class, $this->user->wineries);
+
+        $this->assertCount(0, $this->user->wineries);
+
+        $this->user
+            ->wineries()
+            ->save(create(Winery::class));
+
+        $this->assertCount(1, $this->user->fresh()->wineries);
     }
 
     /** @test */
@@ -227,7 +235,7 @@ class UserTest extends TestCase
     {
         $address = $this->user->shipping;
         $this->assertEquals(
-            "$address->street_name, $address->postcode $address->cityName, $address->regionName, $address->countryName",
+            "$address->street_name, $address->postcode $address->city, $address->countryName",
             $this->user->shipping_address
         );
     }

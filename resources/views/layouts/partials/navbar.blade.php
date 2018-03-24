@@ -26,7 +26,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            <span class="flag-icon flag-icon-pt"></span> {{ Auth::user()->first_name }} <span class="caret"></span>
+                            <img src="{{ Auth::user()->getMedia('avatar')->first()->getUrl('thumbnail') }}">
+                            {{ Auth::user()->first_name }} <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"

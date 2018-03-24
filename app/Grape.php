@@ -27,7 +27,8 @@ class Grape extends Model
      */
     public function wines(): BelongsToMany
     {
-        return $this->belongsToMany(Wine::class);
+        return $this->belongsToMany(Wine::class)
+            ->withTimestamps();
     }
 
     /************************* Accessors ******************************/

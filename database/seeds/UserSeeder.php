@@ -2,6 +2,7 @@
 
 use App\User;
 use App\Wine;
+use App\Winery;
 use App\Address;
 use App\Country;
 use Illuminate\Database\Seeder;
@@ -16,26 +17,38 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->create([
+        create(User::class, [
             'first_name' => 'Rafael',
             'last_name' => 'Macedo',
-            'email' => 'macedorjd.dev@gmail.com',
+            'email' => 'rafael@wine-vine.com',
             'password' => 'secret',
-            'username' => 'rafaelmacedo',
+            'username' => 'rafael_macedo',
             'rating_visibility_id' => Rating::first()->id,
             'country_id' => Country::whereName('Portugal')->first()->id,
         ])->assignRole('admin');
 
         $wines = Wine::all();
-        factory(User::class, 9)->create()
-            ->each(function ($user) use ($wines) {
+        $wineries = Winery::all();
+        create(User::class, [], 9)
+            ->each(function ($user) use ($wines, $wineries) {
                 $user->addresses()->save(factory(Address::class)->create([
                     'addressable_id' => $user->id,
                     'addressable_type' => User::class,
                 ]));
+
                 $user->wishlist()->attach(
-                    $wines->isEmpty() ? factory(Wine::class, rand(1, 5))->create() : $wines->chunk(rand(1, 5))->first()
+                    $wines->isEmpty() ? create(Wine::class, [], rand(1, 5)) : $wines->chunk(rand(1, 5))->first()
                 );
+
+                $user->employedAt()->attach(
+                    $wineries->isEmpty() ? create(Winery::class, [], rand(1, 3)) : $wineries->chunk(rand(1, 3))->first()
+                );
+
+                if (rand(0, 1)) {
+                    $user->wineries()->save(
+                        $wineries->isEmpty() ? create(Winery::class) : $wineries->first()
+                    );
+                }
             });
     }
 }

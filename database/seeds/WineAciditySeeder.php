@@ -12,31 +12,14 @@ class WineAciditySeeder extends Seeder
      */
     public function run()
     {
-        try {
+        foreach (config('wine-and-vine.data.images.wine_acidities') as $acidity) {
             DB::table('wine_acidities')->insert([
-                'name' => 'low',
-                'image' => storage_path('app/public/images/grape/acidity/low.png'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                'name' => $acidity['name'],
+                'image' => $acidity['normal'],
+                'thumbnail' => $acidity['thumbnail'],
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => null
             ]);
-
-            DB::table('wine_acidities')->insert([
-                'name' => 'medium',
-                'image' => storage_path('app/public/images/grape/acidity/medium.png'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ]);
-
-            DB::table('wine_acidities')->insert([
-                'name' => 'high',
-                'image' => storage_path('app/public/images/grape/acidity/high.png'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ]);
-
-            DB::table('wine_acidities')->insert([
-                'name' => 'very high',
-                'image' => storage_path('app/public/images/grape/acidity/very_high.png'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ]);
-        } catch (Exception $e) {
         }
     }
 }

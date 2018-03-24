@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Region extends Model
@@ -40,16 +39,6 @@ class Region extends Model
         return $this->belongsTo(Country::class);
     }
 
-    /**
-     * Fetch the Region's Cities.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function cities(): HasMany
-    {
-        return $this->hasMany(City::class);
-    }
-
     /************************* Accessors ******************************/
 
     /**
@@ -61,26 +50,6 @@ class Region extends Model
     public function getNameAttribute(string $name): string
     {
         return trim(preg_replace('/\s+/', ' ', ucwords($name)));
-    }
-
-    /**
-     * Fetch the Region's country name.
-     *
-     * @return string
-     */
-    public function getCountryNameAttribute(): string
-    {
-        return $this->country->name;
-    }
-
-    /**
-     * Get the Region's full name, including the Country.
-     *
-     * @return string
-     */
-    public function getFullNameAttribute(): string
-    {
-        return "$this->name, $this->countryName";
     }
 
     /************************* Mutators ******************************/

@@ -32,7 +32,6 @@ class CreateWinesTable extends Migration
             $table->unsignedInteger('wine_color_id');
             $table->unsignedInteger('wine_origin_denomination_id');
             $table->unsignedInteger('wine_type_id');
-            $table->unsignedInteger('food_pairing_id');
             $table->unsignedInteger('winery_id');
 
             $table->timestamps();
@@ -57,10 +56,6 @@ class CreateWinesTable extends Migration
             $table->foreign('wine_origin_denomination_id')
                 ->references('id')
                 ->on('wine_origin_denominations');
-
-            $table->foreign('food_pairing_id')
-                ->references('id')
-                ->on('food_pairs');
 
             $table->foreign('wine_type_id')
                 ->references('id')

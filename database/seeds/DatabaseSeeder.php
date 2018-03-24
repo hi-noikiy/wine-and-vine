@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             CountrySeeder::class,
             RegionSeeder::class,
-            CitySeeder::class,
             WineAciditySeeder::class,
             WineBodySeeder::class,
             WineColorSeeder::class,

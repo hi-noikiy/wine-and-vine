@@ -2,17 +2,21 @@
 
 namespace App;
 
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, HasMediaTrait;
 
     /************************* Properties ******************************/
 
@@ -48,6 +52,32 @@ class User extends Authenticatable
         'newsletter' => 'boolean',
         'email_offers' => 'boolean',
     ];
+
+    /**
+     * @param Media|null $media
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumbnail')
+            ->width(30)
+            ->height(30)
+            ->sharpen(10);
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('avatar')
+            ->useDisk('media_users_avatars')
+            ->acceptsFile(function (File $file) {
+                return collect([
+                    'image/jpg',
+                    'image/jpeg',
+                    'image/png'
+                ])->contains($file->mimeType);
+            })
+            ->singleFile();
+    }
 
     /************************* Relations ******************************/
 
@@ -98,7 +128,7 @@ class User extends Authenticatable
      */
     public function wineries(): HasMany
     {
-        return $this->hasMany(Winery::class, 'owner_id');
+        return $this->hasMany(Winery::class, 'owner_id', 'id');
     }
 
     /**
@@ -108,7 +138,8 @@ class User extends Authenticatable
      */
     public function employedAt(): BelongsToMany
     {
-        return $this->belongsToMany(Winery::class);
+        return $this->belongsToMany(Winery::class, 'user_winery', 'user_id', 'winery_id')
+            ->withTimestamps();
     }
 
     /**

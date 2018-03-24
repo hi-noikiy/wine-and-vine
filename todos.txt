@@ -1,4 +1,19 @@
 TODO: check a slug package to implement
+TODO: get images for the wine's body and acidities level
+
+Almost Clear - 217, 216, 172
+Green Yellow - 197, 199, 124
+Platinum Yellow - 212, 203, 128
+Pale Yellow - 230, 211, 132
+Pale Gold - 230, 166, 58
+Deep Gold - 236, 150, 11
+Pale Salmon - 234, 148, 101
+Deep Pink - 207, 27, 72
+Deep Salmon - 212, 29, 31
+Pale Ruby - 124, 3, 10
+Deep Violet - 103, 20, 30
+Deep Purple - 76, 21, 27
+Tawny - 118, 21, 4
 
 - app                                                                           // app/
     - public                                                                    // app/public/

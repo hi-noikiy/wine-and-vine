@@ -2,12 +2,17 @@
 
 namespace App;
 
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Wine extends Model
+class Wine extends Model implements HasMedia
 {
+    use HasMediaTrait;
     /************************* Properties ******************************/
 
     /**
@@ -15,9 +20,9 @@ class Wine extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'year', 'price', 'description', 'quantity_in_stock', 'rating_count', 'rating_sum',
-        'temperature', 'alcohol', 'wine_acidity_id', 'wine_body_id', 'wine_color_id', 'wine_type_id', 'food_pairing_id',
-        'winery_id',
+    protected $fillable = [
+        'name', 'year', 'price', 'description', 'quantity_in_stock', 'rating_count', 'rating_sum', 'temperature',
+        'alcohol', 'wine_acidity_id', 'wine_body_id', 'wine_color_id', 'wine_type_id', 'winery_id',
     ];
 
     /**
@@ -25,7 +30,8 @@ class Wine extends Model
      *
      * @var array
      */
-    protected $with = ['acidity', 'body', 'castes', 'color', 'denomination', 'food_pairing', 'type', 'winery', //'wishlists'
+    protected $with = [
+        'acidity', 'body', 'castes', 'color', 'denomination', 'food_pairing', 'type', 'winery', //'wishlists'
     ];
 
     /**
@@ -34,6 +40,42 @@ class Wine extends Model
      * @var array
      */
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
+     * @param Media|null $media
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumbnail')
+            ->width(150)
+            ->height(150)
+            ->sharpen(10);
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('cover')
+            ->useDisk('media_wines_images')
+            ->acceptsFile(function (File $file) {
+                return collect([
+                    'image/jpg',
+                    'image/jpeg',
+                    'image/png'
+                ])->contains($file->mimeType);
+            })
+            ->singleFile();
+
+        $this->addMediaCollection('images')
+            ->useDisk('media_wines_images')
+            ->acceptsFile(function (File $file) {
+                return collect([
+                    'image/jpg',
+                    'image/jpeg',
+                    'image/png'
+                ])->contains($file->mimeType);
+            });
+    }
 
     /************************* Relations ******************************/
 
@@ -64,7 +106,8 @@ class Wine extends Model
      */
     public function castes(): BelongsToMany
     {
-        return $this->BelongsToMany(Grape::class);
+        return $this->BelongsToMany(Grape::class)
+            ->withTimestamps();
     }
 
     /**

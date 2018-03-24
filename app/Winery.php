@@ -2,14 +2,19 @@
 
 namespace App;
 
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Winery extends Model
+class Winery extends Model implements HasMedia
 {
+    use HasMediaTrait;
     /************************* Properties ******************************/
 
     /**
@@ -18,7 +23,7 @@ class Winery extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone_number', 'mobile_number', 'owner_id'
+        'name', 'email', 'phone_number', 'mobile_number', 'user_id'
     ];
 
     /**
@@ -27,8 +32,44 @@ class Winery extends Model
      * @var array
      */
     protected $with = [
-        'address',
+        'address', 'region',
     ];
+
+    /**
+     * @param Media|null $media
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumbnail')
+            ->width(150)
+            ->height(150)
+            ->sharpen(10);
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('cover')
+            ->useDisk('media_wineries_images')
+            ->acceptsFile(function (File $file) {
+                return collect([
+                    'image/jpg',
+                    'image/jpeg',
+                    'image/png'
+                ])->contains($file->mimeType);
+            })
+            ->singleFile();
+
+        $this->addMediaCollection('images')
+            ->useDisk('media_wineries_images')
+            ->acceptsFile(function (File $file) {
+                return collect([
+                    'image/jpg',
+                    'image/jpeg',
+                    'image/png'
+                ])->contains($file->mimeType);
+            });
+    }
 
     /************************* Relations ******************************/
 
@@ -49,7 +90,7 @@ class Winery extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsTo(User::class, 'owner_id', 'id');
     }
 
     /**
@@ -59,7 +100,18 @@ class Winery extends Model
      */
     public function employees(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'user_winery', 'winery_id', 'user_id')
+            ->withTimestamps();
+    }
+
+    /**
+     * Fetch Winery's region.
+     *
+     * @return BelongsTo
+     */
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
 
     /**
@@ -129,36 +181,6 @@ class Winery extends Model
     }
 
     /**
-     * Fetch Winery's city.
-     *
-     * @return City
-     */
-    public function getCityAttribute(): City
-    {
-        return $this->address->city;
-    }
-
-    /**
-     * Fetch Winery's city name.
-     *
-     * @return string
-     */
-    public function getCityNameAttribute(): string
-    {
-        return $this->city->name;
-    }
-
-    /**
-     * Fetch Winery's region.
-     *
-     * @return Region
-     */
-    public function getRegionAttribute(): Region
-    {
-        return $this->city->region;
-    }
-
-    /**
      * Fetch Winery's region name.
      *
      * @return string
@@ -175,7 +197,7 @@ class Winery extends Model
      */
     public function getCountryAttribute(): Country
     {
-        return $this->region->country;
+        return $this->address->country;
     }
 
     /**

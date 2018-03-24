@@ -4,13 +4,14 @@ use App\City;
 use App\User;
 use App\Winery;
 use App\Address;
+use App\Country;
 use Faker\Generator as Faker;
 
 $factory->define(Address::class, function (Faker $faker) {
     $type = '';
 
     return [
-        'city_id' => ($cities = City::all())->isEmpty() ? factory(City::class)->create()->id : $cities->random()->id,
+        'country_id' => ($countries = Country::all())->isEmpty() ? create(Country::class)->id : $countries->random()->id,
         'addressable_id' => function () use ($faker, &$type) {
             if ($faker->boolean) {
                 $type = 'App\User';
@@ -33,6 +34,7 @@ $factory->define(Address::class, function (Faker $faker) {
         'type' => $faker->randomElement(['Work Address', 'Personal Address']),
         'street_name' => $faker->streetName,
         'postcode' => $faker->postcode,
+        'city' => $faker->city,
         'is_primary' => $faker->boolean
     ];
 });

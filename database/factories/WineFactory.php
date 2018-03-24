@@ -2,7 +2,6 @@
 
 use App\Winery;
 use App\Address;
-use App\FoodPair;
 use App\WineBody;
 use App\WineType;
 use App\WineColor;
@@ -38,6 +37,5 @@ $factory->define(App\Wine::class, function (Faker $faker) {
 
             return $wineries->random()->id;
         },
-        'food_pairing_id' => ($pairs = FoodPair::all())->isEmpty() ? factory(FoodPair::class)->create() : $pairs->random()->id
     ];
 });

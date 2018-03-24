@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\City;
 use App\User;
 use Exception;
 use App\Region;
@@ -78,46 +77,26 @@ class WineryTest extends TestCase
     }
 
     /** @test */
-    public function a_winery_can_access_the_city_instance_directly()
-    {
-        // Save an address into a winery
-        $this->winery->address()->save(factory(Address::class)->create([
-            'city_id' => ($city = factory(City::class)->create())->id
-        ]));
-        $this->assertEquals($city->id, $this->winery->city->id);
-    }
-
-    /** @test */
-    public function a_winery_can_access_the_city_name_directly()
-    {
-        // Save an address into a winery
-        $this->winery->address()->save(factory(Address::class)->create([
-            'city_id' => ($city = factory(City::class)->create())->id
-        ]));
-        $this->assertEquals($city->name, $this->winery->cityName);
-    }
-
-    /** @test */
     public function a_winery_can_access_the_region_instance_directly()
     {
-        // Save an address into a winery
-        $this->winery->address()->save(factory(Address::class)->create([
-            'city_id' => factory(City::class)->create([
-                'region_id' => ($region = factory(Region::class)->create())->id
-            ])->id
-        ]));
+        // Save a region into a winery
+        $this->winery
+            ->region()
+            ->associate(($region = create(Region::class)))
+            ->save();
+
         $this->assertEquals($region->id, $this->winery->region->id);
     }
 
     /** @test */
     public function a_winery_can_access_the_region_name_directly()
     {
-        // Save an address into a winery
-        $this->winery->address()->save(factory(Address::class)->create([
-            'city_id' => factory(City::class)->create([
-                'region_id' => ($region = factory(Region::class)->create())->id
-            ])->id
-        ]));
+        // Save a region into a winery
+        $this->winery
+            ->region()
+            ->associate(($region = create(Region::class)))
+            ->save();
+
         $this->assertEquals($region->name, $this->winery->regionName);
     }
 
@@ -125,13 +104,12 @@ class WineryTest extends TestCase
     public function a_winery_can_access_the_country_instance_directly()
     {
         // Save an address into a winery
-        $this->winery->address()->save(factory(Address::class)->create([
-            'city_id' => factory(City::class)->create([
-                'region_id' => factory(Region::class)->create([
-                    'country_id' => ($country = factory(Country::class)->create())->id
-                ])->id
-            ])->id
-        ]));
+        $this->winery
+            ->address()
+            ->save(create(Address::class, [
+                'country_id' => ($country = create(Country::class))->id
+            ]));
+
         $this->assertEquals($country->id, $this->winery->country->id);
     }
 
@@ -139,13 +117,12 @@ class WineryTest extends TestCase
     public function a_winery_can_access_the_country_name_directly()
     {
         // Save an address into a winery
-        $this->winery->address()->save(factory(Address::class)->create([
-            'city_id' => factory(City::class)->create([
-                'region_id' => factory(Region::class)->create([
-                    'country_id' => ($country = factory(Country::class)->create())->id
-                ])->id
-            ])->id
-        ]));
+        $this->winery
+            ->address()
+            ->save(create(Address::class, [
+                'country_id' => ($country = create(Country::class))->id
+            ]));
+
         $this->assertEquals($country->name, $this->winery->countryName);
     }
 
@@ -153,7 +130,10 @@ class WineryTest extends TestCase
     public function a_winery_can_access_the_full_address_directly()
     {
         // Save an address into a winery
-        $this->winery->address()->save($address = factory(Address::class)->create());
+        $this->winery
+            ->address()
+            ->save($address = create(Address::class));
+
         $this->assertEquals($address->fullAddress, $this->winery->fullAddress);
     }
 
@@ -161,7 +141,7 @@ class WineryTest extends TestCase
     public function a_winery_can_employ_a_user()
     {
         // Employ one user to a given winery
-        $this->winery->employ($user = factory(User::class)->create());
+        $this->winery->employ($user = create(User::class));
         // Assert that the pivot table has the user_id and the winery_id
         $this->assertDatabaseHas('user_winery', [
             'user_id' => $user->id,
@@ -175,7 +155,7 @@ class WineryTest extends TestCase
     public function a_winery_can_fire_a_user()
     {
         // Employ one user to a given winery
-        $this->winery->employ($user = factory(User::class)->create());
+        $this->winery->employ($user = create(User::class));
         // Assert that the winery has employees
         $this->assertTrue($this->winery->employees->isNotEmpty());
         // Fire the user

@@ -16,7 +16,8 @@ class CreateWineColorsTable extends Migration
         Schema::create('wine_colors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('image')->default(storage_path('app/public/images/colors/default.png'));
+            $table->string('image');
+            $table->string('thumbnail');
             $table->timestamps();
 
             $table->unique('name');

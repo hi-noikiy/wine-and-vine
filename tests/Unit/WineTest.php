@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\User;
 use App\Wine;
 use Exception;
+use App\Region;
 use App\Winery;
 use App\Address;
 use App\WineBody;
@@ -132,35 +133,35 @@ class WineTest extends TestCase
     /** @test */
     public function a_wine_can_access_its_region_directly()
     {
-        $wine = factory(Wine::class)->create([
-            'winery_id' => ($winery = factory(Winery::class)->create())->id
+        $wine = create(Wine::class, [
+            'winery_id' => ($winery = create(Winery::class, [
+                'region_id' => $region = create(Region::class)
+            ]))->id
         ]);
 
-        $winery->address()->save($address = factory(Address::class)->create());
-
-        $this->assertEquals($address->region, $wine->region);
+        $this->assertEquals($region->id, $wine->region->id);
     }
 
     /** @test */
     public function a_wine_can_access_its_region_name_directly()
     {
-        $wine = factory(Wine::class)->create([
-            'winery_id' => ($winery = factory(Winery::class)->create())->id
+        $wine = create(Wine::class, [
+            'winery_id' => ($winery = create(Winery::class, [
+                'region_id' => create(Region::class, ['name' => 'region name'])
+            ]))->id
         ]);
 
-        $winery->address()->save($address = factory(Address::class)->create());
-
-        $this->assertEquals($address->region->name, $wine->region_name);
+        $this->assertEquals('Region Name', $wine->regionName);
     }
 
     /** @test */
     public function a_wine_can_access_its_country_directly()
     {
-        $wine = factory(Wine::class)->create([
-            'winery_id' => ($winery = factory(Winery::class)->create())->id
+        $wine = create(Wine::class, [
+            'winery_id' => ($winery = create(Winery::class))->id
         ]);
 
-        $winery->address()->save($address = factory(Address::class)->create());
+        $winery->address()->save($address = create(Address::class));
 
         $this->assertEquals($address->country, $wine->country);
     }

@@ -14,8 +14,8 @@ class CreateUserWinery extends Migration
     public function up()
     {
         Schema::create('user_winery', function (Blueprint $table) {
-            $table->unsignedInteger('user_id')->index();
-            $table->unsignedInteger('winery_id')->index();
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('winery_id');
             $table->timestamps();
             $table->softDeletes();
 

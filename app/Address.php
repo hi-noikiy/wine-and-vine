@@ -15,7 +15,7 @@ class Address extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'street_name', 'country_id', 'addressable_id', 'addressable_type', 'type', 'postcode', 'city', 'is_primary'
     ];
 
     /**
@@ -24,11 +24,11 @@ class Address extends Model
      * @var array
      */
     protected $with = [
-        'city'
+        'country'
     ];
 
     protected $casts = [
-        'postcode' => 'integer'
+        'is_primary' => 'boolean'
     ];
 
     /************************* Relations ******************************/
@@ -44,56 +44,16 @@ class Address extends Model
     }
 
     /**
-     * Fetch the Address's city relation.
+     * Fetch the Address's country relation.
      *
      * @return BelongsTo
      */
-    public function city(): BelongsTo
+    public function country(): BelongsTo
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(Country::class);
     }
 
     /************************* Accessors ******************************/
-
-    /**
-     * Fetch the Address's city name.
-     *
-     * @return string
-     */
-    public function getCityNameAttribute(): string
-    {
-        return $this->city->name;
-    }
-
-    /**
-     * Fetch the Address's region.
-     *
-     * @return Region
-     */
-    public function getRegionAttribute(): Region
-    {
-        return $this->city->region;
-    }
-
-    /**
-     * Fetch the Address's region name.
-     *
-     * @return string
-     */
-    public function getRegionNameAttribute(): string
-    {
-        return $this->city->region->name;
-    }
-
-    /**
-     * Fetch the Address's country.
-     *
-     * @return Country
-     */
-    public function getCountryAttribute(): Country
-    {
-        return $this->city->country;
-    }
 
     /**
      * Fetch the Address's country name.
@@ -102,7 +62,7 @@ class Address extends Model
      */
     public function getCountryNameAttribute(): string
     {
-        return $this->city->country->name;
+        return $this->country->name;
     }
 
     /**
@@ -134,7 +94,7 @@ class Address extends Model
      */
     public function getFullAddressAttribute(): string
     {
-        return "$this->street_name, $this->postcode $this->cityName, $this->regionName, $this->countryName";
+        return "$this->street_name, $this->postcode $this->city, $this->countryName";
     }
 
     /************************* Mutators ******************************/

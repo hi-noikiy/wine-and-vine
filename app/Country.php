@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
@@ -13,18 +14,20 @@ class Country extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name'
+    ];
 
     /************************* Relations ******************************/
 
     /**
-     * Fetch Country's Regions.
+     * Fetch Country's cities.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function regions()
+    public function addresses()
     {
-        return $this->hasMany(Region::class);
+        return $this->hasMany(Address::class);
     }
 
     /************************* Accessors ******************************/

@@ -9,7 +9,6 @@ use App\RatingVisibility;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use PragmaRX\Countries\Package\Countries;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserRegistrationTest extends TestCase
@@ -118,11 +117,11 @@ class UserRegistrationTest extends TestCase
         // Enable exception handling so laravel catches the error and redirect back
         $this->withExceptionHandling();
         // Persist a user to the database with a specific email
-        factory(User::class)->create(['email' => 'example@example.com']);
+        create(User::class, ['email' => 'example@example.com']);
         // Simulate that the user was on /register page
         $this->from(route('register'));
         // Create a user instance
-        $user = factory(User::class)->make(['email' => 'example@example.com']);
+        $user = make(User::class, ['email' => 'example@example.com']);
         // Post the data with a taken email, breaking validation
         $response = $this->post(route('register'), $user->toArray());
         // Assert that the user is redirected back

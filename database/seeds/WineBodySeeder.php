@@ -12,31 +12,14 @@ class WineBodySeeder extends Seeder
      */
     public function run()
     {
-        try {
+        foreach (config('wine-and-vine.data.images.wine_bodies') as $body) {
             DB::table('wine_bodies')->insert([
-                'name' => 'very light-bodied',
-                'image' => storage_path('app/public/images/grape/acidity/very_light_bodied.png'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                'name' => $body['name'],
+                'image' => $body['normal'],
+                'thumbnail' => $body['thumbnail'],
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => null
             ]);
-
-            DB::table('wine_bodies')->insert([
-                'name' => 'medium-bodied',
-                'image' => storage_path('app/public/images/grape/acidity/medium_bodied.png'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ]);
-
-            DB::table('wine_bodies')->insert([
-                'name' => 'full-bodied',
-                'image' => storage_path('app/public/images/grape/acidity/full_bodied.png'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ]);
-
-            DB::table('wine_bodies')->insert([
-                'name' => 'very full-bodied',
-                'image' => storage_path('app/public/images/grape/acidity/very_full_bodied.png'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ]);
-        } catch (Exception $e) {
         }
     }
 }

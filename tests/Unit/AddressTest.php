@@ -2,9 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\City;
 use App\User;
-use App\Region;
 use App\Winery;
 use App\Address;
 use App\Country;
@@ -15,19 +13,19 @@ class AddressTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $address;
+    private $address;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->address = factory(Address::class)->create();
+        $this->address = create(Address::class);
     }
 
     /** @test */
     public function an_address_can_belong_to_a_user()
     {
-        $address = factory(Address::class)->create([
-            'addressable_id' => factory(User::class)->create()->id,
+        $address = create(Address::class, [
+            'addressable_id' => create(User::class)->id,
             'addressable_type' => User::class
         ]);
         $this->assertInstanceOf(User::class, $address->addressable);
@@ -36,50 +34,34 @@ class AddressTest extends TestCase
     /** @test */
     public function an_address_has_a_type()
     {
-        $address = factory(Address::class)->create(['type' => 'work address']);
+        $address = create(Address::class, ['type' => 'work address']);
+
         $this->assertEquals('Work Address', $address->type);
     }
 
     /** @test */
     public function an_address_can_belong_to_a_winery()
     {
-        $address = factory(Address::class)->create([
-            'addressable_id' => factory(Winery::class)->create()->id,
+        $address = create(Address::class, [
+            'addressable_id' => create(Winery::class)->id,
             'addressable_type' => Winery::class
         ]);
         $this->assertInstanceOf(Winery::class, $address->addressable);
     }
 
     /** @test */
-    public function an_address_belongs_to_a_city()
+    public function an_country_belongs_to_a_city()
     {
-        $this->assertInstanceOf(City::class, $this->address->city);
+        $this->assertInstanceOf(Country::class, $this->address->country);
     }
 
     /** @test */
-    public function an_address_can_access_the_city_name_directly()
+    public function an_address_can_access_the_country_name_directly()
     {
-        $address = factory(Address::class)->create([
-            'city_id' => ($city = factory(City::class)->create())->id
+        $address = create(Address::class, [
+            'country_id' => ($country = create(Country::class))->id
         ]);
-        $this->assertEquals($city->name, $address->cityName);
-    }
-
-    /** @test */
-    public function an_address_belongs_to_a_region()
-    {
-        $this->assertInstanceOf(Region::class, $this->address->region);
-    }
-
-    /** @test */
-    public function an_address_can_access_the_region_name_directly()
-    {
-        $address = factory(Address::class)->create([
-            'city_id' => factory(City::class)->create([
-                'region_id' => ($region = factory(Region::class)->create())->id
-            ])->id
-        ]);
-        $this->assertEquals($region->name, $address->regionName);
+        $this->assertEquals($country->name, $address->countryName);
     }
 
     /** @test */
@@ -89,29 +71,13 @@ class AddressTest extends TestCase
     }
 
     /** @test */
-    public function an_address_can_access_the_country_name_directly()
-    {
-        $address = factory(Address::class)->create([
-            'city_id' => factory(City::class)->create([
-                'region_id' => factory(Region::class)->create([
-                    'country_id' => ($country = factory(Country::class)->create())->id
-                ])->id
-            ])->id
-        ]);
-        $this->assertEquals($country->name, $address->countryName);
-    }
-
-    /** @test */
     public function an_address_can_access_the_full_address_directly()
     {
-        $address = factory(Address::class)->create([
-            'city_id' => ($city = factory(City::class)->create([
-                'region_id' => ($region = factory(Region::class)->create([
-                    'country_id' => ($country = factory(Country::class)->create())->id
-                ]))->id
-            ]))->id
+        $address = create(Address::class, [
+            'country_id' => ($country = create(Country::class))->id
         ]);
-        $full_address = "$address->street_name, $address->postcode $city->name, $region->name, $country->name";
+
+        $full_address = "$address->street_name, $address->postcode $address->city, $country->name";
         $this->assertEquals($full_address, $address->fullAddress);
     }
 }

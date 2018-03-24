@@ -13,7 +13,7 @@ class WinerySeeder extends Seeder
      */
     public function run()
     {
-        factory(Winery::class, 10)->create()
+        create(Winery::class, [], 10)
             ->each(function ($winery) {
                 $winery->address()
                     ->save(factory(Address::class)

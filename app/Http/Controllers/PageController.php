@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use PragmaRX\Countries\Package\Countries;
 
 class PageController extends Controller
 {
@@ -15,14 +14,7 @@ class PageController extends Controller
      */
     public function welcome()
     {
-        $countries = Countries::all()
-            ->map(function ($country) {
-                return collect($country->toArray())
-                    ->only(['cca2'])
-                    ->put('name', $country->name->common);
-            })->random(2);
-
-        return view('pages.welcome', compact('countries'));
+        return view('pages.welcome');
     }
 
     /**

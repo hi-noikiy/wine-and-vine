@@ -21,11 +21,16 @@ class CreateWineriesTable extends Migration
             $table->string('mobile_number');
 
             $table->unsignedInteger('owner_id');
+            $table->unsignedInteger('region_id');
 
             $table->timestamps();
             $table->softDeletes();
 
             $table->unique(['email', 'phone_number', 'mobile_number']);
+
+            $table->foreign('region_id')
+                ->references('id')
+                ->on('regions');
 
             $table->foreign('owner_id')
                 ->references('id')

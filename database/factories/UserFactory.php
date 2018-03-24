@@ -31,7 +31,7 @@ $factory->define(User::class, function (Faker $faker) use (&$id) {
                 'addressable_type' => User::class
             ])->id;
         },
-        'rating_visibility_id' => ($ratings = Rating::all())->isEmpty() ? factory(Rating::class)->create()->id : $ratings->random()->id,
-        'country_id' => ($countries = Country::all())->isEmpty() ? factory(Country::class)->create()->id : $countries->random()->id
+        'rating_visibility_id' => ($ratings = Rating::all())->isEmpty() ? create(Rating::class)->id : $ratings->random()->id,
+        'country_id' => ($countries = Country::all())->isEmpty() ? create(Country::class)->id : $countries->random()->id
     ];
 });

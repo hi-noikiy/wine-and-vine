@@ -55,6 +55,27 @@ return [
             'visibility' => 'public',
         ],
 
+        'media_users_avatars' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/images/users/avatars'),
+            'url' => env('APP_URL').'/storage/images/users/avatars',
+            'visibility' => 'public',
+        ],
+
+        'media_wineries_images' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/images/wineries'),
+            'url' => env('APP_URL').'/storage/images/wineries',
+            'visibility' => 'public',
+        ],
+
+        'media_wines_images' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/images/wines'),
+            'url' => env('APP_URL').'/storage/images/wines',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

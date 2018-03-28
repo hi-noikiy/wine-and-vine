@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Winery::class, function (Faker $faker) {
     $name = $faker->words(3, true);
+
     return [
         'name' => $name,
         'email' => $faker->unique()->email,

@@ -2,15 +2,15 @@
 
 namespace Tests\Unit;
 
+use App\User;
+use Exception;
+use App\Region;
+use App\Winery;
 use App\Address;
 use App\Country;
-use App\Region;
-use App\User;
-use App\Winery;
-use Exception;
+use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class WineryTest extends TestCase
 {

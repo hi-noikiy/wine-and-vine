@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Wine;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Database\Eloquent\Collection;
 
 class WineController extends Controller
 {
@@ -20,6 +20,7 @@ class WineController extends Controller
         if (request()->expectsJson()) {
             return $wines;
         }
+
         return view('pages.wines.index')
             ->with(['wines' => $wines]);
     }
@@ -56,6 +57,7 @@ class WineController extends Controller
         if (request()->expectsJson()) {
             return $wine;
         }
+
         return view('pages.wines.show', ['wine' => $wine]);
     }
 

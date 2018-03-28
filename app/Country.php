@@ -3,8 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Country extends Model
 {
@@ -40,7 +40,7 @@ class Country extends Model
     }
 
     /**
-     * Fetch Country's currencies
+     * Fetch Country's currencies.
      *
      * @return BelongsToMany
      */

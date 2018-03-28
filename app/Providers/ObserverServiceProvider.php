@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use App\Address;
-use App\Country;
-use App\Observers\AddressObserver;
-use App\Observers\CountryObserver;
-use App\Observers\RegionObserver;
-use App\Region;
 use App\User;
 use App\Wine;
+use App\Region;
 use App\Winery;
+use App\Address;
+use App\Country;
 use App\Observers\UserObserver;
 use App\Observers\WineObserver;
+use App\Observers\RegionObserver;
 use App\Observers\WineryObserver;
+use App\Observers\AddressObserver;
+use App\Observers\CountryObserver;
 use Illuminate\Support\ServiceProvider;
 
 class ObserverServiceProvider extends ServiceProvider

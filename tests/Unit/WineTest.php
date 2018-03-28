@@ -2,13 +2,13 @@
 
 namespace Tests\Unit;
 
-use App\Currency;
 use App\User;
 use App\Wine;
 use Exception;
 use App\Region;
 use App\Winery;
 use App\Address;
+use App\Currency;
 use App\WineBody;
 use App\WineType;
 use App\WineColor;

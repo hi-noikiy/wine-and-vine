@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\Country;
-use App\RatingVisibility;
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Country;
+use Tests\TestCase;
+use App\RatingVisibility;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserRegistrationTest extends TestCase
 {

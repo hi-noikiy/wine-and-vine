@@ -1,8 +1,8 @@
 <?php
 
-use App\FoodPair;
-use App\Grape;
 use App\Wine;
+use App\Grape;
+use App\FoodPair;
 use Illuminate\Database\Seeder;
 
 class WineSeeder extends Seeder
@@ -16,7 +16,6 @@ class WineSeeder extends Seeder
     {
         create(Wine::class, [], 10)
             ->each(function ($wine) {
-
                 $wine->castes()
                     ->sync(Grape::all()
                         ->chunk(rand(1, 4))

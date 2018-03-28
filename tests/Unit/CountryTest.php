@@ -4,10 +4,10 @@ namespace Tests\Unit;
 
 use App\Country;
 use App\Currency;
+use Tests\TestCase;
+use PragmaRX\Countries\Package\Countries;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PragmaRX\Countries\Package\Countries;
-use Tests\TestCase;
 
 class CountryTest extends TestCase
 {

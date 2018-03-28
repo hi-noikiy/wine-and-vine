@@ -4,7 +4,6 @@ namespace App\Observers;
 
 class RegionObserver extends AbstractObserver
 {
-
     /**
      * Listen to the Region's retrieved event.
      *

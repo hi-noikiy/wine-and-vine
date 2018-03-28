@@ -39,7 +39,7 @@ class CountrySeeder extends Seeder
             $currency = $is_british
                 ? $currencies->where('short_name', 'GBP')->first()
                 : ($is_eu_member
-                    ? $currencies->where('short_name', 'EUR') ->first()
+                    ? $currencies->where('short_name', 'EUR')->first()
                     : $currencies->where('short_name', 'USD')->first());
             $country->currencies()->sync($currency->id);
         }

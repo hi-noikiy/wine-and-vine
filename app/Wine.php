@@ -2,15 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\File;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\MediaLibrary\Models\Media;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Wine extends Model implements HasMedia
 {
@@ -274,7 +274,7 @@ class Wine extends Model implements HasMedia
     }
 
     /**
-     * Fetch Wine's Avatar
+     * Fetch Wine's Avatar.
      *
      * @return string
      */
@@ -284,7 +284,7 @@ class Wine extends Model implements HasMedia
     }
 
     /**
-     * Fetch Wine's Thumbnail Avatar
+     * Fetch Wine's Thumbnail Avatar.
      *
      * @return string
      */
@@ -318,7 +318,6 @@ class Wine extends Model implements HasMedia
     }
 
     /************************* Functions ******************************/
-
 
     /**
      * Get the options for generating the slug.

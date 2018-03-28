@@ -5,6 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Currency::class, function (Faker $faker) {
     $currency = collect(config('wine-and-vine.data.currencies'))->random();
+
     return [
         'name' => $currency['name'],
         'short_name' => $currency['short_name'],

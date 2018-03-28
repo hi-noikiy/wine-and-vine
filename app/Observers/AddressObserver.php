@@ -2,12 +2,11 @@
 
 namespace App\Observers;
 
-use App\Address;
 use App\Winery;
+use App\Address;
 
 class AddressObserver extends AbstractObserver
 {
-
     /**
      * Listen to the Address's retrieved event.
      *

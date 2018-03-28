@@ -3,6 +3,8 @@
 namespace App;
 
 use Spatie\MediaLibrary\File;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -13,8 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -219,7 +219,7 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * Fetch User's Avatar
+     * Fetch User's Avatar.
      *
      * @return string
      */
@@ -229,7 +229,7 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * Fetch User's Thumbnail Avatar
+     * Fetch User's Thumbnail Avatar.
      *
      * @return string
      */

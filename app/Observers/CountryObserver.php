@@ -4,7 +4,6 @@ namespace App\Observers;
 
 class CountryObserver extends AbstractObserver
 {
-
     /**
      * Listen to the Country's retrieved event.
      *

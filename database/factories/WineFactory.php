@@ -1,17 +1,18 @@
 <?php
 
+use App\Winery;
 use App\Address;
 use App\Currency;
-use App\WineAcidity;
 use App\WineBody;
-use App\WineColor;
-use App\WineOriginDenomination;
-use App\Winery;
 use App\WineType;
+use App\WineColor;
+use App\WineAcidity;
 use Faker\Generator as Faker;
+use App\WineOriginDenomination;
 
 $factory->define(App\Wine::class, function (Faker $faker) {
     $name = $faker->word;
+
     return [
         'name' => $name,
         'short_description' => $faker->words(6, true),

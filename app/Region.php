@@ -4,9 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Image\Exceptions\InvalidManipulation;
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
-class Region extends Model
+class Region extends Model implements HasMedia
 {
+    use HasMediaTrait, HasSlug;
     /************************* Properties ******************************/
 
     /**
@@ -26,6 +34,34 @@ class Region extends Model
     protected $with = [
         'country'
     ];
+
+    /**
+     * @param Media|null $media
+     * @throws InvalidManipulation
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('cover')
+            ->width(1100)
+            ->height(400);
+    }
+
+    /**
+     * Registers a hero image to a Region's collection
+     */
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('region_hero')
+            ->useDisk('media_regions_hero')
+            ->acceptsFile(function (File $file) {
+                return collect([
+                    'image/jpg',
+                    'image/jpeg',
+                    'image/png'
+                ])->contains($file->mimeType);
+            })
+            ->singleFile();
+    }
 
     /************************* Relations ******************************/
 
@@ -52,6 +88,11 @@ class Region extends Model
         return trim(preg_replace('/\s+/', ' ', ucwords($name)));
     }
 
+    public function getHeroAttribute()
+    {
+        return $this->getMedia('region_hero')->first()->getUrl('cover');
+    }
+
     /************************* Mutators ******************************/
 
     /**
@@ -74,6 +115,16 @@ class Region extends Model
      */
     public function getRouteKeyName()
     {
-        return 'name';
+        return 'slug';
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 }

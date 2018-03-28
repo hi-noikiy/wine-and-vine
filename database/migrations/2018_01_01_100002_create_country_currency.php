@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegionsTable extends Migration
+class CreateCountryCurrency extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,23 @@ class CreateRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('regions', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('country_currency', function (Blueprint $table) {
             $table->unsignedInteger('country_id');
-            $table->string('name');
-            $table->text('description');
+            $table->unsignedInteger('currency_id');
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->unique(['name', 'country_id']);
+            $table->primary(['country_id', 'currency_id']);
 
             $table->foreign('country_id')
                 ->references('id')
                 ->on('countries')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('currency_id')
+                ->references('id')
+                ->on('currencies')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -37,6 +42,6 @@ class CreateRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regions');
+        //
     }
 }

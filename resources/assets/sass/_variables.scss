@@ -1,4 +1,5 @@
 
+
 // Body
 $body-bg: #f5f8fa;
 
@@ -31,3 +32,9 @@ $color-pale-ruby: rgb(124, 3, 10);
 $color-deep-violet: rgb(103, 20, 30);
 $color-deep-purple: rgb(76, 21, 27);
 $color-tawny: rgb(118, 21, 4);
+
+$theme-colors: (
+        "custom-color": #900
+);
+
+$theme-colors: map-remove($theme-colors, "primary", "success", "info", "danger");

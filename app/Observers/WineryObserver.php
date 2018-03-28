@@ -49,7 +49,7 @@ class WineryObserver extends AbstractObserver
      */
     public function updating($winery): void
     {
-        // TODO: Implement updating() method.
+
     }
 
     /**
@@ -60,7 +60,7 @@ class WineryObserver extends AbstractObserver
      */
     public function updated($winery): void
     {
-        // TODO: Implement updated() method.
+
     }
 
     /**

@@ -2,15 +2,15 @@
 
 namespace Tests\Unit;
 
-use App\User;
-use Exception;
-use App\Region;
-use App\Winery;
 use App\Address;
 use App\Country;
-use Tests\TestCase;
+use App\Region;
+use App\User;
+use App\Winery;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class WineryTest extends TestCase
 {
@@ -107,7 +107,9 @@ class WineryTest extends TestCase
         $this->winery
             ->address()
             ->save(create(Address::class, [
-                'country_id' => ($country = create(Country::class))->id
+                'addressable_id' => $this->winery->id,
+                'addressable_type' => Winery::class,
+                'country_id' => ($country = $this->winery->region->country)->id
             ]));
 
         $this->assertEquals($country->id, $this->winery->country->id);
@@ -116,14 +118,18 @@ class WineryTest extends TestCase
     /** @test */
     public function a_winery_can_access_the_country_name_directly()
     {
+        // Assert that the given winery has no address
+        $this->assertNull($this->winery->address);
         // Save an address into a winery
         $this->winery
             ->address()
             ->save(create(Address::class, [
-                'country_id' => ($country = create(Country::class))->id
+                'addressable_id' => $this->winery->id,
+                'addressable_type' => Winery::class,
+                'country_id' => ($country = $this->winery->region->country)->id
             ]));
 
-        $this->assertEquals($country->name, $this->winery->countryName);
+        $this->assertEquals($country->name, $this->winery->fresh()->countryName);
     }
 
     /** @test */
@@ -211,5 +217,18 @@ class WineryTest extends TestCase
         $this->winery->update(['mobile_number' => '756-98765']);
 
         $this->assertEquals('756-98765', $this->winery->mobile_number);
+    }
+
+    /** @test */
+    public function a_winery_country_must_be_the_same_on_region_and_on_address()
+    {
+        $this->winery->address()->save(create(Address::class, [
+            'addressable_id' => $this->winery->id,
+            'addressable_type' => Winery::class,
+            'country_id' => create(Country::class, ['name' => 'Not a real country name'])
+        ]));
+
+        // This is possible through the AddressObserver@saving
+        $this->assertEquals($this->winery->region->country->id, $this->winery->address->country->id);
     }
 }

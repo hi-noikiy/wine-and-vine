@@ -1,12 +1,12 @@
 <?php
 
+use App\Address;
+use App\Country;
+use App\RatingVisibility as Rating;
 use App\User;
 use App\Wine;
 use App\Winery;
-use App\Address;
-use App\Country;
 use Illuminate\Database\Seeder;
-use App\RatingVisibility as Rating;
 
 class UserSeeder extends Seeder
 {
@@ -24,30 +24,33 @@ class UserSeeder extends Seeder
             'password' => 'secret',
             'username' => 'rafael_macedo',
             'rating_visibility_id' => Rating::first()->id,
-            'country_id' => Country::whereName('Portugal')->first()->id,
+            'country_id' => Country::where('cca2', 'PT')->first()->id,
         ])->assignRole('admin');
 
-        $wines = Wine::all();
-        $wineries = Winery::all();
         create(User::class, [], 9)
-            ->each(function ($user) use ($wines, $wineries) {
-                $user->addresses()->save(factory(Address::class)->create([
+            ->each(function ($user) {
+                $user->addresses()->save(create(Address::class, [
                     'addressable_id' => $user->id,
                     'addressable_type' => User::class,
                 ]));
 
-                $user->wishlist()->attach(
-                    $wines->isEmpty() ? create(Wine::class, [], rand(1, 5)) : $wines->chunk(rand(1, 5))->first()
-                );
-
-                $user->employedAt()->attach(
-                    $wineries->isEmpty() ? create(Winery::class, [], rand(1, 3)) : $wineries->chunk(rand(1, 3))->first()
-                );
+                $newly_created_wines = create(Wine::class, [], rand(1, 5));
+                $user->wishlist()->attach($newly_created_wines);
+                $newly_created_wines->each(function ($wine) {
+                    $wine->winery->address()->save(create(Address::class));
+                });
 
                 if (rand(0, 1)) {
-                    $user->wineries()->save(
-                        $wineries->isEmpty() ? create(Winery::class) : $wineries->first()
-                    );
+                    $newly_created_wineries = create(Winery::class, [], rand(1, 3));
+                    $user->employedAt()->attach($newly_created_wineries);
+                    $newly_created_wineries->each(function ($winery) {
+                        $winery->address()->save(create(Address::class));
+                    });
+                }
+
+                if (rand(0, 1)) {
+                    $user->wineries()->save($winery_ = create(Winery::class));
+                    $winery_->address()->save(create(Address::class));
                 }
             });
     }

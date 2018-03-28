@@ -6,11 +6,33 @@ return [
     ],
 
     'data' => [
+        'pagination' => 8,
+
+        'currencies' => [
+            'gbp' => [
+                'name' => 'British Pound',
+                'short_name' => 'GBP',
+                'symbol' =>'£',
+                'format' =>'symbol-price'
+            ],
+            'usd' => [
+                'name' => 'Dollar',
+                'short_name' =>'USD',
+                'symbol' => '$',
+                'format' =>'symbol-price'],
+            'eur' => [
+                'name' => 'Euro',
+                'short_name' => 'EUR',
+                'symbol' => '€',
+                'format' =>'price-symbol']
+        ],
+
         'images' => [
             'default_path' => [
-                'users' => storage_path('app/public/defaults/images/users/user_default_avatar.png'),    // Using Spatie Media Library
-                'wineries' => storage_path('app/public/defaults/images/wineries/winery_default.png'),   // Using Spatie Media Library
-                'wines' => storage_path('app/public/defaults/images/wines/wine_default.png'),           // Using Spatie Media Library
+                'users' => storage_path('app/public/defaults/images/users/user_default_avatar.png'),            // Using Spatie Media Library
+                'wineries' => storage_path('app/public/defaults/images/wineries/winery_default.png'),           // Using Spatie Media Library
+                'wines' => storage_path('app/public/defaults/images/wines/wine_default.png'),                   // Using Spatie Media Library
+                'regions_hero' => storage_path('app/public/defaults/images/regions/hero/region_default_hero.png'),   // Using Spatie Media Library
                 'wine_acidity' => storage_path('app/public/defaults/images/wine/acidity/wine_acidity_default.png'),
                 'wine_acidity_thumbnail' => storage_path('app/public/defaults/images/wine/acidity/wine_acidity_default_thumbnail.png'),
                 'wine_body' => storage_path('app/public/defaults/images/wine/body/wine_body_default.png'),

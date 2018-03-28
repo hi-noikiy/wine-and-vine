@@ -2,17 +2,20 @@
 
 namespace App;
 
-use Spatie\MediaLibrary\File;
-use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Wine extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, HasSlug;
+
     /************************* Properties ******************************/
 
     /**
@@ -21,8 +24,8 @@ class Wine extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'name', 'year', 'price', 'description', 'quantity_in_stock', 'rating_count', 'rating_sum', 'temperature',
-        'alcohol', 'wine_acidity_id', 'wine_body_id', 'wine_color_id', 'wine_type_id', 'winery_id',
+        'name', 'year', 'price', 'short_description', 'description', 'quantity_in_stock', 'rating_count', 'rating_sum',
+        'temperature', 'alcohol', 'wine_acidity_id', 'wine_body_id', 'wine_color_id', 'wine_type_id', 'winery_id',
     ];
 
     /**
@@ -31,7 +34,7 @@ class Wine extends Model implements HasMedia
      * @var array
      */
     protected $with = [
-        'acidity', 'body', 'castes', 'color', 'denomination', 'food_pairing', 'type', 'winery', //'wishlists'
+        'acidity', 'body', 'castes', 'color', 'currency', 'denomination', 'food_pairing', 'type', 'winery', //'wishlists'
     ];
 
     /**
@@ -48,8 +51,7 @@ class Wine extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumbnail')
-            ->width(150)
-            ->height(150)
+            ->width(300)
             ->sharpen(10);
     }
 
@@ -118,6 +120,16 @@ class Wine extends Model implements HasMedia
     public function color(): BelongsTo
     {
         return $this->belongsTo(WineColor::class, 'wine_color_id');
+    }
+
+    /**
+     * Fetch Wine's currency.
+     *
+     * @return BelongsTo
+     */
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class, 'currency_id');
     }
 
     /**
@@ -195,6 +207,23 @@ class Wine extends Model implements HasMedia
     }
 
     /**
+     * @param $price
+     * @return string
+     */
+//    public function getPriceAttribute($price): string
+//    {
+//        if (Auth::check()) {
+//            $currency = Auth::user()->country->currencies->first();
+//        } else {
+//            $currency = Currency::where('short_name', 'USD')->first();
+//        }
+//
+//        if (array_search('symbol', explode('-', $currency->format)) === 0)
+//            return "$currency->symbol $price";
+//        return "$price $currency->symbol";
+//    }
+
+    /**
      * Fetch Wine's region.
      *
      * @return Region
@@ -239,9 +268,29 @@ class Wine extends Model implements HasMedia
      *
      * @return float
      */
-    public function getRatingAttribute() : float
+    public function getRatingAttribute(): float
     {
-        return $this->rating_sum / $this->rating_count;
+        return round($this->rating_sum / $this->rating_count, 2);
+    }
+
+    /**
+     * Fetch Wine's Avatar
+     *
+     * @return string
+     */
+    public function getCoverAttribute(): string
+    {
+        return $this->getMedia('cover')->first()->getUrl();
+    }
+
+    /**
+     * Fetch Wine's Thumbnail Avatar
+     *
+     * @return string
+     */
+    public function getThumbnailCoverAttribute(): string
+    {
+        return $this->getMedia('cover')->first()->getUrl('thumbnail');
     }
 
     /************************* Mutators ******************************/
@@ -270,13 +319,19 @@ class Wine extends Model implements HasMedia
 
     /************************* Functions ******************************/
 
+
     /**
-     * Get the route key for the model.
-     *
-     * @return string
+     * Get the options for generating the slug.
      */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
     public function getRouteKeyName()
     {
-        return 'name';
+        return 'slug';
     }
 }

@@ -19,9 +19,22 @@
 </noscript>
 <div id="app">
     @include('layouts.partials.navbar')
-    <main class="container py-4">
-        @yield('content')
-    </main>
+    <div class="container-fluid">
+        <div class="row py-4">
+            <div class="col d-none d-sm-block">
+                @yield('left-content')
+            </div>
+
+            <div class="col-md-8">
+                @yield('breadcrumb')
+                @yield('content')
+            </div>
+
+            <div class="col d-none d-sm-block">
+                @yield('right-content')
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Scripts -->

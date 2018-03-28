@@ -32,11 +32,11 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     protected function redirectTo()
     {
-        return route('home');
+        return route('welcome');
     }
 
     /**
@@ -82,17 +82,13 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return User
      */
     protected function create(array $data)
     {
-        $first_name = $data['first-name'];
-        $last_name = $data['last-name'];
-
         return User::create([
-            'first_name' => $first_name,
-            'last_name' => $last_name,
-            'username' => $this->uniqueUsername($first_name, $last_name),
+            'first_name' => $data['first-name'],
+            'last_name' => $data['last-name'],
             'email' => $data['email'],
             'password' => $data['password'],
             'country_id' => $data['country'],
@@ -100,13 +96,5 @@ class RegisterController extends Controller
             'newsletter' => $data['newsletter'],
             'email_offers' => $data['email-offers']
         ]);
-    }
-
-    protected function uniqueUsername($first_name, $last_name)
-    {
-        $username = strtolower("{$first_name}_{$last_name}");
-        $count = User::where('username', 'like', "%{$username}%")->count();
-
-        return $count > 0 ? "{$username}_{$count}" : $username;
     }
 }

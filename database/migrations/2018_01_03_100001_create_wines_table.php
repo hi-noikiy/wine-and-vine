@@ -18,7 +18,9 @@ class CreateWinesTable extends Migration
             $table->string('name');
             $table->year('year');
             $table->float('price');
+            $table->string('short_description');
             $table->text('description');
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('quantity_in_stock');
             $table->string('image')->default(storage_path('app/public/images/wines/default.png'));
             $table->string('thumbnail')->default(storage_path('app/public/images/wines/thumbnails/default.png'));
@@ -33,6 +35,7 @@ class CreateWinesTable extends Migration
             $table->unsignedInteger('wine_origin_denomination_id');
             $table->unsignedInteger('wine_type_id');
             $table->unsignedInteger('winery_id');
+            $table->unsignedInteger('currency_id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -60,6 +63,10 @@ class CreateWinesTable extends Migration
             $table->foreign('wine_type_id')
                 ->references('id')
                 ->on('wine_types');
+
+            $table->foreign('currency_id')
+                ->references('id')
+                ->on('currencies');
         });
     }
 

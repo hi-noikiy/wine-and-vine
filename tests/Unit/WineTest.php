@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Currency;
 use App\User;
 use App\Wine;
 use Exception;
@@ -28,6 +29,12 @@ class WineTest extends TestCase
         parent::setUp();
 
         $this->wine = factory(Wine::class)->create();
+    }
+
+    /** @test */
+    public function a_wine_belongs_to_a_currency()
+    {
+        $this->assertInstanceOf(Currency::class, $this->wine->currency);
     }
 
     /** @test */
@@ -163,17 +170,17 @@ class WineTest extends TestCase
 
         $winery->address()->save($address = create(Address::class));
 
-        $this->assertEquals($address->country, $wine->country);
+        $this->assertEquals($address->country->id, $wine->country->id);
     }
 
     /** @test */
     public function a_wine_can_access_its_country_name_directly()
     {
-        $wine = factory(Wine::class)->create([
-            'winery_id' => ($winery = factory(Winery::class)->create())->id
+        $wine = create(Wine::class, [
+            'winery_id' => ($winery = create(Winery::class))->id
         ]);
 
-        $winery->address()->save($address = factory(Address::class)->create());
+        $winery->address()->save($address = create(Address::class));
 
         $this->assertEquals($address->country->name, $wine->country_name);
     }

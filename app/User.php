@@ -13,10 +13,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class User extends Authenticatable implements HasMedia
 {
-    use Notifiable, HasRoles, HasMediaTrait;
+    use Notifiable, HasRoles, HasMediaTrait, HasSlug;
 
     /************************* Properties ******************************/
 
@@ -41,7 +43,7 @@ class User extends Authenticatable implements HasMedia
      *
      * @var array
      */
-    protected $with = ['wishlist', 'rating', 'addresses'];
+    protected $with = ['wishlist', 'rating', 'addresses', 'country'];
 
     /**
      * The attributes that should be cast to native types.
@@ -61,8 +63,7 @@ class User extends Authenticatable implements HasMedia
     {
         $this->addMediaConversion('thumbnail')
             ->width(30)
-            ->height(30)
-            ->sharpen(10);
+            ->height(30);
     }
 
     public function registerMediaCollections()
@@ -217,6 +218,26 @@ class User extends Authenticatable implements HasMedia
         return $this->shipping->full_address;
     }
 
+    /**
+     * Fetch User's Avatar
+     *
+     * @return string
+     */
+    public function getAvatarAttribute(): string
+    {
+        return $this->getMedia('avatar')->first()->getUrl();
+    }
+
+    /**
+     * Fetch User's Thumbnail Avatar
+     *
+     * @return string
+     */
+    public function getThumbnailAvatarAttribute(): string
+    {
+        return $this->getMedia('avatar')->first()->getUrl('thumbnail');
+    }
+
     /************************* Mutators ******************************/
 
     /**
@@ -294,5 +315,16 @@ class User extends Authenticatable implements HasMedia
     public function getRouteKeyName()
     {
         return 'username';
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['first_name', 'last_name'])
+            ->usingSeparator('_')
+            ->saveSlugsTo('username');
     }
 }

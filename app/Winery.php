@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Winery extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, HasSlug;
     /************************* Properties ******************************/
 
     /**
@@ -207,7 +209,7 @@ class Winery extends Model implements HasMedia
      */
     public function getCountryNameAttribute(): string
     {
-        return $this->country->name;
+        return $this->address->country->name;
     }
 
     /**
@@ -294,5 +296,15 @@ class Winery extends Model implements HasMedia
     public function getRouteKeyName()
     {
         return 'name';
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 }

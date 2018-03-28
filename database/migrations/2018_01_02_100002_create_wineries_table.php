@@ -19,6 +19,7 @@ class CreateWineriesTable extends Migration
             $table->string('email');
             $table->string('phone_number');
             $table->string('mobile_number');
+            $table->string('slug')->unique();
 
             $table->unsignedInteger('owner_id');
             $table->unsignedInteger('region_id');

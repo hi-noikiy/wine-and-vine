@@ -76,6 +76,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'media_regions_hero' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/images/regions/hero'),
+            'url' => env('APP_URL').'/storage/images/regions/hero',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

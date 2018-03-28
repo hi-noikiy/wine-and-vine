@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\User;
-use App\Winery;
 use App\Address;
 use App\Country;
-use Tests\TestCase;
+use App\User;
+use App\Winery;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AddressTest extends TestCase
 {
@@ -59,7 +59,9 @@ class AddressTest extends TestCase
     public function an_address_can_access_the_country_name_directly()
     {
         $address = create(Address::class, [
-            'country_id' => ($country = create(Country::class))->id
+            'country_id' => ($country = create(Country::class))->id,
+            'addressable_id' => 1,
+            'addressable_type' => User::class,
         ]);
         $this->assertEquals($country->name, $address->countryName);
     }
@@ -74,7 +76,9 @@ class AddressTest extends TestCase
     public function an_address_can_access_the_full_address_directly()
     {
         $address = create(Address::class, [
-            'country_id' => ($country = create(Country::class))->id
+            'country_id' => ($country = create(Country::class))->id,
+            'addressable_id' => 1,
+            'addressable_type' => User::class
         ]);
 
         $full_address = "$address->street_name, $address->postcode $address->city, $country->name";

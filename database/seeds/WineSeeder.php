@@ -1,8 +1,8 @@
 <?php
 
-use App\Wine;
-use App\Grape;
 use App\FoodPair;
+use App\Grape;
+use App\Wine;
 use Illuminate\Database\Seeder;
 
 class WineSeeder extends Seeder
@@ -14,19 +14,18 @@ class WineSeeder extends Seeder
      */
     public function run()
     {
-        $grapes = Grape::all();
-        $pairings = FoodPair::all();
+        create(Wine::class, [], 10)
+            ->each(function ($wine) {
 
-        factory(Wine::class, 10)
-            ->create()
-            ->each(function ($wine) use ($grapes, $pairings) {
-                $wine->castes()->attach(
-                    $grapes->isEmpty() ? factory(Grape::class, rand(1, 4))->create() : $grapes->chunk(rand(1, 4))->first()
-                );
+                $wine->castes()
+                    ->sync(Grape::all()
+                        ->chunk(rand(1, 4))
+                        ->first());
 
-                $wine->food_pairing()->attach(
-                    $pairings->isEmpty() ? factory(FoodPair::class, rand(1, 4))->create() : $pairings->chunk(rand(1, 4))->first()
-                );
+                $wine->food_pairing()
+                    ->sync(FoodPair::all()
+                        ->chunk(rand(1, 4))
+                        ->first());
             });
     }
 }

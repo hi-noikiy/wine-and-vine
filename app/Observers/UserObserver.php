@@ -14,7 +14,6 @@ class UserObserver extends AbstractObserver
      */
     public function retrieved($user): void
     {
-        \Log::info('retrieved');
     }
 
     /**
@@ -25,7 +24,6 @@ class UserObserver extends AbstractObserver
      */
     public function creating($user): void
     {
-        \Log::info('creating');
     }
 
     /**
@@ -49,7 +47,6 @@ class UserObserver extends AbstractObserver
      */
     public function updating($user): void
     {
-        \Log::info('updating');
     }
 
     /**
@@ -60,7 +57,6 @@ class UserObserver extends AbstractObserver
      */
     public function updated($user): void
     {
-        \Log::info('updated');
     }
 
     /**
@@ -71,7 +67,6 @@ class UserObserver extends AbstractObserver
      */
     public function saving($user): void
     {
-        \Log::info('saving');
     }
 
     /**
@@ -82,7 +77,6 @@ class UserObserver extends AbstractObserver
      */
     public function saved($user): void
     {
-        \Log::info('saved');
     }
 
     /**
@@ -93,7 +87,6 @@ class UserObserver extends AbstractObserver
      */
     public function deleting($user): void
     {
-        \Log::info('deleting');
     }
 
     /**
@@ -104,7 +97,6 @@ class UserObserver extends AbstractObserver
      */
     public function deleted($user): void
     {
-        \Log::info('deleted');
     }
 
     /**
@@ -115,7 +107,6 @@ class UserObserver extends AbstractObserver
      */
     public function restoring($user): void
     {
-        \Log::info('restoring');
     }
 
     /**
@@ -126,6 +117,5 @@ class UserObserver extends AbstractObserver
      */
     public function restored($user): void
     {
-        \Log::info('restored');
     }
 }

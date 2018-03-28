@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Wine;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PageController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the welcome landing page.
      *
      * @return Response
      */
@@ -22,9 +23,10 @@ class PageController extends Controller
      *
      * @return Response
      */
-    public function explore()
+    public function browse()
     {
-        return view('pages.explore');
+        return view('pages.wines.index')
+            ->with(['wines' => Wine::all()]);
     }
 
     /**

@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\User;
 use App\Country;
-use Tests\TestCase;
 use App\RatingVisibility;
+use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class UserRegistrationTest extends TestCase
 {
@@ -28,7 +28,7 @@ class UserRegistrationTest extends TestCase
             'first-name', 'last-name', 'email', 'password', 'country', 'rating-visibility', 'newsletter', 'email-offers'
         ]);
         // Assert that the user is redirected /home
-        $response->assertRedirect(route('home'));
+        $response->assertRedirect(route('welcome'));
         // Assert that the user is logged in
         $this->assertTrue(Auth::check());
         // Assert that the user was created
@@ -76,10 +76,10 @@ class UserRegistrationTest extends TestCase
         $this->withExceptionHandling();
         // Simulate that the user was on /register page
         $this->from(route('register'));
-        // Create a user instance
-        $user = factory(User::class)->make(['first_name' => str_repeat('a', 26)]);
         // Post the data with a first name breaking validation
-        $response = $this->post(route('register'), $user->toArray());
+        $response = $this->post(route('register'), $this->validForm([
+            'first-name' => str_repeat('a', 26)
+        ]));
         // Assert that the user is redirected back
         $response->assertRedirect(route('register'));
         // Assert that there is an error on session
@@ -98,9 +98,9 @@ class UserRegistrationTest extends TestCase
         // Simulate that the user was on /register page
         $this->from(route('register'));
         // Create a user instance
-        $user = factory(User::class)->make(['last_name' => str_repeat('a', 26)]);
-        // Post the data with a first name breaking validation
-        $response = $this->post(route('register'), $user->toArray());
+        $response = $this->post(route('register'), $this->validForm([
+            'last-name' => str_repeat('a', 26)
+        ]));
         // Assert that the user is redirected back
         $response->assertRedirect(route('register'));
         // Assert that there is an error on session
@@ -120,10 +120,10 @@ class UserRegistrationTest extends TestCase
         create(User::class, ['email' => 'example@example.com']);
         // Simulate that the user was on /register page
         $this->from(route('register'));
-        // Create a user instance
-        $user = make(User::class, ['email' => 'example@example.com']);
         // Post the data with a taken email, breaking validation
-        $response = $this->post(route('register'), $user->toArray());
+        $response = $this->post(route('register'), $this->validForm([
+            'email' => 'example@example.com'
+        ]));
         // Assert that the user is redirected back
         $response->assertRedirect(route('register'));
         // Assert that there is an error on session
@@ -141,13 +141,11 @@ class UserRegistrationTest extends TestCase
         $this->withExceptionHandling();
         // Simulate that the user was on /register page
         $this->from(route('register'));
-        // Create a user instance
-        $user = factory(User::class)->make([
+        // Post the data with a mismatched passwords, breaking validation
+        $response = $this->post(route('register'), $this->validForm([
             'password' => 'secret',
             'password_confirmation' => 'another-secret'
-        ]);
-        // Post the data with a mismatched passwords, breaking validation
-        $response = $this->post(route('register'), $user->toArray());
+        ]));
         // Assert that the user is redirected back
         $response->assertRedirect(route('register'));
         // Assert that there is an error on session

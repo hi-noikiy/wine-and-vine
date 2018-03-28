@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
@@ -15,7 +16,15 @@ class Country extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name', 'cca2', 'cca3'
+    ];
+
+    protected $with = [
+        'currencies'
+    ];
+
+    protected $casts = [
+        'eu_member' => 'boolean'
     ];
 
     /************************* Relations ******************************/
@@ -28,6 +37,16 @@ class Country extends Model
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    /**
+     * Fetch Country's currencies
+     *
+     * @return BelongsToMany
+     */
+    public function currencies()
+    {
+        return $this->belongsToMany(Currency::class);
     }
 
     /************************* Accessors ******************************/

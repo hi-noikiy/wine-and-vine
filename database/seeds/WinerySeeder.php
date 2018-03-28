@@ -1,7 +1,7 @@
 <?php
 
-use App\Winery;
 use App\Address;
+use App\Winery;
 use Illuminate\Database\Seeder;
 
 class WinerySeeder extends Seeder
@@ -16,11 +16,10 @@ class WinerySeeder extends Seeder
         create(Winery::class, [], 10)
             ->each(function ($winery) {
                 $winery->address()
-                    ->save(factory(Address::class)
-                        ->create([
-                            'addressable_id' => $winery->id,
-                            'addressable_type' => Winery::class
-                        ]));
+                    ->save(create(Address::class, [
+                        'addressable_id' => $winery->id,
+                        'addressable_type' => Winery::class
+                    ]));
             });
     }
 }

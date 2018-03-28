@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/', 'PageController@welcome')->name('welcome');
-Route::get('explore', 'PageController@explore')->name('explore');
+
+Route::get('wines/all', 'WineController@index')->name('wines.index');
+Route::get('wine/show/{wine}', 'WineController@show')->name('wine.show');

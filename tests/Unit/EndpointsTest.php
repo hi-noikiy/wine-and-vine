@@ -3,14 +3,18 @@
 namespace Tests\Unit;
 
 use App\User;
+use App\Wine;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class EndpointsTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function anyone_can_load_welcome_page()
     {
-        $response = $this->get('/');
+        $response = $this->get(route('welcome'));
 
         $response->assertStatus(200);
 
@@ -18,57 +22,40 @@ class EndpointsTest extends TestCase
     }
 
     /** @test */
-    public function anyone_can_load_browsing_wines_page()
+    public function anyone_can_load_browse_wines_page()
     {
-        $response = $this->get('explore');
+        $response = $this->get(route('wines.index'));
 
         $response->assertStatus(200);
 
-        $response->assertViewIs('pages.explore');
+        $response->assertViewIs('pages.wines.index');
     }
 
     /** @test */
-    public function authenticated_users_cant_load_the_login_page_and_are_redirected_home()
+    public function an_authenticated_user_cant_load_the_register_page_and_is_redirected_to_the_welcome_page()
     {
-        $this->actingAs(factory(User::class)->make(['rating_visibility_id' => 1]));
-
-        $this->get('login')
-            ->assertStatus(302)
-            ->assertHeader('Location', url('/home'))
-            ->assertRedirect('home');
-    }
-
-    /** @test */
-    public function an_authenticated_user_cant_load_the_register_page_and_is_redirected_home()
-    {
-        $anAuthenticatedUser = factory(User::class)->make();
+        $anAuthenticatedUser = make(User::class);
 
         $this->actingAs($anAuthenticatedUser);
 
-        $response = $this->get('register');
-
-        $response->assertStatus(302);
-
-        $response->assertRedirect('home');
+        $this->get(route('register'))
+            ->assertStatus(302)
+            ->assertRedirect(route('welcome'));
     }
 
     /** @test */
     public function a_guest_can_load_the_login_page()
     {
-        $response = $this->get('login');
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('auth.login');
+        $this->get(route('login'))
+            ->assertStatus(200)
+            ->assertViewIs('auth.login');
     }
 
     /** @test */
     public function a_guest_can_load_the_register_page()
     {
-        $response = $this->get('register');
-
-        $response->assertStatus(200);
-
-        $response->assertViewIs('auth.register');
+        $this->get(route('register'))
+            ->assertStatus(200)
+            ->assertViewIs('auth.register');
     }
 }

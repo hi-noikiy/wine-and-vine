@@ -200,37 +200,37 @@ class WineTest extends TestCase
 
     /** @test */
     public function a_wine_can_be_rated_by_many_users()
-     {
+    {
         $this->assertInstanceOf(Collection::class, $this->wine->ratings);
-     }
+    }
 
     /** @test */
     public function a_wine_can_be_rated()
-     {
-         $this->assertEmpty($this->wine->ratings);
+    {
+        $this->assertEmpty($this->wine->ratings);
 
-         $user = create(User::class);
+        $user = create(User::class);
 
-         $this->wine->ratings()
+        $this->wine->ratings()
              ->attach($user, ['rate' => 3]);
 
-         $this->assertEquals(3, $this->wine->fresh()->ratings->first()->pivot->rate);
-     }
+        $this->assertEquals(3, $this->wine->fresh()->ratings->first()->pivot->rate);
+    }
 
-     /** @test */
-     public function a_wine_can_be_rated_by_multiple_users()
-      {
-          $this->assertEmpty($this->wine->ratings);
+    /** @test */
+    public function a_wine_can_be_rated_by_multiple_users()
+    {
+        $this->assertEmpty($this->wine->ratings);
 
-          $number = 1;
-          create(User::class, [], 5)
+        $number = 1;
+        create(User::class, [], 5)
               ->each(function ($user) use (&$number) {
                   $this->wine->ratings()->attach($user, ['rate' => $number++]);
               });
 
-          $assertionNumber = 1;
-          $this->wine->fresh()->ratings->each(function ($user) use (&$assertionNumber) {
-              $this->assertEquals($assertionNumber++, $user->pivot->rate);
-          });
-      }
+        $assertionNumber = 1;
+        $this->wine->fresh()->ratings->each(function ($user) use (&$assertionNumber) {
+            $this->assertEquals($assertionNumber++, $user->pivot->rate);
+        });
+    }
 }

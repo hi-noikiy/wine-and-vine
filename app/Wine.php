@@ -183,7 +183,7 @@ class Wine extends Model implements HasMedia
     }
 
     /**
-     * Fetch the Wine's ratings
+     * Fetch the Wine's ratings.
      *
      * @return BelongsToMany
      */

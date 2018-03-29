@@ -154,7 +154,7 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * Fetch the User's wine ratings
+     * Fetch the User's wine ratings.
      *
      * @return BelongsToMany
      */

@@ -376,9 +376,9 @@ class UserTest extends TestCase
 
     /** @test */
     public function a_user_can_rate_many_wines()
-     {
+    {
         $this->assertInstanceOf(Collection::class, $this->user->wineRatings);
-     }
+    }
 
     /** @test */
     public function a_user_can_rate_a_wine()

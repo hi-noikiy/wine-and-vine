@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Spatie\MediaLibrary\File;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -12,6 +13,38 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property string name
+ * @property integer year
+ * @property float price
+ * @property string short_description
+ * @property string description
+ * @property string slug
+ * @property integer quantity_in_stock
+ * @property integer temperature
+ * @property integer alcohol
+ * @property integer wine_acidity_id
+ * @property integer wine_body_id
+ * @property integer wine_color_id
+ * @property integer wine_origin_denomination_id
+ * @property integer wine_type_id
+ * @property integer winery_id
+ * @property integer currency_id
+ * @property Carbon created_at
+ * @property Carbon updated_at
+ *
+ * @property BelongsTo acidity
+ * @property BelongsTo body
+ * @property BelongsTo color
+ * @property BelongsTo castes
+ * @property BelongsTo currency
+ * @property BelongsTo denomination
+ * @property BelongsToMany ratings
+ * @property BelongsToMany food_pairing
+ * @property BelongsTo type
+ * @property BelongsTo winery
+ * @property BelongsToMany wishlists
+ */
 class Wine extends Model implements HasMedia
 {
     use HasMediaTrait, HasSlug;
@@ -183,7 +216,7 @@ class Wine extends Model implements HasMedia
     }
 
     /**
-     * Fetch the Wine's ratings.
+     * Fetch the Wine's ratings
      *
      * @return BelongsToMany
      */
@@ -217,23 +250,6 @@ class Wine extends Model implements HasMedia
     {
         return trim(preg_replace('/\s+/', ' ', $description));
     }
-
-    /**
-     * @param $price
-     * @return string
-     */
-//    public function getPriceAttribute($price): string
-//    {
-//        if (Auth::check()) {
-//            $currency = Auth::user()->country->currencies->first();
-//        } else {
-//            $currency = Currency::where('short_name', 'USD')->first();
-//        }
-//
-//        if (array_search('symbol', explode('-', $currency->format)) === 0)
-//            return "$currency->symbol $price";
-//        return "$price $currency->symbol";
-//    }
 
     /**
      * Fetch Wine's region.
@@ -278,11 +294,16 @@ class Wine extends Model implements HasMedia
     /**
      * Fetch Wine's rating.
      *
-     * @return float
+     * @return float|string
      */
-    public function getRatingAttribute(): float
+    public function getRatingAttribute()
     {
-        return round($this->rating_sum / $this->rating_count, 2);
+        if (($count = $this->ratings->count()) === 0) return "$this->name hasn't been rated yet. Be the first!";
+        $sum = $this->ratings
+            ->flatten()
+            ->pluck('pivot.rate')
+            ->sum();
+        return round($sum / $count, 2);
     }
 
     /**

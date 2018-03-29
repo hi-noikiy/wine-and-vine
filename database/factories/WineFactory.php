@@ -11,17 +11,13 @@ use Faker\Generator as Faker;
 use App\WineOriginDenomination;
 
 $factory->define(App\Wine::class, function (Faker $faker) {
-    $name = $faker->word;
-
     return [
-        'name' => $name,
+        'name' => $faker->words(mt_rand(1, 3), true),
         'short_description' => $faker->words(6, true),
         'description' => $faker->text,
         'year' => $faker->year,
         'price' => $faker->randomFloat(2, 0, 1000),
         'quantity_in_stock' => $faker->randomNumber(3),
-        'rating_count' => $faker->randomNumber(3),
-        'rating_sum' => $faker->randomNumber(3),
         'temperature' => $faker->numberBetween(8, 24),
         'alcohol' => $faker->numberBetween(8, 24),
         'wine_acidity_id' => ($acidities = WineAcidity::all())->isEmpty()

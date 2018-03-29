@@ -188,49 +188,46 @@ class WineTest extends TestCase
     /** @test */
     public function a_wine_has_a_rating()
     {
-        $this->assertTrue(is_float($this->wine->rating));
+        $this->wine->ratings()->attach(
+            create(User::class, [], 5),
+            ['rate' => 3]);
 
-        $wine = factory(Wine::class)->create([
-            'rating_sum' => 25,
-            'rating_count' => 5
-        ]);
-
-        $this->assertEquals(5.0, $wine->rating);
+        $this->assertEquals(3, $this->wine->rating);
     }
 
     /** @test */
     public function a_wine_can_be_rated_by_many_users()
-    {
+     {
         $this->assertInstanceOf(Collection::class, $this->wine->ratings);
-    }
+     }
 
     /** @test */
     public function a_wine_can_be_rated()
-    {
-        $this->assertEmpty($this->wine->ratings);
+     {
+         $this->assertEmpty($this->wine->ratings);
 
-        $user = create(User::class);
+         $user = create(User::class);
 
-        $this->wine->ratings()
+         $this->wine->ratings()
              ->attach($user, ['rate' => 3]);
 
-        $this->assertEquals(3, $this->wine->fresh()->ratings->first()->pivot->rate);
-    }
+         $this->assertEquals(3, $this->wine->fresh()->ratings->first()->pivot->rate);
+     }
 
-    /** @test */
-    public function a_wine_can_be_rated_by_multiple_users()
-    {
-        $this->assertEmpty($this->wine->ratings);
+     /** @test */
+     public function a_wine_can_be_rated_by_multiple_users()
+      {
+          $this->assertEmpty($this->wine->ratings);
 
-        $number = 1;
-        create(User::class, [], 5)
+          $number = 1;
+          create(User::class, [], 5)
               ->each(function ($user) use (&$number) {
                   $this->wine->ratings()->attach($user, ['rate' => $number++]);
               });
 
-        $assertionNumber = 1;
-        $this->wine->fresh()->ratings->each(function ($user) use (&$assertionNumber) {
-            $this->assertEquals($assertionNumber++, $user->pivot->rate);
-        });
-    }
+          $assertionNumber = 1;
+          $this->wine->fresh()->ratings->each(function ($user) use (&$assertionNumber) {
+              $this->assertEquals($assertionNumber++, $user->pivot->rate);
+          });
+      }
 }

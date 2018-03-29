@@ -182,6 +182,18 @@ class Wine extends Model implements HasMedia
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
+    /**
+     * Fetch the Wine's ratings
+     *
+     * @return BelongsToMany
+     */
+    public function ratings(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'wine_ratings', 'wine_id', 'user_id')
+            ->withPivot('rate')
+            ->withTimestamps();
+    }
+
     /************************* Accessors ******************************/
 
     /**

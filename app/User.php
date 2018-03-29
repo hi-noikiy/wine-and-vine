@@ -153,6 +153,18 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsTo(Country::class);
     }
 
+    /**
+     * Fetch the User's wine ratings
+     *
+     * @return BelongsToMany
+     */
+    public function wineRatings(): BelongsToMany
+    {
+        return $this->belongsToMany(Wine::class, 'wine_ratings', 'user_id', 'wine_id')
+            ->withPivot('rate')
+            ->withTimestamps();
+    }
+
     /************************* Accessors ******************************/
 
     /**

@@ -373,4 +373,37 @@ class UserTest extends TestCase
         // Assert that the user has no roles
         $this->assertCount(0, $this->user->fresh()->roles);
     }
+
+    /** @test */
+    public function a_user_can_rate_many_wines()
+     {
+        $this->assertInstanceOf(Collection::class, $this->user->wineRatings);
+     }
+
+    /** @test */
+    public function a_user_can_rate_a_wine()
+    {
+        $this->assertEmpty($this->user->wineRatings);
+
+        $wine = create(Wine::class);
+
+        $this->user->wineRatings()
+            ->attach($wine, ['rate' => 1]);
+
+        $this->assertEquals(1, $this->user->fresh()->wineRatings->first()->pivot->rate);
+    }
+
+    /** @test */
+    public function a_user_can_rate_multiple_wines()
+    {
+        $this->assertEmpty($this->user->wineRatings);
+
+        $wines = create(Wine::class, [], 5);
+
+        $this->user->wineRatings()->attach($wines, ['rate' => 5]);
+
+        $this->user->fresh()->wineRatings->each(function ($wine) {
+            $this->assertEquals(5, $wine->pivot->rate);
+        });
+    }
 }

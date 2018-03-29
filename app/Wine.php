@@ -15,21 +15,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property string name
- * @property integer year
+ * @property int year
  * @property float price
  * @property string short_description
  * @property string description
  * @property string slug
- * @property integer quantity_in_stock
- * @property integer temperature
- * @property integer alcohol
- * @property integer wine_acidity_id
- * @property integer wine_body_id
- * @property integer wine_color_id
- * @property integer wine_origin_denomination_id
- * @property integer wine_type_id
- * @property integer winery_id
- * @property integer currency_id
+ * @property int quantity_in_stock
+ * @property int temperature
+ * @property int alcohol
+ * @property int wine_acidity_id
+ * @property int wine_body_id
+ * @property int wine_color_id
+ * @property int wine_origin_denomination_id
+ * @property int wine_type_id
+ * @property int winery_id
+ * @property int currency_id
  * @property Carbon created_at
  * @property Carbon updated_at
  *
@@ -216,7 +216,7 @@ class Wine extends Model implements HasMedia
     }
 
     /**
-     * Fetch the Wine's ratings
+     * Fetch the Wine's ratings.
      *
      * @return BelongsToMany
      */
@@ -298,11 +298,14 @@ class Wine extends Model implements HasMedia
      */
     public function getRatingAttribute()
     {
-        if (($count = $this->ratings->count()) === 0) return "$this->name hasn't been rated yet. Be the first!";
+        if (($count = $this->ratings->count()) === 0) {
+            return "$this->name hasn't been rated yet. Be the first!";
+        }
         $sum = $this->ratings
             ->flatten()
             ->pluck('pivot.rate')
             ->sum();
+
         return round($sum / $count, 2);
     }
 

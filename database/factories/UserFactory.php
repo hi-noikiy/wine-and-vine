@@ -2,7 +2,6 @@
 
 use App\User;
 use App\Address;
-use App\Country;
 use Faker\Generator as Faker;
 use App\RatingVisibility as Rating;
 

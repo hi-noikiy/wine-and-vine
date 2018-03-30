@@ -7,7 +7,6 @@ use App\Wine;
 use Exception;
 use App\Winery;
 use App\Address;
-use App\Country;
 use Tests\TestCase;
 use App\RatingVisibility;
 use Spatie\Permission\Models\Role;

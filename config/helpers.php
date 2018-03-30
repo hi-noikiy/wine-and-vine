@@ -12,7 +12,7 @@ if (! function_exists('set_active')) {
     }
 }
 
-if (!function_exists('to')) {
+if (! function_exists('to')) {
 
     /**
      * @param string $name Route name

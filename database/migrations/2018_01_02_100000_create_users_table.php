@@ -25,9 +25,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('rating_count')->default(0);
             $table->boolean('newsletter')->default(true);
             $table->boolean('email_offers')->default(true);
-            $table->unsignedInteger('rank')->default(0);
 
-            $table->unsignedInteger('country_id');
             $table->unsignedInteger('rating_visibility_id')->nullable();
             $table->unsignedInteger('shipping_address_id')->nullable();
 
@@ -35,11 +33,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['rating_visibility_id', 'country_id', 'shipping_address_id']);
-
-            $table->foreign('country_id')
-                ->references('id')
-                ->on('countries');
+            $table->index(['rating_visibility_id', 'shipping_address_id']);
 
             $table->foreign('rating_visibility_id')
                 ->references('id')

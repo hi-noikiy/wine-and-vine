@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Spatie\MediaLibrary\File;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -16,6 +17,11 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property Collection addresses
+ * @property Address main_address
+ * @property Address shipping Shipping Address
+ */
 class User extends Authenticatable implements HasMedia
 {
     use Notifiable, HasRoles, HasMediaTrait, HasSlug;
@@ -28,7 +34,7 @@ class User extends Authenticatable implements HasMedia
      * @var array
      */
     protected $fillable = ['first_name', 'last_name', 'username', 'email', 'password', 'description', 'rating_count',
-        'country_id', 'rating_visibility_id', 'shipping_address_id', 'newsletter', 'email_offers', 'rank',
+        'rating_visibility_id', 'shipping_address_id', 'newsletter', 'email_offers', 'rank',
     ];
 
     /**
@@ -43,7 +49,7 @@ class User extends Authenticatable implements HasMedia
      *
      * @var array
      */
-    protected $with = ['wishlist', 'rating', 'addresses', 'country'];
+    protected $with = ['wishlist', 'rating', 'addresses'];
 
     /**
      * The attributes that should be cast to native types.
@@ -144,16 +150,6 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * Fetch User's country.
-     *
-     * @return BelongsTo
-     */
-    public function country(): BelongsTo
-    {
-        return $this->belongsTo(Country::class);
-    }
-
-    /**
      * Fetch the User's wine ratings.
      *
      * @return BelongsToMany
@@ -217,7 +213,19 @@ class User extends Authenticatable implements HasMedia
      */
     public function getCountryNameAttribute(): string
     {
-        return $this->country->name;
+        return $this->main_address
+            ->country
+            ->name;
+    }
+
+    /**
+     * Fetch User's main primary address
+     *
+     * @return Address
+     */
+    public function getMainAddressAttribute(): Address
+    {
+        return $this->addresses->where('is_primary', true)->first();
     }
 
     /**

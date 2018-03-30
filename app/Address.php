@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property string addressable_type
+ * @property mixed addressable
+ * @property integer addressable_id
+ * @property Country country
+ * @property string full_address
+ */
 class Address extends Model
 {
     /************************* Properties ******************************/

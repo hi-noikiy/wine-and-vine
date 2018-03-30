@@ -11,8 +11,8 @@
 @section('breadcrumb')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('welcome') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('wines.index') }}">Browse</a></li>
+            <li class="breadcrumb-item"><a href="{{ to('welcome') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ to('wines.index') }}">Browse</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ $wine->name }}</li>
         </ol>
     </nav>

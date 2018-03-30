@@ -20,6 +20,7 @@ $factory->define(App\Wine::class, function (Faker $faker) {
         'quantity_in_stock' => $faker->randomNumber(3),
         'temperature' => $faker->numberBetween(8, 24),
         'alcohol' => $faker->numberBetween(8, 24),
+        'rank' => $faker->unique()->randomNumber(2),
         'wine_acidity_id' => ($acidities = WineAcidity::all())->isEmpty()
             ? factory(WineAcidity::class)->create()->id
             : $acidities->random()->id,

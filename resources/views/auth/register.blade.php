@@ -9,7 +9,7 @@
 
                     <div class="card-body">
                         {{--Form--}}
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ to('register') }}">
                             {{--CSRF Token--}}
                             @csrf
 
@@ -105,26 +105,6 @@
                                            name="password_confirmation"
                                            required>
                                 </div>
-                            </div>
-
-                            {{--Countries--}}
-                            <div class="form-group row">
-                                <label for="country" class="col-md-4 col-form-label text-md-right">Country</label>
-
-                                <div class="col-md-6">
-                                    <select id="country" class="form-control" name="country">
-                                        <option selected>Select your Country</option>
-                                        @foreach($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                @if ($errors->has('country'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('country') }}</strong>
-                                    </span>
-                                @endif
                             </div>
 
                             {{--Ratings--}}

@@ -20,12 +20,11 @@ class UserRegistrationTest extends TestCase
     {
         // Register a user
         $response = $this->post(route('register'), $this->validForm([
-            'country' => ($country = factory(Country::class)->create())->id,
             'rating-visibility' => ($rating = factory(RatingVisibility::class)->create())->id
         ]));
         // Assert that there are no errors on session
         $response->assertSessionMissing([
-            'first-name', 'last-name', 'email', 'password', 'country', 'rating-visibility', 'newsletter', 'email-offers'
+            'first-name', 'last-name', 'email', 'password', 'rating-visibility', 'newsletter', 'email-offers'
         ]);
         // Assert that the user is redirected /home
         $response->assertRedirect(route('welcome'));
@@ -34,12 +33,11 @@ class UserRegistrationTest extends TestCase
         // Assert that the user was created
         $this->assertCount(1, User::all());
         // Assert the values on the database are correct
-        tap(User::first(), function ($user) use ($country, $rating) {
+        tap(User::first(), function ($user) use ($rating) {
             $this->assertEquals('John', $user->first_name);
             $this->assertEquals('Doe', $user->last_name);
             $this->assertEquals('john_doe', $user->username);
             $this->assertEquals('john@example.com', $user->email);
-            $this->assertEquals($country->id, $user->country_id);
             $this->assertEquals($rating->id, $user->rating_visibility_id);
             $this->assertEquals($rating->id, $user->rating_visibility_id);
             $this->assertEquals(1, $user->newsletter);
@@ -61,7 +59,7 @@ class UserRegistrationTest extends TestCase
         $response->assertRedirect(route('register'));
         // Assert that there is an error on session
         $response->assertSessionHasErrors([
-            'first-name', 'last-name', 'email', 'password', 'country', 'rating-visibility', 'newsletter', 'email-offers'
+            'first-name', 'last-name', 'email', 'password', 'rating-visibility', 'newsletter', 'email-offers'
         ]);
         // Assert that the user is not logged in
         $this->assertFalse(Auth::check());
@@ -157,29 +155,6 @@ class UserRegistrationTest extends TestCase
     }
 
     /** @test */
-    public function a_country_is_required_and_must_exist_on_countries_table()
-    {
-        // Enable exception handling so laravel catches the error and redirect back
-        $this->withExceptionHandling();
-        // Simulate that the user was on /register page
-        $this->from(route('register'));
-        // This country does not exist on countries table, thus breaks validation
-        $data = $this->validForm(['country' => 555]);
-        // Post the data with a country that does exist
-        $response = $this->post(route('register'), $data);
-        // Assert that the user is redirected /home
-        $response->assertRedirect(route('register'));
-        // Assert that there are no errors on session
-        $response->assertSessionHasErrors('country');
-        // Assert that the user is logged in
-        $this->assertFalse(Auth::check());
-        // Assert that the database has no users
-        $this->assertCount(0, User::all());
-        // Assert that the error message matches
-        $this->assertEquals('The selected country is invalid.', Session::get('errors')->first());
-    }
-
-    /** @test */
     public function a_rating_visibility_is_required_and_must_exist_on_ratings_table()
     {
         // Enable exception handling so laravel catches the error and redirect back
@@ -263,7 +238,6 @@ class UserRegistrationTest extends TestCase
             'email' => 'john@example.com',
             'password' => 'secret',
             'password_confirmation' => 'secret',
-            'country' => factory(Country::class)->create()->id,
             'rating-visibility' => factory(RatingVisibility::class)->create()->id,
             'newsletter' => 1,
             'email-offers' => 1

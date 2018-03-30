@@ -91,7 +91,6 @@ class RegisterController extends Controller
             'last_name' => $data['last-name'],
             'email' => $data['email'],
             'password' => $data['password'],
-            'country_id' => $data['country'],
             'rating_visibility_id' => $data['rating-visibility'],
             'newsletter' => $data['newsletter'],
             'email_offers' => $data['email-offers']

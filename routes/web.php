@@ -17,3 +17,5 @@ Route::get('/', 'PageController@welcome')->name('welcome');
 
 Route::get('wines/all', 'WineController@index')->name('wines.index');
 Route::get('wine/show/{wine}', 'WineController@show')->name('wine.show');
+
+Route::get('user/@{user}', 'ProfileController@show')->name('user.profile.show');

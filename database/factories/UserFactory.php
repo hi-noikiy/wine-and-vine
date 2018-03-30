@@ -20,7 +20,6 @@ $factory->define(User::class, function (Faker $faker) use (&$id) {
         'rating_count' => rand(0, 100),
         'newsletter' => $faker->boolean,
         'email_offers' => $faker->boolean,
-        'rank' => $faker->unique()->randomNumber(2),
         'remember_token' => str_random(10),
         'shipping_address_id' => function ($user) {
             return factory(Address::class)->create([
@@ -29,6 +28,5 @@ $factory->define(User::class, function (Faker $faker) use (&$id) {
             ])->id;
         },
         'rating_visibility_id' => ($ratings = Rating::all())->isEmpty() ? create(Rating::class)->id : $ratings->random()->id,
-        'country_id' => ($countries = Country::all())->isEmpty() ? create(Country::class)->id : $countries->random()->id
     ];
 });

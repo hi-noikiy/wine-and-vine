@@ -34,12 +34,6 @@ class UserTest extends TestCase
         $this->assertInstanceOf(Address::class, $this->user->shipping);
     }
 
-    /** @test */
-    public function a_user_belongs_to_a_country()
-    {
-        $this->assertInstanceOf(Country::class, $this->user->country);
-    }
-
     /** @test
      * @throws Exception
      */
@@ -184,9 +178,14 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_can_fetch_his_country_name()
     {
-        $this->user->update(['country_id' => ($country = factory(Country::class)->create())->id]);
+        $this->assertNotEmpty($this->user->addresses);
 
-        $this->assertEquals($country->name, $this->user->countryName);
+        // Setting it's address as this user primary
+        $this->user->addresses()->first()->update(['is_primary' => true]);
+
+        $country = $this->user->addresses()->first()->country;
+
+        $this->assertEquals($country->name, $this->user->fresh()->countryName);
     }
 
     /** @test */

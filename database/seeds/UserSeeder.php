@@ -22,13 +22,15 @@ class UserSeeder extends Seeder
             'password' => 'secret',
             'username' => 'rafael_macedo',
             'rating_visibility_id' => Rating::first()->id,
+        ]);
+
+        $rafael->addresses()->first()->update([
             'country_id' => Country::where('cca2', 'PT')->first()->id,
-        ])->assignRole('admin');
-        // Adding an address to me
-        $rafael->addresses()->save(create(Address::class, [
-            'addressable_id' => $rafael->id,
-            'addressable_type' => User::class,
-        ]));
+            'is_primary' => true
+        ]);
+
+        // Assign an Admin role
+        $rafael->assignRole('admin');
 
         create(User::class, [], 9)
             ->each(function ($user) {

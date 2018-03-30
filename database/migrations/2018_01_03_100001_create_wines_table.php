@@ -24,6 +24,7 @@ class CreateWinesTable extends Migration
             $table->unsignedBigInteger('quantity_in_stock');
             $table->unsignedInteger('temperature');
             $table->unsignedInteger('alcohol');
+            $table->unsignedInteger('rank')->default(0);
 
             $table->unsignedInteger('wine_acidity_id');
             $table->unsignedInteger('wine_body_id');

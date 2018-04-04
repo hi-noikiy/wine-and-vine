@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'fa-sprites' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/public/icons/sprites/fa'),
+            'url' => env('APP_URL').'/storage/icons/sprites/fa',
+            'visibility' => 'public',
+        ],
+
         'media_users_avatars' => [
             'driver' => 'local',
             'root'   => storage_path('app/public/images/users/avatars'),

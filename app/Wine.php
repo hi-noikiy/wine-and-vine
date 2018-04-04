@@ -71,6 +71,18 @@ class Wine extends Model implements HasMedia
     ];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'acidity', 'body', 'castes', 'color', 'currency', 'denomination', 'food_pairing', 'type', 'winery',
+        'short_description', 'description', 'rating_count', 'rating_sum', 'temperature', 'alcohol',
+        'wine_acidity_id', 'wine_body_id', 'wine_color_id', 'wine_type_id', 'winery_id',
+        'wine_origin_denomination_id', 'rank', 'created_at', 'updated_at', 'deleted_at', 'currency_id'
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array

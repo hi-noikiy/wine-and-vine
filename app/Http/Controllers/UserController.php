@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Wine;
+use App\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Database\Eloquent\Collection;
 
-class WineController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +16,11 @@ class WineController extends Controller
      */
     public function index()
     {
-        $wines = Wine::paginate(config('wine-and-vine.data.pagination'));
+        $users = User::all();
 
-        if (request()->expectsJson()) {
-            return Wine::all();
+        if (request()->wantsJson()) {
+            return $users;
         }
-
-        return view('pages.wines.index')
-            ->with(['wines' => $wines]);
     }
 
     /**
@@ -50,25 +47,21 @@ class WineController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Wine  $wine
-     * @return Response|Wine
+     * @param  \App\User  $user
+     * @return Response
      */
-    public function show(Wine $wine)
+    public function show(User $user)
     {
-        if (request()->expectsJson()) {
-            return $wine;
-        }
-
-        return view('pages.wines.show', ['wine' => $wine]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Wine  $wine
+     * @param  \App\User  $user
      * @return Response
      */
-    public function edit(Wine $wine)
+    public function edit(User $user)
     {
         //
     }
@@ -77,10 +70,10 @@ class WineController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Wine  $wine
+     * @param  \App\User  $user
      * @return Response
      */
-    public function update(Request $request, Wine $wine)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -88,10 +81,10 @@ class WineController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Wine  $wine
+     * @param  \App\User  $user
      * @return Response
      */
-    public function destroy(Wine $wine)
+    public function destroy(User $user)
     {
         //
     }

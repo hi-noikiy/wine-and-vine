@@ -1,22 +1,56 @@
+/** Absolute path imports */
+import Vue from 'vue'
+import fontawesome from "@fortawesome/fontawesome"
+import solid from "@fortawesome/fontawesome-pro-solid"
+import light from "@fortawesome/fontawesome-pro-light"
+import regular from "@fortawesome/fontawesome-pro-regular"
+import brands from '@fortawesome/fontawesome-free-brands'
+import {FontAwesomeIcon, FontAwesomeLayers} from '@fortawesome/vue-fontawesome'
+import Notifications from 'vue-notification'
+import velocity from 'velocity-animate'
+import store from './store/index'
+import { currency } from "./filters/Currency"
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+/** Global Font Awesome Icon Component */
+Vue.component('icon', {
+    props: {
+        name: {
+            required: true,
+            type: String
+        },
+        weight: {
+            required: false,
+            type: String,
+            default: "light"
+        }
+    },
+    template: `<svg><use :xlink:href="'storage/icons/sprites/fa/' + weight + '.svg#' + name"></use></svg>`
+});
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+fontawesome.library.add(solid, light, regular, brands);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('font-awesome-layers', FontAwesomeLayers);
+// Vue.component('users-list', require('./components/UsersList.vue'));
+Vue.component('wines-list', require('./components/wines/WinesList.vue'));
+Vue.component('wav-shopping-cart', require('./components/cart/ShoppingCart.vue'));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.filter('currency', currency);
+
+Vue.use(Notifications, { velocity });
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store
 });
+
+window.notify = (title, text, type = 'success') => {
+    app.$notify({
+        group: 'cart',
+        title,
+        text,
+        type
+    })
+};

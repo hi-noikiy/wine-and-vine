@@ -15,7 +15,8 @@ Auth::routes();
 
 Route::get('/', 'PageController@welcome')->name('welcome');
 
-Route::get('wines/all', 'WineController@index')->name('wines.index');
+Route::get('wines/index', 'WineController@index')->name('wines.index');
 Route::get('wine/show/{wine}', 'WineController@show')->name('wine.show');
 
+Route::get('users/index', 'UserController@index')->name('users.index');
 Route::get('user/@{user}', 'ProfileController@show')->name('user.profile.show');

@@ -23,7 +23,7 @@
                 <div class="card">
                     <img class="card-img-top" src="{{ $wine->thumbnail_cover }}" alt="{{ $wine->name }}">
                     <div class="card-body">
-                        <h5><a class="card-title" href="{{ to('wine.show', $wine) }}">{{ $wine->name }}</a></h5>
+                        <h5><a class="card-title" href="{{ to('user.profile.show', $wine) }}">{{ $wine->name }}</a></h5>
                         <p class="card-text text-truncate">{{ $wine->description }}</p>
                     </div>
                     <ul class="list-group list-group-flush">

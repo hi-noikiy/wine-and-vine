@@ -29,9 +29,9 @@ return [
 
         'images' => [
             'default_path' => [
-                'users' => storage_path('app/public/defaults/images/users/user_default_avatar.png'),            // Using Spatie Media Library
-                'wineries' => storage_path('app/public/defaults/images/wineries/winery_default.png'),           // Using Spatie Media Library
-                'wines' => storage_path('app/public/defaults/images/wines/wine_default.png'),                   // Using Spatie Media Library
+                'users' => storage_path('app/public/defaults/images/users/user_default_avatar.png'),                // Using Spatie Media Library
+                'wineries' => storage_path('app/public/defaults/images/wineries/winery_default.png'),               // Using Spatie Media Library
+                'wines' => storage_path('app/public/defaults/images/wines/wine_default.png'),                       // Using Spatie Media Library
                 'regions_hero' => storage_path('app/public/defaults/images/regions/hero/region_default_hero.png'),   // Using Spatie Media Library
                 'wine_acidity' => storage_path('app/public/defaults/images/wine/acidity/wine_acidity_default.png'),
                 'wine_acidity_thumbnail' => storage_path('app/public/defaults/images/wine/acidity/wine_acidity_default_thumbnail.png'),

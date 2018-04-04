@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Collection;
 use Spatie\MediaLibrary\File;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -10,6 +9,7 @@ use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\Collection;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -219,7 +219,7 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * Fetch User's main primary address
+     * Fetch User's main primary address.
      *
      * @return Address
      */

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\RatingVisibility;
 use App\User;
+use App\RatingVisibility;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -48,6 +48,7 @@ class ProfileController extends Controller
     public function show(User $user)
     {
         $ratings = RatingVisibility::all();
+
         return view('pages.users.profiles.show', [
             'profile_user' => $user,
             'ratings' => $ratings

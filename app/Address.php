@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property string addressable_type
  * @property mixed addressable
- * @property integer addressable_id
+ * @property int addressable_id
  * @property Country country
  * @property string full_address
  */

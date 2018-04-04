@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\User;
 use App\Winery;
 use App\Address;
 

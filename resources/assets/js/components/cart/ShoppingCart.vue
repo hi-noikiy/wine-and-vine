@@ -1,11 +1,10 @@
 <template>
     <div v-if="count !== 0">
-        <div class="card card-default">
+        <div class="card card-default position-fixed" style="width: 18rem">
             <div class="card-header">
-                <small>Shopping Cart
-                    <font-awesome-icon :icon="['fal', 'shopping-cart']" />
-                    <span class="badge badge-light">{{ count }}</span>
-                </small>
+                <span class="badge badge-primary">{{ count }}</span>
+                Shopping Cart
+                <font-awesome-icon :icon="['fal', 'shopping-cart']" />
             </div>
             <div class="card-body">
                 <ul class="list-group">
@@ -37,6 +36,8 @@
     import { mapState, mapGetters, mapActions } from 'vuex'
 
     export default {
+        name: "ShoppingCart",
+
         computed: {
             ...mapState({
 

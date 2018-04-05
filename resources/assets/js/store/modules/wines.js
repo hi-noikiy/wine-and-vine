@@ -1,13 +1,19 @@
 import axios from "axios/index";
+import route from "../../../../../vendor/tightenco/ziggy/src/js/route";
 
 export default {
     namespaced: true,
 
     state: {
-        wines: []
+        wines: [],
+        errors: []
     },
 
     getters: {
+        errors (state) {
+            return state.errors
+        },
+
         all (state) {
             return state.wines
         },
@@ -27,15 +33,19 @@ export default {
 
     actions: {
         fetchWines({commit}) {
-            return axios.get('wines/index')
+            return axios.get(route('wines.index'))
                 .then(({data}) => commit('setWines', data))
-                .catch(error => commit('setErrors', error))
+                .catch(({message}) => commit('setErrors', message))
         }
     },
 
     mutations: {
         setWines (state, wines) {
             state.wines = wines
+        },
+
+        setErrors (state, message) {
+            state.errors.push(message)
         },
 
         incrementWineStock(state, wine) {

@@ -10,6 +10,7 @@ import Notifications from 'vue-notification'
 import velocity from 'velocity-animate'
 import store from './store/index'
 import { currency } from "./filters/Currency"
+import route from "../../../vendor/tightenco/ziggy/src/js/route";
 
 /** Global Font Awesome Icon Component */
 Vue.component('icon', {
@@ -35,11 +36,19 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('font-awesome-layers', FontAwesomeLayers);
 // Vue.component('users-list', require('./components/UsersList.vue'));
 Vue.component('wines-list', require('./components/wines/WinesList.vue'));
+Vue.component('navbar', require('./components/Navbar.vue'));
 Vue.component('wav-shopping-cart', require('./components/cart/ShoppingCart.vue'));
+Vue.component('wav-navbar-shopping-cart', require('./components/cart/NavbarShoppingCart.vue'));
 
 Vue.filter('currency', currency);
 
 Vue.use(Notifications, { velocity });
+
+Vue.mixin({
+    methods: {
+        route
+    }
+});
 
 const app = new Vue({
     el: '#app',

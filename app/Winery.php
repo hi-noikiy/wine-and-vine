@@ -37,6 +37,8 @@ class Winery extends Model implements HasMedia
         'address', 'region',
     ];
 
+    protected $appends = ['country'];
+
     /**
      * @param Media|null $media
      * @throws \Spatie\Image\Exceptions\InvalidManipulation

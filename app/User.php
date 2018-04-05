@@ -42,14 +42,17 @@ class User extends Authenticatable implements HasMedia
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password', 'remember_token',
+        'shipping', 'addresses', 'rating', 'wishlist', 'wineRatings', 'employedAt', 'wineries',
+    ];
 
     /**
      * The relations to be eager loaded every time a user is fetched from the database.
      *
      * @var array
      */
-    protected $with = ['wishlist', 'rating', 'addresses'];
+    protected $with = ['wishlist', 'addresses'];
 
     /**
      * The attributes that should be cast to native types.

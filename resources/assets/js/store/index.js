@@ -1,48 +1,44 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import axios from 'axios'
 import cart from './modules/cart'
 import wines from './modules/wines'
+import users from './modules/users'
+import config from '../config/index'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
         cart,
-        wines
+        wines,
+        users
     },
     // <=> data
     state: {
-        users: []
+        auth: null
     },
 
     // <=> computed properties
     getters: {
-        users(state) {
-            return state.users
+        auth (state) {
+            return state.auth
         },
 
-        usersCount(state) {
-            return state.users.length
+        isAuthenticated (state, getters) {
+            return getters.auth !== null
         },
+
+        config () {
+            return config
+        }
     },
 
-    // <=>
     actions: {
-        fetchUsers({commit}) {
-            return axios.get('users/index')
-                .then(({data}) => commit('setUsers', data))
-                .catch(error => commit('setErrors', error))
-        },
+
     },
+
     // <=> single state change
     mutations: {
-        /**
-         * @param state Vuex state
-         * @param users Payload
-         */
-        setUsers(state, users) {
-            state.users = users
-        },
+
     }
 });

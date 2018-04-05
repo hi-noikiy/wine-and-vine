@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
+ * @property integer id
  * @property string name
  * @property int year
  * @property float price
@@ -67,7 +68,7 @@ class Wine extends Model implements HasMedia
      * @var array
      */
     protected $with = [
-        'acidity', 'body', 'castes', 'color', 'currency', 'denomination', 'food_pairing', 'type', 'winery', //'wishlists'
+        'acidity', 'body', 'castes', 'color', 'currency', 'denomination', 'food_pairing', 'type', 'winery'
     ];
 
     /**
@@ -76,11 +77,11 @@ class Wine extends Model implements HasMedia
      * @var array
      */
     protected $hidden = [
-        'acidity', 'body', 'castes', 'color', 'currency', 'denomination', 'food_pairing', 'type', 'winery',
-        'short_description', 'description', 'rating_count', 'rating_sum', 'temperature', 'alcohol',
-        'wine_acidity_id', 'wine_body_id', 'wine_color_id', 'wine_type_id', 'winery_id',
-        'wine_origin_denomination_id', 'rank', 'created_at', 'updated_at', 'deleted_at', 'currency_id'
+        'acidity', 'body', 'castes', 'color', 'currency', 'denomination', 'food_pairing',
+        'type', 'media'
     ];
+
+    protected $appends = ['cover', 'thumbnailCover', 'rating', 'region'];
 
     /**
      * The attributes that should be mutated to dates.

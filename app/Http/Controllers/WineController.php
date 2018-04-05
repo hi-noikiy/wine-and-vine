@@ -16,11 +16,11 @@ class WineController extends Controller
      */
     public function index()
     {
-        $wines = Wine::paginate(config('wine-and-vine.data.pagination'));
-
         if (request()->expectsJson()) {
             return Wine::all();
         }
+
+        $wines = Wine::paginate(config('wine-and-vine.data.pagination'));
 
         return view('pages.wines.index')
             ->with(['wines' => $wines]);
@@ -51,12 +51,20 @@ class WineController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Wine  $wine
-     * @return Response|Wine
+     * @return Response|array
      */
     public function show(Wine $wine)
     {
         if (request()->expectsJson()) {
-            return $wine;
+            return [
+                'id' => $wine->id,
+                'name' => $wine->name,
+                'year' => $wine->year,
+                'short_description' => $wine->short_description,
+                'description' => $wine->description,
+                'slug' => $wine->slug,
+                'quantity_in_stock' => $wine->quantity_in_stock,
+            ];
         }
 
         return view('pages.wines.show', ['wine' => $wine]);

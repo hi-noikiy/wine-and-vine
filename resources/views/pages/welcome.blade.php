@@ -5,9 +5,9 @@ Left
 @endsection
 
 @section('content')
-    <wines-list class="mt-3"></wines-list>
+    Welcome
 @endsection
 
 @section('right-content')
-    <wav-shopping-cart></wav-shopping-cart>
+
 @endsection

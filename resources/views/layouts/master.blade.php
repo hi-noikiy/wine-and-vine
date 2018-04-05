@@ -13,16 +13,25 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+    <script>
+        window.auth = {
+            user: {!! json_encode(auth()->user()) !!}
+        }
+    </script>
 </head>
 <body>
+
+@routes
 <noscript>
-    <div id="no-script-warning">This application needs JavaScript enabled in order to run at its best!</div>
+    <div id="no-script-warning">This application needs JavaScript enabled in order to run at its
+        best!
+    </div>
 </noscript>
 <div id="app">
     @include('layouts.partials.navbar')
-    <div class="container-fluid">
-        <div class="row py-4">
+    <div class="pb-4"></div>
+    <div class="container-fluid mt-5">
+        <div class="row">
             <div class="col d-none d-sm-block">
                 @yield('left-content')
             </div>

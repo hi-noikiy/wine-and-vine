@@ -12,8 +12,14 @@ export default {
             return state.cart
         },
 
+        empty (state, getters) {
+            return getters.all.length === 0
+        },
+
         count (state, getters) {
-            return getters.all.length
+            return getters.all
+                .map(product => product.quantity)
+                .reduce((total, quantity) => total + quantity, 0)
         },
 
         total (state, getters) {

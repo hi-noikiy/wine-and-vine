@@ -18,9 +18,7 @@
             user: {!! json_encode(auth()->user()) !!}
         }
     </script>
-</head>
-<body>
-
+<body class="bg-grey-light">
 @routes
 <noscript>
     <div id="no-script-warning">This application needs JavaScript enabled in order to run at its

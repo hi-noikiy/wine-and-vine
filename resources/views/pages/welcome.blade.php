@@ -5,7 +5,7 @@ Left
 @endsection
 
 @section('content')
-    Welcome
+    <div class=""></div>
 @endsection
 
 @section('right-content')

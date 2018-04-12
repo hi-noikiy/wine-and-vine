@@ -1,7 +1,11 @@
-#### Wine Trade Management System (WTMS)
+## Wine Trade Management System (WTMS)
+
 [![StyleCI](https://styleci.io/repos/120551563/shield?branch=master)](https://styleci.io/repos/120551563)
 [![Build Status](https://travis-ci.org/RafaelMLMacedo/wine-and-vine.svg?branch=master)](https://travis-ci.org/RafaelMLMacedo/wine-and-vine)
 [![CircleCI](https://circleci.com/gh/RafaelMLMacedo/wine-and-vine/tree/master.svg?style=svg)](https://circleci.com/gh/RafaelMLMacedo/wine-and-vine/tree/master)
+
+We have badges :sunglasses:
+
 
 Nowadays the global market requires fast commercial transactions, forcing most business to implement technological 
 breakthroughs to manage, for instance, stocks and shipping.

@@ -194,6 +194,7 @@ module.exports = {
 
   fonts: {
     'sans': [
+      'Fira Code',
       'system-ui',
       'BlinkMacSystemFont',
       '-apple-system',
@@ -843,9 +844,9 @@ module.exports = {
     backgroundRepeat: ['responsive'],
     backgroundSize: ['responsive'],
     borderColors: ['responsive', 'hover'],
-    borderRadius: ['responsive'],
-    borderStyle: ['responsive'],
-    borderWidths: ['responsive'],
+    borderRadius: ['responsive', 'hover'],
+    borderStyle: ['responsive', 'hover'],
+    borderWidths: ['responsive', 'hover'],
     cursor: ['responsive'],
     display: ['responsive'],
     flexbox: ['responsive'],
@@ -867,7 +868,7 @@ module.exports = {
     pointerEvents: ['responsive'],
     position: ['responsive'],
     resize: ['responsive'],
-    shadows: ['responsive'],
+    shadows: ['responsive', 'hover'],
     svgFill: [],
     svgStroke: [],
     textAlign: ['responsive'],

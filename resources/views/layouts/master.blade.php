@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Wine & Vine') }}</title>
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -18,36 +18,25 @@
             user: {!! json_encode(auth()->user()) !!}
         }
     </script>
-<body class="bg-grey-light">
+<body class="bg-grey-lighter">
 @routes
 <noscript>
-    <div id="no-script-warning">This application needs JavaScript enabled in order to run at its
-        best!
+    <div id="no-script-warning"
+    >This application needs JavaScript enabled in order to run at its best!
     </div>
 </noscript>
 <div id="app">
     @include('layouts.partials.navbar')
-    <div class="pb-4"></div>
-    <div class="container-fluid mt-5">
-        <div class="row">
-            <div class="col d-none d-sm-block">
-                @yield('left-content')
-            </div>
-
-            <div class="col-md-8">
-                @yield('breadcrumb')
-                @yield('content')
-            </div>
-
-            <div class="col d-none d-sm-block">
-                @yield('right-content')
-            </div>
-        </div>
+    {{--    @yield('left-content')--}}
+    {{--    @yield('breadcrumb')--}}
+    <div class="px-2">
+        @yield('content')
     </div>
+    {{--    @yield('right-content')--}}
 
     <notifications
-        group="cart"
-        position="bottom right"
+            group="cart"
+            position="bottom right"
     ></notifications>
 </div>
 

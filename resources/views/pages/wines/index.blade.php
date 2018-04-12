@@ -17,5 +17,5 @@
 @endsection
 
 @section('content')
-    <wines-list class="mt-3"></wines-list>
+    <wines-list class="mt-3" />
 @endsection

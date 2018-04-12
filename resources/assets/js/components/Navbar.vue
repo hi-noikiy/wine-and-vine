@@ -6,12 +6,12 @@
                 <!--Left Section-->
                 <div class="w-1/4 sm:hidden">
                     <!--Hamburger-->
-                    <button>
+                    <div class="clickable">
                         <font-awesome-icon
                             :icon="['fal', 'bars']"
                             class="fa-2x text-white"
                         />
-                    </button>
+                    </div>
                 </div>
                 <!--Middle Section-->
                 <div class="w-1/2 text-center text-2xl sm:w-auto">
@@ -25,13 +25,13 @@
                         alt=""
                     >
                     <div class="text-white hidden sm:block sm:flex sm:items-center">
-                        <span class="pl-2">Rafael Macedo</span>
-                        <button class="pl-2">
+                        <span class="pl-2 text-sm">Rafael Macedo</span>
+                        <div class="pl-2 clickable">
                             <font-awesome-icon
                                 :icon="['fas', 'caret-down']"
                                 class="text-white opacity-50"
                             ></font-awesome-icon>
-                        </button>
+                        </div>
                     </div>
                 </div>
             </div>

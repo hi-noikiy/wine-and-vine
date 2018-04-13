@@ -19,6 +19,7 @@
         }
     </script>
 <body class="bg-grey-lighter">
+{{--Tighten CO Ziggy specific directive--}}
 @routes
 <noscript>
     <div id="no-script-warning"
@@ -27,12 +28,29 @@
 </noscript>
 <div id="app">
     @include('layouts.partials.navbar')
-    {{--    @yield('left-content')--}}
-    {{--    @yield('breadcrumb')--}}
-    <div class="px-2">
-        @yield('content')
+
+
+    <div class="mt-3">
+        <div class="container mx-auto">
+            <div class="flex">
+                {{--Left Partial--}}
+                <div class="hidden md:block md:w-1/4">
+                    @yield('left-content')
+                </div>
+
+                {{--Center Partial--}}
+                <div class="w-full md:w-1/2 mx-auto md:px-2">
+                    {{--    @yield('breadcrumb')--}}
+                    @yield('content')
+                </div>
+
+                {{--Right Partial--}}
+                <div class="hidden md:block md:w-1/4">
+                    @yield('right-content')
+                </div>
+            </div>
+        </div>
     </div>
-    {{--    @yield('right-content')--}}
 
     <notifications
             group="cart"

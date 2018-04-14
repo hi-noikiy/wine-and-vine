@@ -17,7 +17,5 @@
 @endsection
 
 @section('right-content')
-    <div class="fixed w-1/4">
-        <wav-shopping-cart></wav-shopping-cart>
-    </div>
+    <wav-shopping-cart></wav-shopping-cart>
 @endsection

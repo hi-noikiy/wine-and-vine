@@ -1,8 +1,10 @@
 <template>
-    <!--Wrapper Div-->
-    <div
+    <modal
         v-show="cartIsNotEmpty"
-        class="bg-white rounded-lg p-3 shadow-lg"
+        name="shopping-cart"
+        width="80%"
+        class="p-1"
+        height="auto"
     >
         <!--Shopping Cart-->
         <div class="flex flex-col">
@@ -23,9 +25,9 @@
 
             <!--Body-->
             <div
-                v-for="product in products"
-                :key="product.id"
-                class="flex justify-between items-center py-2 my-1 border rounded.lg shadow px-3 text-sm"
+                    v-for="product in products"
+                    :key="product.id"
+                    class="flex justify-between items-center py-2 my-1 border rounded.lg shadow px-3 text-sm"
             >
                 <!--Item Information-->
                 <div>
@@ -35,26 +37,26 @@
                 <!--Actions-->
                 <div class="inline-flex">
                     <button
-                        :class="[! inStock(product) ? 'opacity-50 cursor-not-allowed bg-red text-white hover:bg-transparent hover:text-red' : 'bg-grey-light hover:bg-grey text-grey-darkest hover:text-white' ]"
-                        :disabled="! inStock(product)"
-                        class="font-bold py-2 px-4 rounded-l"
-                        @click="add(product)"
+                            :class="[! inStock(product) ? 'opacity-50 cursor-not-allowed bg-red text-white hover:bg-transparent hover:text-red' : 'bg-grey-light hover:bg-grey text-grey-darkest hover:text-white' ]"
+                            :disabled="! inStock(product)"
+                            class="font-bold py-2 px-4 rounded-l"
+                            @click="add(product)"
                     >
                         <font-awesome-icon
-                            v-if="inStock(product)"
-                            :icon="['fal', 'plus']"
+                                v-if="inStock(product)"
+                                :icon="['fal', 'plus']"
                         ></font-awesome-icon>
                         <font-awesome-icon
-                            v-else
-                            :icon="['far', 'ban']"
+                                v-else
+                                :icon="['far', 'ban']"
                         ></font-awesome-icon>
                     </button>
                     <button
-                        class="bg-grey-light hover:bg-grey text-grey-darkest hover:text-white font-bold py-2 px-4 rounded-r"
-                        @click="remove(product)"
+                            class="bg-grey-light hover:bg-grey text-grey-darkest hover:text-white font-bold py-2 px-4 rounded-r"
+                            @click="remove(product)"
                     >
                         <font-awesome-icon
-                            :icon="['fal', 'minus']"
+                                :icon="['fal', 'minus']"
                         ></font-awesome-icon>
                     </button>
                 </div>
@@ -74,20 +76,16 @@
                 <span class="leading-loose text-grey-dark">Total {{ total | currency }}</span>
             </div>
         </div>
-    </div>
+    </modal>
 </template>
 
 <script>
-    import { mapState, mapGetters, mapActions } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
-        name: "ShoppingCart",
+        name: "ShoppingCartModal",
 
         computed: {
-            ...mapState({
-
-            }),
-
             ...mapGetters('wines', {
                 inStock: 'wineIsInStock'
             }),
@@ -109,7 +107,18 @@
                 add: 'addProductToCart',
                 remove: 'removeProductFromCart',
                 checkout: 'checkout'
-            })
+            }),
+
+            show () {
+                this.$modal.show('shopping-cart');
+            },
+            hide () {
+                this.$modal.hide('shopping-cart');
+            }
         }
     }
 </script>
+
+<style scoped>
+
+</style>

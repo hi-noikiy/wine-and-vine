@@ -15,13 +15,13 @@ export default new Vuex.Store({
     },
     // <=> data
     state: {
-        auth: null
+        auth: window.auth
     },
 
     // <=> computed properties
     getters: {
         auth (state) {
-            return state.auth
+            return state.auth.user
         },
 
         isAuthenticated (state, getters) {

@@ -5,7 +5,9 @@ Left
 @endsection
 
 @section('content')
-    <div class=""></div>
+    <div class="">
+        <button class="text-white py-2 px-4 rounded-lg bg-teal" @click="$modal.show('shopping-cart')">Open Modal</button>
+    </div>
 @endsection
 
 @section('right-content')

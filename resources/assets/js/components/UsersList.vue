@@ -29,6 +29,8 @@
 
 <script>
     export default {
+        name: "UsersList",
+
         data () {
             return {
                 loading: false

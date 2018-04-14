@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <wines-list></wines-list>
+    <wav-wines-list></wav-wines-list>
 @endsection
 
 @section('right-content')

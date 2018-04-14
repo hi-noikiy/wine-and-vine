@@ -29,7 +29,7 @@ export default {
 
     actions: {
         addProductToCart ({getters, commit, rootState, rootGetters}, product) {
-            if (rootGetters['wines/wineIsInStock'](product)) {
+            if (rootGetters.isAuthenticated && rootGetters['wines/wineIsInStock'](product)) {
                 const wineInCart = getters.all.find(needle => needle.id === product.id);
                 if (!wineInCart) {
                     commit('addProductToCart', product)
@@ -38,7 +38,9 @@ export default {
                 }
                 commit('wines/decrementWineStock', product, { root: true })
             }
-            // report an error
+            else {
+                window.notify('Whoops!', 'You have to be logged in order to buy.', 'error')
+            }
         },
 
         removeProductFromCart ({state, commit}, product) {

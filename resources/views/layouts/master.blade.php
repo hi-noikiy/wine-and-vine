@@ -52,6 +52,8 @@
         </div>
     </div>
 
+    @include('layouts.modals.all')
+
     <notifications
             group="cart"
             position="bottom right"

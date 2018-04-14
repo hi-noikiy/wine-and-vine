@@ -12,6 +12,11 @@ import store from './store/index'
 import { currency } from "./filters/Currency"
 import route from "../../../vendor/tightenco/ziggy/src/js/route";
 
+require('./bootstrap');
+
+// Event Bus
+window.bus = new Vue();
+
 /** Global Font Awesome Icon Component */
 Vue.component('icon', {
     props: {
@@ -28,16 +33,17 @@ Vue.component('icon', {
     template: `<svg><use :xlink:href="'storage/icons/sprites/fa/' + weight + '.svg#' + name"></use></svg>`
 });
 
-require('./bootstrap');
-
 fontawesome.library.add(solid, light, regular, brands);
+
+Vue.component('dropdown', require('vue-my-dropdown'));
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('font-awesome-layers', FontAwesomeLayers);
 // Vue.component('users-list', require('./components/UsersList.vue'));
-Vue.component('wines-list', require('./components/wines/WinesList.vue'));
-Vue.component('navbar', require('./components/Navbar.vue'));
+Vue.component('wav-wines-list', require('./components/wines/WinesList.vue'));
+Vue.component('wav-navbar', require('./components/Navbar.vue'));
 Vue.component('wav-shopping-cart', require('./components/cart/ShoppingCart.vue'));
+Vue.component('wav-shopping-cart-modal', require('./components/modals/ShoppingCartModal.vue'));
 
 Vue.filter('currency', currency);
 
@@ -62,6 +68,3 @@ window.notify = (title, text, type = 'success') => {
         type
     })
 };
-
-// Event Bus
-window.bus = new Vue();

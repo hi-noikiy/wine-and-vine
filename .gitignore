@@ -7,3 +7,4 @@
 /.idea
 yarn-error.log
 .env
+/public/mix-manifest.json

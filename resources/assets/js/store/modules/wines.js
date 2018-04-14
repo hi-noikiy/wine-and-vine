@@ -22,8 +22,11 @@ export default {
             return getters.all.length
         },
 
-        wineIsInStock () {
-            return (wine) => wine.quantity_in_stock > 0
+        wineIsInStock (state, getters) {
+            return (wine) => {
+                const available = getters.availableWines.find(needle => needle.id === wine.id);
+                return !!available
+            };
         },
 
         availableWines(state, getters) {

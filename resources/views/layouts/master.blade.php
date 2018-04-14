@@ -34,18 +34,18 @@
         <div class="container mx-auto">
             <div class="flex">
                 {{--Left Partial--}}
-                <div class="hidden md:block md:w-1/4">
+                <div class="hidden lg:block lg:w-1/4">
                     @yield('left-content')
                 </div>
 
                 {{--Center Partial--}}
-                <div class="w-full md:w-1/2 mx-auto md:px-2">
+                <div class="w-full lg:w-1/2 mx-auto lg:px-2">
                     {{--    @yield('breadcrumb')--}}
                     @yield('content')
                 </div>
 
                 {{--Right Partial--}}
-                <div class="hidden md:block md:w-1/4">
+                <div class="hidden lg:block lg:w-1/4">
                     @yield('right-content')
                 </div>
             </div>

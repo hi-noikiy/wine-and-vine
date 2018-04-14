@@ -17,14 +17,23 @@
                 </div>
 
                 <!--Middle Section-->
-                <div class="w-1/3 text-center text-2xl sm:w-auto">
-                    <span class="text-base sm:text-2xl text-white">{{ config.app.name }}</span>
+                <div class="w-1/3 sm:w-auto inline-flex text-center text-2xl items items-center">
+                    <!--App Name-->
+                    <a
+                        :href="route('welcome')"
+                        class="text-base sm:text-2xl text-white"
+                    >{{ config.app.name }}</a>
+                    <!--Browse All Wines-->
+                    <a
+                        :href="route('wines.index')"
+                        class="hidden sm:block ml-6 text-base tracking-wide text-white"
+                    >Browse</a>
                 </div>
 
                 <!--Right Section-->
                 <div class="w-1/3 sm:w-auto flex justify-end items-center">
                     <!--Shopping Cart-->
-                    <div class="pr-3 md:hidden">
+                    <div class="pr-3 lg:hidden">
                         <!--Icon-->
                         <font-awesome-icon
                             :icon="['far', 'shopping-cart']"
@@ -46,7 +55,7 @@
                     >
 
                     <div class="text-white hidden md:block md:flex md:items-center">
-                        <span class="pl-2 text-sm">Rafael Macedo</span>
+                        <span class="pl-2 text-sm tracking-wide">Rafael Macedo</span>
                         <div class="pl-2 cursor-pointer">
                             <font-awesome-icon
                                 :icon="['fas', 'caret-down']"

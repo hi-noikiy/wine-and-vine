@@ -48,6 +48,11 @@
                         >Winery: {{ wine.winery.name }}</a>
 
                         <!--Wine Price-->
+                        <span
+                            class="text-grey-darker antialiased py-4 border-b border-grey-light"
+                        >Year: {{ wine.price | currency }}</span>
+
+                        <!--Wine Year-->
                         <a
                             :href="route('wines.index.query', wine.year)"
                             class="text-grey-darker antialiased py-4 border-b border-grey-light"

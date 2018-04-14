@@ -38,7 +38,6 @@ Vue.component('font-awesome-layers', FontAwesomeLayers);
 Vue.component('wines-list', require('./components/wines/WinesList.vue'));
 Vue.component('navbar', require('./components/Navbar.vue'));
 Vue.component('wav-shopping-cart', require('./components/cart/ShoppingCart.vue'));
-Vue.component('wav-navbar-shopping-cart', require('./components/cart/NavbarShoppingCart.vue'));
 
 Vue.filter('currency', currency);
 
@@ -63,3 +62,6 @@ window.notify = (title, text, type = 'success') => {
         type
     })
 };
+
+// Event Bus
+window.bus = new Vue();

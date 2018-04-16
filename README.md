@@ -3,6 +3,7 @@
 [![StyleCI](https://styleci.io/repos/120551563/shield?branch=master)](https://styleci.io/repos/120551563)
 [![Build Status](https://travis-ci.org/RafaelMLMacedo/wine-and-vine.svg?branch=master)](https://travis-ci.org/RafaelMLMacedo/wine-and-vine)
 [![CircleCI](https://circleci.com/gh/RafaelMLMacedo/wine-and-vine/tree/master.svg?style=svg)](https://circleci.com/gh/RafaelMLMacedo/wine-and-vine/tree/master)
+[![Dependency Status](https://www.versioneye.com/user/projects/5ad49cf50fb24f39e74fbdf4/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5ad49cf50fb24f39e74fbdf4)
 
 We have badges :sunglasses:
 

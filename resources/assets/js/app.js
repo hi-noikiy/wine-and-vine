@@ -35,8 +35,7 @@ Vue.component('icon', {
 
 fontawesome.library.add(solid, light, regular, brands);
 
-Vue.component('dropdown', require('vue-my-dropdown'));
-
+// Vue.component('dropdown', require('vue-my-dropdown'));
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('font-awesome-layers', FontAwesomeLayers);
 // Vue.component('users-list', require('./components/UsersList.vue'));
@@ -44,6 +43,8 @@ Vue.component('wav-wines-list', require('./components/wines/WinesList.vue'));
 Vue.component('wav-navbar', require('./components/Navbar.vue'));
 Vue.component('wav-shopping-cart', require('./components/cart/ShoppingCart.vue'));
 Vue.component('wav-shopping-cart-modal', require('./components/modals/ShoppingCartModal.vue'));
+Vue.component('wav-dropdown', require('./components/Dropdown.vue'))
+Vue.component('wav-sidebar', require('./components/Sidebar.vue'));
 
 Vue.filter('currency', currency);
 

@@ -1,6 +1,6 @@
 import VModal from 'vue-js-modal';
+import Dropdown from 'vue-my-dropdown';
 import InstantSearch from 'vue-instantsearch';
-import Dropdown from 'vue-my-dropdown'
 
 window._ = require('lodash');
 
@@ -31,9 +31,9 @@ if (token) {
 
 window.Vue = require('vue');
 
-window.Vue.use(InstantSearch);
 window.Vue.use(VModal);
 window.Vue.use(Dropdown);
+window.Vue.use(InstantSearch);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

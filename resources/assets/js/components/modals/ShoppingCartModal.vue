@@ -2,14 +2,14 @@
     <modal
         v-show="cartIsNotEmpty"
         name="shopping-cart"
-        width="80%"
-        class="p-1"
+        width="90%"
+        class="lg:hidden"
         height="auto"
     >
         <!--Shopping Cart-->
-        <div class="flex flex-col">
+        <div class="flex flex-col m-4">
             <!--Header-->
-            <div class="flex items-center justify-center py-4 border border-b-2 rounded-lg shadow mb-4">
+            <div class="flex items-center justify-center py-4 border border-b-2 rounded-lg shadow">
                 <span class="text-center mr-2 text-sm lg:text-lg">Shopping Cart</span>
                 <span>
                     <font-awesome-icon
@@ -19,20 +19,20 @@
                 </span>
                 <span
                     v-show="cartIsNotEmpty"
-                    class="-mt-8 -ml-3 px-2 py-1 align-top text-xs bg-red hover:bg-red-dark rounded-full cursor-pointer text-white"
+                    class="-mt-6 -ml-3 px-2 py-1 text-xs bg-red hover:bg-red-dark rounded-full cursor-pointer text-white"
                 >{{ count }}</span>
             </div>
 
             <!--Body-->
             <div
-                    v-for="product in products"
-                    :key="product.id"
-                    class="flex justify-between items-center py-2 my-1 border rounded.lg shadow px-3 text-sm"
+                v-for="product in products"
+                :key="product.id"
+                class="flex justify-between items-center py-2 my-1 border rounded.lg shadow px-3 text-sm"
             >
                 <!--Item Information-->
-                <div>
+                <div class="text-grey-darker">
                     <span class="mr-1">{{ product.quantity }}</span>
-                    <span class="text-grey-darker">{{ product.name }}</span>
+                    <span>{{ product.name }}</span>
                 </div>
                 <!--Actions-->
                 <div class="inline-flex">

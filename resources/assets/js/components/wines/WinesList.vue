@@ -37,13 +37,13 @@
                     <div class="flex flex-col">
                         <!--Wine Name-->
                         <a
-                            :href="route('wine.show', wine.slug)"
+                            :href="route('wine.show', wine.slug, false)"
                             class="text-lg text-grey-darker py-4 antialiased border-b border-grey-light"
                         >{{ wine.name }}</a>
 
                         <!--Winery Name-->
                         <a
-                            :href="route('winery.show', wine.winery.slug)"
+                            :href="route('winery.show', wine.winery.slug, false)"
                             class="text-grey-darker antialiased py-4 border-b border-grey-light"
                         >Winery: {{ wine.winery.name }}</a>
 
@@ -54,19 +54,19 @@
 
                         <!--Wine Year-->
                         <a
-                            :href="route('wines.index.query', wine.year)"
+                            :href="route('wines.index.query', wine.year, false)"
                             class="text-grey-darker antialiased py-4 border-b border-grey-light"
                         >Year: {{ wine.year }}</a>
 
                         <!--Wine Ranking-->
                         <a
-                            :href="route('wines.index.query', wine.rank)"
+                            :href="route('wines.index.query', wine.rank, false)"
                             class="text-grey-darker antialiased py-4 border-b border-grey-light"
                         >Ranking: {{ wine.rank }}</a>
 
                         <!--Wine Rating-->
                         <a
-                            :href="route('wines.index.query', rating(wine))"
+                            :href="route('wines.index.query', rating(wine), false)"
                             class="text-grey-darker antialiased py-4 border-b border-grey-light"
                         >Rating: {{ rating(wine) }}</a>
 

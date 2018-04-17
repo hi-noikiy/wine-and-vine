@@ -36,7 +36,7 @@ export default {
 
     actions: {
         fetchWines({commit}) {
-            return axios.get(route('wines.index'))
+            return axios.get(route('wines.index', [], false))
                 .then(({data}) => commit('setWines', data))
                 .catch(({message}) => commit('setErrors', message))
         }

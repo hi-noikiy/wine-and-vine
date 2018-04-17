@@ -5,27 +5,18 @@
             <div class="flex items-center py-4 sm:justify-between">
 
                 <!--Left Section-->
-                <div class="w-1/3 sm:hidden">
-                    <!--Hamburger-->
-                    <div class="cursor-pointer">
-                        <font-awesome-icon
-                            :icon="['fal', 'bars']"
-                            class="text-white"
-                            size="lg"
-                        />
-                    </div>
-                </div>
+                <wav-sidebar></wav-sidebar>
 
                 <!--Middle Section-->
                 <div class="w-1/3 sm:w-auto inline-flex text-center text-2xl items items-center">
                     <!--App Name-->
                     <a
-                        :href="route('welcome')"
+                        :href="route('welcome', [], false)"
                         class="text-base sm:text-2xl text-white"
                     >{{ config.app.name }}</a>
                     <!--Browse All Wines-->
                     <a
-                        :href="route('wines.index')"
+                        :href="route('wines.index', [], false)"
                         class="hidden sm:block ml-6 text-base tracking-wide text-white"
                     >Browse</a>
                 </div>
@@ -33,7 +24,7 @@
                 <!--Right Section-->
                 <!--Auth-->
                 <div
-                    v-if="auth.user"
+                    v-if="user"
                     class="w-1/3 sm:w-auto flex justify-end items-center">
                     <!--Shopping Cart-->
                     <div
@@ -54,52 +45,30 @@
                         >{{ cartCount }}</span>
                     </div>
 
-                    <!--User Image-->
-                    <img
-                        :alt="auth.user.first_name"
-                        class="h-10 w-10 rounded-full"
-                        src="https://avatars2.githubusercontent.com/u/16735002?s=460&v=4"
-                        @click="showingUserSettings = true"
-                    >
-
                     <div class="text-white hidden md:block md:flex md:items-center">
                         <!--User Full Name-->
-                        <span class="pl-2 text-sm tracking-wide">{{ userFullName }}</span>
-                        <!--Chevron-->
-                        <div class="ml-2 cursor-pointer">
-                            <dropdown
-                                :visible="showingUserSettings"
-                                :position="['left', 'bottom', 'right', 'top']"
-                                @clickout="showingUserSettings = false"
-                            >
-                                <!--Dropdown Trigger-->
-                                <span @click="showingUserSettings = true">
-                                    <font-awesome-icon
-                                        :icon="['fas', 'caret-down']"
-                                        class="text-white opacity-50"
-                                    ></font-awesome-icon>
-                                </span>
-                                <div
-                                    slot="dropdown"
-                                    class="mt-2 flex flex-col items-center py-2 px-3 bg-grey rounded-lg"
-                                >
-                                    <a
-                                        :href="route('user.profile.show', auth.user.username)"
-                                        class="text-grey-darkest"
-                                    >My Profile</a>
-
-                                    <!--Horizontal Rule-->
-                                    <span class="my-2 border-b border-grey-darkest w-full"></span>
-
-                                    <button
-                                        class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded"
-                                        @click="logout"
-                                    >Logout</button>
-                                </div>
-                            </dropdown>
-
-                        </div>
+                        <span class="pr-2 text-sm tracking-wide">{{ fullname }}</span>
                     </div>
+
+                    <!--User Image-->
+                    <wav-dropdown>
+                        <div
+                            slot="heading"
+                            class="rounded-full bg-blue-darkest w-10 h-10 flex items-center justify-center cursor-pointer relative z-10"
+                        >
+                            <img
+                                :alt="user.first_name"
+                                class="h-10 w-10 rounded-full"
+                                src="https://avatars2.githubusercontent.com/u/16735002?s=460&v=4"
+                            >
+                        </div>
+
+                        <template slot="links">
+                            <li class="text-sm pb-3 text-black font-semibold">
+                                <a :href="route('user.profile.show', user.username, false)">My Profile</a>
+                            </li>
+                        </template>
+                    </wav-dropdown>
                 </div>
 
                 <!--Guest-->
@@ -108,7 +77,7 @@
                     class="w-1/3 sm:w-auto flex justify-end items-center"
                 >
                     <a
-                        :href="route('register')"
+                        :href="route('register', [], false)"
                         class="p-1 text-sm bg-transparent hover:bg-white text-white mr-2"
                     >
                         <font-awesome-icon
@@ -117,7 +86,7 @@
                         ></font-awesome-icon>
                     </a>
                     <a
-                        :href="route('login')"
+                        :href="route('login', [], false)"
                         class="p-1 text-sm bg-transparent hover:bg-white text-white"
                     >
                         <font-awesome-icon
@@ -138,29 +107,20 @@
     export default {
         name: "Navbar",
 
-        data () {
-            return {
-                showingUserSettings: false
-            }
-        },
-
         computed: {
             ...mapGetters({
                 config: 'config'
             }),
 
+            ...mapGetters('auth', {
+                user: 'user',
+                fullname: 'fullname'
+            }),
+
             ...mapGetters('cart', {
                 cartIsEmpty: 'empty',
                 cartCount: 'count'
-            }),
-
-            auth() {
-                return window.auth
-            },
-
-            userFullName () {
-                return `${this.auth.user.first_name} ${this.auth.user.last_name}`
-            }
+            })
         },
 
         methods: {
@@ -171,7 +131,7 @@
             },
 
             logout() {
-                axios.post(route('logout'), auth.user.username)
+                axios.post(route('logout', [], false), auth.user.username)
                     .then(() => location.reload())
                     .catch(error => console.log(error))
             }
